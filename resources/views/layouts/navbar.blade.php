@@ -13,7 +13,7 @@
     <nav>
         <div class="container">
             <h2 class="log">
-                VortexBook
+                Sparks
             </h2>
             <!-- search bar -->
             <div class="search-bar">

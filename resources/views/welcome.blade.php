@@ -1,2 +1,5 @@
+
 @extends ('layouts.navbar')
-@extends ('layouts.sidebar')
+@extends ('layouts.main')
+
+   
