@@ -14,6 +14,16 @@ class LoginRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
+    protected $input_type;
+    protected function prepareForValidation()
+    {
+        if (filter_var($this->input('input_type'), FILTER_VALIDATE_EMAIL)) $this->input_type = 'email';
+        else $this->input_type = 'username';
+
+        $this->merge([
+            $this->input_type => $this->input('input_type')
+        ]);
+    }
     public function authorize(): bool
     {
         return true;
@@ -27,7 +37,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'input_type' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -41,7 +51,7 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! Auth::attempt($this->only($this->input_type, 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
