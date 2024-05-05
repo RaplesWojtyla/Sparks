@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_comment', function (Blueprint $table) {
+        Schema::create('comment', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_commenter');
             $table->unsignedBigInteger('id_post')->nullable();
             $table->text('comment');
             $table->unsignedBigInteger('id_parent_commenter')->nullable();
-            $table->foreign('id_post')->references('id')->on('tbl_post')->onDelete('cascade');
-            $table->foreign('id_commenter')->references('id')->on('tbl_users')->onDelete('cascade');
+            $table->foreign('id_post')->references('id')->on('post')->onDelete('cascade');
+            $table->foreign('id_commenter')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_comment');
+        Schema::dropIfExists('comment');
     }
 };

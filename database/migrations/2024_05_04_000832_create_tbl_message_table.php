@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_message', function (Blueprint $table) {
+        Schema::create('message', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_sender');
             $table->unsignedBigInteger('id_receiver');
-            $table->text('content');
+            $table->text('chat')->nullable();
+            $table->string('berkas')->nullable();
+            $table->integer('size')->nullable();
             $table->string('status');
             $table->unsignedBigInteger('id_story')->nullable();
-            $table->foreign('id_sender')->references('id')->on('tbl_users')->onDelete('cascade');
-            $table->foreign('id_receiver')->references('id')->on('tbl_users')->onDelete('cascade');
-            $table->foreign('id_story')->references('id')->on('tbl_story')->onDelete('cascade');
+            $table->foreign('id_sender')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_receiver')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_story')->references('id')->on('story')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_message');
+        Schema::dropIfExists('message');
     }
 };

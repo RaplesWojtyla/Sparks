@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_member_community', function (Blueprint $table) {
+        Schema::create('member_community', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_community');
             $table->unsignedBigInteger('id_follower');
             $table->string('type');
-            $table->foreign('id_community')->references('id')->on('tbl_community')->onDelete('cascade');
-            $table->foreign('id_follower')->references('id')->on('tbl_users')->onDelete('cascade');
+            $table->foreign('id_community')->references('id')->on('community')->onDelete('cascade');
+            $table->foreign('id_follower')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_member_community');
+        Schema::dropIfExists('member_community');
     }
 };

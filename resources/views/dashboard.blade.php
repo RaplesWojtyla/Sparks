@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Sparks
+        Sparkling Water
     </x-slot>
 
     <x-slot name="header">

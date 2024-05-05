@@ -13,7 +13,7 @@
     <nav>
         <div class="container">
             <h2 class="log">
-                Sparks
+                <b>Sparkling Water</b>
             </h2>
             <!-- search bar -->
             <div class="search-bar">
