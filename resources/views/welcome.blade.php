@@ -13,7 +13,7 @@
             @if (Route::has('login'))
                 <div>
                     @auth
-                        <a href="{{ url('/dashboard') }}">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}">Dashboard </a>
                     @else
                         <a href="{{ route('login') }}">Log in</a>
 
@@ -36,17 +36,27 @@
 
         <div class="wrapper-login">
             <h2>Member Login</h2>
-            <form action="#">
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
+                
                 <div class="input-box">
                     <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                    <input type="email" required>
-                    <label>Enter Your Email</label>
+                    <x-text-input id="input_type" class="block mt-1 w-full" type="text" name="input_type" :value="old('input_type')" required autofocus autocomplete="input_type" />
+                    <x-input-error :messages="$errors->get('input_type')" class="mt-2" />
+                    <label>Enter Your Username/Email</label>
                 </div>
+
                 <div class="input-box">
                     <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" required>
+                    <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
+
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     <label>Enter Your Password</label>
                 </div>
+
                 <div class="remember-forgot">
                     <label><input type="checkbox">Remember me</label>
                     <a href="#">Forgot password</a>
