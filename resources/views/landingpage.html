@@ -1,28 +1,20 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <title>Sparks</title>
-        <link rel="stylesheet" href="{{ asset('css/stylelandingpage.css') }}"
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing page</title>
+    <link rel="stylesheet" href="stylelandingpage.css">
+</head>
+<body>
+    
     <header class="header">
         <a href="#" class="logo"><ion-icon name="sparkles-sharp"></ion-icon>Sparks</a>
         <nav class="nav">
-            @if (Route::has('login'))
-                <div>
-                    @auth
-                        <a href="{{ url('/dashboard') }}">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Menu</a>
         </nav>
     </header>
 
@@ -62,9 +54,5 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-                </div>
-            </div>
-        </div>
-    </body>
+</body>
 </html>
