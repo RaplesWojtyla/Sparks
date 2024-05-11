@@ -163,6 +163,7 @@ colorPalette.forEach(color => {
 //Theme Background Values
 let lightColorLightness;
 let whiteColorLightness;
+let dimColorLightness;
 let darkColorLightness;
 
 // Changes background color
@@ -170,6 +171,27 @@ const changeBG = () => {
     root.style.setProperty('--light-color-lightness', lightColorLightness);
     root.style.setProperty('--white-color-lightness', whiteColorLightness);
     root.style.setProperty('--dark-color-lightness', darkColorLightness);
+}
+
+const mainElement = document.querySelector('main');
+const changeMainBackground = (background) => {
+    // Atur properti latar belakang elemen <main>
+    mainElement.style.background = background;
+}
+
+const bodyElement = document.querySelector('body');
+const changecolor = (color) => {
+    bodyElement.style.color = color;
+}
+
+const dropdown = document.querySelector('.dropdown-content');
+const changeddbackground = (background) => {
+    dropdown.style.background = background;
+}
+
+const dd = document.querySelector('x-dropdown-link');
+const changeddfont = (color) => {
+    dd.style.color = color;
 }
 
 Bg1.addEventListener('click', () => {
@@ -193,6 +215,9 @@ Bg2.addEventListener('click', () => {
     Bg1.classList.remove('active');
     Bg3.classList.remove('active');
     changeBG();
+    changeMainBackground('hsl(254, 30%, 17%)');
+    changecolor('white');
+    changeddbackground('dimgray');
 });
 
 Bg3.addEventListener('click', () => {
@@ -206,4 +231,8 @@ Bg3.addEventListener('click', () => {
     Bg1.classList.remove('active');
     Bg2.classList.remove('active');
     changeBG();
+    changeMainBackground('black');
+    changecolor('white');
+    changeddbackground('dimgray');
 });
+
