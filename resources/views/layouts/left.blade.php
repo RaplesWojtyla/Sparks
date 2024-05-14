@@ -97,7 +97,7 @@
                     </a>
                     <a class="menu-item" id="messages-notifications">
                         <span><i class="uil uil-envelope-alt"><small class="notification-count">6</small></i></span>
-                        <h3>Messages</h3>
+                        <a href="{{ url('/chatify') }}" target="_blank"><h3>Messages</h3></a>
                     </a>
                     <a class="menu-item">
                         <span><i class="uil uil-bookmark"></i></span>

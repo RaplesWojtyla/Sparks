@@ -1,3 +1,7 @@
+<?php
+    use Illuminate\Support\Carbon;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,6 +60,8 @@
                 <!----------------- FEEDS -------------------->
                 <div class="feeds">
                     <!----------------- FEED 1 -------------------->
+                    @foreach ($posts as $post)
+                    
                     <div class="feed">
                         <div class="head">
                             <div class="user">
@@ -63,8 +69,10 @@
                                     <img src="./images/profile-13.jpg">
                                 </div>
                                 <div class="info">
-                                    <h3>Lana Rose</h3>
-                                    <small>Dubai, 15 Minutes Ago</small>
+                                    <h3>{{$post->users->username}}</h3>
+                                    <small>{{Carbon::parse($post->created_at)->format('d-m-Y')}}</small>
+                                    
+                                    {{DB::table('post')->select(DB::raw('TIMESTAMPDIFF(DAY, created_at, NOW()) as duration'))->get();}}
                                 </div>
                             </div>
                             <span class="edit">
@@ -72,9 +80,15 @@
                             </span>
                         </div>
 
-                        <div class="photo">
-                            <img src="./images/feed-1.jpg">
+                        <div class="caption">
+                            <p>{{$post->caption}} 
+                            <span class="harsh-tag">#lifestyle</span></p>
                         </div>
+
+                        <div class="photo">
+                            <img src="./images/feed-1.jpg" alt="test">
+                        </div>
+
 
                         <div class="action-buttons">
                             <div class="interaction-buttons">
@@ -94,15 +108,12 @@
                             <p>Liked by <b>Ernest Achiever</b> and <b>2, 323 others</b></p>
                         </div>
 
-                        <div class="caption">
-                            <p><b>Lana Rose</b> Lorem ipsum dolor sit quisquam eius. 
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
                         <div class="comments text-muted">
                             View all 277 comments
                         </div>
                     </div>
+
+                    @endforeach
                     <!----------------- END OF FEED 1 -------------------->
 
                     <!----------------- FEED 2 -------------------->
