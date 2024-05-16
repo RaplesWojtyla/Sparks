@@ -1,11 +1,11 @@
 {{-- -------------------- Saved Messages -------------------- --}}
 @if($get == 'saved')
-    <table class="messenger-list-item" data-contact="{{ Auth::user()->id }}">
+    <table class="messenger-list-item m-li-divider" data-contact="{{ Auth::user()->id }}">
         <tr data-action="0">
             {{-- Avatar side --}}
             <td>
-            <div class="saved-messages avatar av-m">
-                <span class="far fa-bookmark"></span>
+            <div class="avatar av-m" style="background-color: #d9efff; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <span class="far fa-bookmark" style="font-size: 22px; color: #68a5ff;"></span>
             </div>
             </td>
             {{-- center side --}}
@@ -17,12 +17,8 @@
     </table>
 @endif
 
-{{-- -------------------- Contact list -------------------- --}}
-@if($get == 'users' && !!$lastMessage)
-<?php
-$lastMessageBody = mb_convert_encoding($lastMessage->body, 'UTF-8', 'UTF-8');
-$lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0, 30, 'UTF-8').'..' : $lastMessageBody;
-?>
+{{-- -------------------- All users/group list -------------------- --}}
+@if($get == 'users')
 <table class="messenger-list-item" data-contact="{{ $user->id }}">
     <tr data-action="0">
         {{-- Avatar side --}}
@@ -38,7 +34,7 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
         <td>
         <p data-id="{{ $user->id }}" data-type="user">
             {{ strlen($user->name) > 12 ? trim(substr($user->name,0,12)).'..' : $user->name }}
-            <span class="contact-item-time" data-time="{{$lastMessage->created_at}}">{{ $lastMessage->timeAgo }}</span></p>
+            <span>{{ $lastMessage->created_at->diffForHumans() }}</span></p>
         <span>
             {{-- Last Message user indicator --}}
             {!!
@@ -49,7 +45,9 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
             {{-- Last message body --}}
             @if($lastMessage->attachment == null)
             {!!
-                $lastMessageBody
+                strlen($lastMessage->body) > 30
+                ? trim(substr($lastMessage->body, 0, 30)).'..'
+                : $lastMessage->body
             !!}
             @else
             <span class="fas fa-file"></span> Attachment
@@ -58,6 +56,7 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
         {{-- New messages counter --}}
             {!! $unseenCounter > 0 ? "<b>".$unseenCounter."</b>" : '' !!}
         </td>
+
     </tr>
 </table>
 @endif
