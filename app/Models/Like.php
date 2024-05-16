@@ -10,6 +10,8 @@ class Like extends Model
     use HasFactory;
     protected $table = 'like';
     protected $primaryKey = 'id';
+
+    public $timestamps = true;
     protected $fillable = [
         'id_users',
         'id_post',
@@ -28,7 +30,7 @@ class Like extends Model
         return $this->belongsTo(Post::class, 'id_post');
     }
     
-    public function like()
+    public function story()
     {
         return $this->belongsTo(Post::class, 'id_story');
     }
