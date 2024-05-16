@@ -97,11 +97,9 @@
                 </div>
                 <!--------------- END NOTIFICATION POPUP --------------->
             </a>
-            <a class="menu-item" id="messages-notifications">
+            <a class="menu-item" id="messages-notifications" href="{{ url('/chatify') }}" target="_blank">
                 <span><i class="uil uil-envelope-alt"><small class="notification-count">6</small></i></span>
-                <a href="{{ url('/chatify') }}" target="_blank">
-                    <h3>Messages</h3>
-                </a>
+                <h3>Messages</h3>
             </a>
             <a class="menu-item">
                 <span><i class="uil uil-bookmark"></i></span>
