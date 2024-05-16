@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,7 @@ Route::get('/dashboard', [
 Route::post('/post/{idPost}/like', [
     PostController::class, 'countLikes'
 ])->middleware(['auth', 'verified'])->name('post.like');
+
 
 
 Route::middleware('auth')->group(function () {

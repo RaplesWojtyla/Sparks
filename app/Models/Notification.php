@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Like extends Model
+class Notification extends Model
 {
     use HasFactory;
-    protected $table = 'like';
+    protected $table = 'notification';
     protected $primaryKey = 'id';
 
     public $timestamps = true;
     protected $fillable = [
         'id_users',
-        'id_post',
-        'id_story',
         'id_comment',
+        'id_like',
+        'id_follower',
         'tipe'
     ];
 
@@ -25,18 +25,18 @@ class Like extends Model
         return $this->belongsTo(User::class, 'id_users');
     }
     
-    public function post()
+    public function comment()
     {
-        return $this->belongsTo(Post::class, 'id_post');
+        return $this->belongsTo(Post::class, 'id_comment');
     }
     
-    public function story()
+    public function like()
     {
-        return $this->belongsTo(Post::class, 'id_story');
+        return $this->belongsTo(Post::class, 'id_like');
     }
 
-    public function notifications()
+    public function follower()
     {
-        return $this->hasMany(Like::class, 'id_like');
+        return $this->belongsTo(Post::class, 'id_follower');
     }
 }

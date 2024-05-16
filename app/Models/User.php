@@ -90,4 +90,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Like::class, 'id_users');
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Like::class, 'id_users');
+    }
 }
