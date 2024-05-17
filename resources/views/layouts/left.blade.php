@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,20 +9,19 @@
     <!-- stylesheet -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-
 <body>
-    <div class="left">
-        <a class="profile">
-            <div class="profile-photo">
-                <img src="./images/profile-1.jpg">
-            </div>
-            <div class="handle">
-                <h4>nama pengguna</h4>
-                <p class="text-muted">
-                    @username
-                </p>
-            </div>
-        </a>
+<div class="left">
+                <a class="profile">
+                    <div class="profile-photo">
+                        <img src="./images/profile-1.jpg">
+                    </div>
+                    <div class="handle">
+                        <h4>nama pengguna</h4>
+                        <p class="text-muted">
+                            @username
+                        </p>
+                    </div>
+                </a>
 
         <!----------------- SIDEBAR -------------------->
         <div class="sidebar">
@@ -125,5 +123,4 @@
 
 
 </body>
-
 </html>
