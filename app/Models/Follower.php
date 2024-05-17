@@ -24,4 +24,9 @@ class Follower extends Model
     {
         return $this->belongsTo(User::class, 'id_following');
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Like::class, 'id_follower');
+    }
 }

@@ -14,40 +14,34 @@
     <div class="right">
                 <!------- MESSAGES ------->
                 <div class="messages">
+
+
                     <div class="heading">
-                        <h4>Messages</h4>
+                        <h4>SUGGEST FRIEND</h4>
                         <i class="uil uil-edit"></i>
                     </div>
                     <!------- SEARCH BAR ------->
-                    <div class="search-bar">
+
+                    <!-- <div class="search-bar">
                         <i class="uil uil-search"></i>
                         <input type="search" placeholder="Search messages" id="message-search">
-                    </div>
+                    </div> -->
+
                     <!------- MESSAGES CATEGORY ------->
-                    <div class="category">
-                        <h6 class="active">ALL</h6>
-                        <h6 class="message-requests">Unread (2)</h6>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-17.jpg">
+                    
+
+                    @foreach ($suggestUsers as $suggestUser)
+                        <div class="message">
+                            <div class="profile-photo">
+                                <img src="./images/profile-8.jpg">
+                                <div class="active"></div>
+                            </div>
+                            <div class="message-body">
+                                <h5>{{ $suggestUser->name }}</h5>
+                                <p class="text-muted">lol u right</p>
+                            </div>
                         </div>
-                        <div class="message-body">
-                            <h5>Edem Quist</h5>
-                            <p class="text-muted">Just woke up bruh</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-6.jpg">
-                        </div>
-                        <div class="message-body">
-                            <h5>Daniella Jackson</h5>
-                            <p class="text-bold">2 new messages</p>
-                        </div>
-                    </div>
+                    @endforeach
                     <!------- MESSAGES ------->
                     <div class="message">
                         <div class="profile-photo">
