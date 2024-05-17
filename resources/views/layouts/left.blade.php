@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,63 +10,65 @@
     <!-- stylesheet -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-<body>
-<div class="left">
-                <a class="profile">
-                    <div class="profile-photo">
-                        <img src="./images/profile-1.jpg">
-                    </div>
-                    <div class="handle">
-                        <h4>{{ Auth::user()->name }}</h4>
-                        <p class="text-muted">
-                            @username
-                        </p>
-                    </div>
-                </a>
 
-                <!----------------- SIDEBAR -------------------->
-                <div class="sidebar">
-                    <a class="menu-item active">
-                        <span><i class="uil uil-home"></i></span>
-                        <h3>Home</h3>   
-                    </a>
-                    <a class="menu-item">
-                        <span><i class="uil uil-compass"></i></span>
-                        <h3>Explore</h3>
-                    </a>
-                    <a class="menu-item"  id="notifications">
-                        <span><i class="uil uil-bell"><small class="notification-count">9+</small></i></span>
-                        <h3>Notification</h3>
-                        <!--------------- NOTIFICATION POPUP --------------->
-                        @include('layouts.notif')
-                        <!--------------- END NOTIFICATION POPUP --------------->
-                    </a>
-                    <a class="menu-item" id="messages-notifications" href="{{ url('/chatify') }}", target="_blank">
-                        <span><i class="uil uil-envelope-alt"></i></span>
-                        <h3>Messages</h3>
-                    </a>
-                    <a class="menu-item">
-                        <span><i class="uil uil-bookmark"></i></span>
-                        <h3>Bookmarks</h3>
-                    </a>
-                    <a class="menu-item" id="theme">
-                        <span><i class="uil uil-palette"></i></span>
-                        <h3>Theme</h3>
-                    </a>
-                    <a class="menu-item">
-                        <span><i class="uil uil-setting"></i></span>
-                        <h3>Setting</h3>
-                    </a>
-                    <a class="menu-item">
-                        <span><i class="uil uil-info-circle"></i></span>
-                        <h3>Info</h3>
-                    </a>
-                </div>
-                <!----------------- END OF SIDEBAR -------------------->
-                <label class="btn btn-primary" for="create-post">Create Post</label>
+<body>
+    <div class="left">
+        <a class="profile">
+            <div class="profile-photo">
+                <img src="./images/profile-1.jpg">
             </div>
-             <!----------------- THEME CUSTOMIZATION -------------------->
-    
+            <div class="handle">
+                <h4>{{ Auth::user()->name }}</h4>
+                <p class="text-muted">
+                    @username
+                </p>
+            </div>
+        </a>
+
+        <!----------------- SIDEBAR -------------------->
+        <div class="sidebar">
+            <a class="menu-item active">
+                <span><i class="uil uil-home"></i></span>
+                <h3>Home</h3>
+            </a>
+            <a class="menu-item">
+                <span><i class="uil uil-compass"></i></span>
+                <h3>Explore</h3>
+            </a>
+            <a class="menu-item" id="notifications">
+                <span><i class="uil uil-bell"><small class="notification-count">9+</small></i></span>
+                <h3>Notification</h3>
+                <!--------------- NOTIFICATION POPUP --------------->
+                @include('layouts.notif')
+                <!--------------- END NOTIFICATION POPUP --------------->
+            </a>
+            <a class="menu-item" id="messages-notifications" href="{{ url('/chatify') }}" , target="_blank">
+                <span><i class="uil uil-envelope-alt"></i></span>
+                <h3>Messages</h3>
+            </a>
+            <a class="menu-item">
+                <span><i class="uil uil-bookmark"></i></span>
+                <h3>Bookmarks</h3>
+            </a>
+            <a class="menu-item" id="theme">
+                <span><i class="uil uil-palette"></i></span>
+                <h3>Theme</h3>
+            </a>
+            <a class="menu-item">
+                <span><i class="uil uil-setting"></i></span>
+                <h3>Setting</h3>
+            </a>
+            <a class="menu-item">
+                <span><i class="uil uil-info-circle"></i></span>
+                <h3>Info</h3>
+            </a>
+        </div>
+        <!----------------- END OF SIDEBAR -------------------->
+        <label class="btn btn-primary" for="create-post">Create Post</label>
+    </div>
+    <!----------------- THEME CUSTOMIZATION -------------------->
+
 
 </body>
+
 </html>bu
