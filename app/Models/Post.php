@@ -31,9 +31,9 @@ class Post extends Model
     {
         return $this->hasMany(Like::class, 'id_post');
     }
-
+    
     public function notifications()
     {
-        return $this->hasMany(Like::class, 'id_post');
+        return $this->hasMany(Notification::class, 'id_post');
     }
 }

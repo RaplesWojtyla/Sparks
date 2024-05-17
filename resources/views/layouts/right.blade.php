@@ -33,7 +33,7 @@
                     @foreach ($suggestUsers as $suggestUser)
                         <div class="message">
                             <div class="profile-photo">
-                                <img src="./images/profile-8.jpg">
+                                <img src="{{ $suggestUser->avatar }}">
                                 <div class="active"></div>
                             </div>
                             <div class="message-body">
@@ -42,48 +42,6 @@
                             </div>
                         </div>
                     @endforeach
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-8.jpg">
-                            <div class="active"></div>
-                        </div>
-                        <div class="message-body">
-                            <h5>Chantel Msiza</h5>
-                            <p class="text-muted">lol u right</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-10.jpg">
-                        </div>
-                        <div class="message-body">
-                            <h5>Juliet Makarey</h5>
-                            <p class="text-muted">Birtday Tomorrow</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-3.jpg">
-                            <div class="active"></div>
-                        </div>
-                        <div class="message-body">
-                            <h5>Keylie Hadid</h5>
-                            <p class="text-bold">5 new messages</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="./images/profile-15.jpg">
-                        </div>
-                        <div class="message-body">
-                            <h5>Benjamin Dwayne</h5>
-                            <p class="text-muted">haha got that!</p>
-                        </div>
-                    </div>
                 </div>
                 <!------- END OF MESSAGES ------->
 
