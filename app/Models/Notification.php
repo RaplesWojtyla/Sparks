@@ -10,12 +10,10 @@ class Notification extends Model
     use HasFactory;
     protected $table = 'notification';
     protected $primaryKey = 'id';
-
-    public $timestamps = true;
     protected $fillable = [
         'id_users',
-        'id_comment',
-        'id_like',
+        'id_post',
+        'id_story',
         'id_follower',
         'tipe'
     ];
@@ -25,18 +23,18 @@ class Notification extends Model
         return $this->belongsTo(User::class, 'id_users');
     }
     
-    public function comment()
+    public function posts()
     {
-        return $this->belongsTo(Post::class, 'id_comment');
+        return $this->belongsTo(Post::class, 'id_post');
     }
     
-    public function like()
+    public function stories()
     {
-        return $this->belongsTo(Post::class, 'id_like');
+        return $this->belongsTo(Story::class, 'id_story');
     }
 
     public function follower()
     {
-        return $this->belongsTo(Post::class, 'id_follower');
+        return $this->belongsTo(Follower::class, 'id_follower');
     }
 }

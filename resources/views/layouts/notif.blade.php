@@ -1,57 +1,29 @@
                         <div class="notifications-popup">
+                            @foreach ($notifications as $notification)
                             <div>
                                 <div class="profile-photo">
-                                    <img src="./images/profile-2.jpg">
+                                    <img src="{{$notification->users->avatar}}">
                                 </div>
                                 <div class="notification-body">
-                                    <b>Keke Benjamin</b> accepted your friend request
+                                    <b>{{$notification->users->name}}</b> 
+                                    @if ($notification->id_post != NULL) 
+                                        @if ($notification->tipe == 'like')
+                                            Liked your post
+                                        @else
+                                            Commented in your post
+                                        @endif
+                                    @elseif ($notification->id_story != NULL)
+                                        @if ($notification->tipe == 'like')
+                                            Liked your Story
+                                        @else
+                                            Commented in your Story
+                                        @endif
+                                    @else
+                                        Following You
+                                    @endif
                                     <small class="text-muted">2 Days Ago</small>
                                 </div>
                             </div>
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="./images/profile-3.jpg">
-                                </div>
-                                <div class="notification-body">
-                                    <b>John Doe</b> commented on your post
-                                    <small class="text-muted">1 Hour Ago</small>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="./images/profile-4.jpg">
-                                </div>
-                                <div class="notification-body">
-                                    <b>Marry Oppong</b> and <b>283 Others</b> liked your post
-                                    <small class="text-muted">4 Minutes Ago</small>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="./images/profile-5.jpg">
-                                </div>
-                                <div class="notification-body">
-                                    <b>Doris Y. Lartey</b> commented on a post you are tagged in
-                                    <small class="text-muted">2 Days Ago</small>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="./images/profile-6.jpg">
-                                </div>
-                                <div class="notification-body">
-                                    <b>Keyley Jenner</b> commented on a post you are tagged in
-                                    <small class="text-muted">1 Hour Ago</small>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="./images/profile-7.jpg">
-                                </div>
-                                <div class="notification-body">
-                                    <b>Jane Doe</b> commented on your post
-                                    <small class="text-muted">1 Hour Ago</small>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                         <!--------------- END NOTIFICATION POPUP --------------->

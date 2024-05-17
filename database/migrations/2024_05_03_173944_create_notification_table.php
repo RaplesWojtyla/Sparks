@@ -18,9 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_like')->nullable();
             $table->unsignedBigInteger('id_follower')->nullable();
             $table->integer('tipe');
+            
             $table->foreign('id_users')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_comment')->references('id')->on('comment')->onDelete('cascade');
-            $table->foreign('id_like')->references('id')->on('like')->onDelete('cascade');
             $table->foreign('id_follower')->references('id')->on('follower')->onDelete('cascade');
             $table->timestamps();
         });

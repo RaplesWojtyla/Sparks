@@ -34,9 +34,4 @@ class Like extends Model
     {
         return $this->belongsTo(Post::class, 'id_story');
     }
-
-    public function notifications()
-    {
-        return $this->hasMany(Like::class, 'id_like');
-    }
 }
