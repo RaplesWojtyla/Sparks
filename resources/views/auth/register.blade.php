@@ -36,7 +36,7 @@
 
         <div class="wrapper-login">
             <h2>Member Register</h2>
-            <form action="{{ route('register') }}" method="POST">
+            <form method="POST" action="{{ route('register') }}">
                 @csrf
                 
                 <!-- Username -->
@@ -58,7 +58,7 @@
                 <!-- Email -->
                 <div class="input-box">
                     <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                    <x-text-input id="email" class="block mt-1 w-full" type="text" name="email" :value="old('email')" required autofocus autocomplete="email" />
+                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     <label>Your Email</label>
                 </div>
@@ -66,21 +66,14 @@
                 <!-- Password -->
                 <div class="input-box">
                     <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+                    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
                 
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     <label>Your Password</label>
-
                 <!-- Confirm Password -->
                 <div class="input-box">
                     <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <x-text-input id="password_confrimation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confrimation" required autocomplete="new-password" />            
-
+                    <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />            
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     <label>Confirm Password</label>
                 </div>
