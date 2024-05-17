@@ -56,8 +56,8 @@ Fitur ini berfungsi untuk pengguna mencari pengguna lain nya.
 Tindakan yang memungkinkan pengguna untuk keluar dari akun atau sesi yang sedang aktif.
 
 ## Environment
-PHP Version: ^8.1
-Laravel Version: ^10.0
-Breeze Version: ^1.29.1
-Database: MySQL
-Chatify Version: ^1.5
+1. PHP Version: ^8.1
+2. Laravel Version: ^10.0
+3. Breeze Version: ^1.29.1
+4. Database: MySQL
+5. Chatify Version: ^1.5
