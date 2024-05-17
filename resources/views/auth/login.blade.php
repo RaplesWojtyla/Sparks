@@ -1,46 +1,80 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Sparks</title>
+        <link rel="stylesheet" href="{{ asset('css/stylelandingpage.css') }}"
+    </head>
+    <header class="header">
+        <a href="#" class="logo"><ion-icon name="sparkles-sharp"></ion-icon>Sparks</a>
+        <nav class="nav">
+            @if (Route::has('login'))
+                <div>
+                    @auth
+                        <a href="{{ url('/dashboard') }}">Dashboard </a>
+                    @else
+                        <a href="{{ route('login') }}">Log in</a>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+        </nav>
+    </header>
 
-        <!-- Username or Email Address -->
-        <div>
-            <x-input-label for="input_type" :value="__('Username/Email')" />
-            <x-text-input id="input_type" class="block mt-1 w-full" type="text" name="input_type" :value="old('input_type')" required autofocus autocomplete="input_type" />
-            <x-input-error :messages="$errors->get('input_type')" class="mt-2" />
+    <section class="home">
+        <div class="content">
+        <h2>Sparkling your memory to universe</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. fwfiwhfi
+        </p>
+        <a href="#">Get Started</a>
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <div class="wrapper-login">
+            <h2>Member Login</h2>
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
+                
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <x-text-input id="input_type" class="block mt-1 w-full" type="text" name="input_type" :value="old('input_type')" required autofocus autocomplete="input_type" />
+                    <x-input-error :messages="$errors->get('input_type')" class="mt-2" />
+                    <label>Enter Your Username/Email</label>
+                </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
                             name="password"
                             required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                    <label>Enter Your Password</label>
+                </div>
+
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Remember me</label>
+                    <a href="#">Forgot password</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="register-link">
+                    <p>Not a Member? <a href="#">Sign up now</a></p>
+                </div>
+            </form>
         </div>
+    </section>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+                </div>
+            </div>
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-    </form>
-</x-guest-layout>
+    </body>
+</html>
