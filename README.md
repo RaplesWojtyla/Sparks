@@ -15,10 +15,10 @@ sparks adalah web aplikasi di mana pengguna dapat berinteraksi secara online den
 
 Kelompok 7 KOM A 23
 Anggota:
-{231402028} - {Alfi Syahrin} - {Database Administrator}
-{231402049} - {Naurah Alya Rahmah} - {Frontend}
-{231402052} - {Patra Rafles Wostyla Sinaga} - {Backend}
-{231402111} - {Jonathan C. Amadeo Sembiring} - {Frontend}
+1. {231402028} - {Alfi Syahrin} - {Database Administrator}
+2. {231402049} - {Naurah Alya Rahmah} - {Frontend}
+3. {231402052} - {Patra Rafles Wostyla Sinaga} - {Backend}
+4. {231402111} - {Jonathan C. Amadeo Sembiring} - {Frontend}
 
 ## Fitur Sparks
 
