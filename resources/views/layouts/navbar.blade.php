@@ -18,12 +18,15 @@
                 <b>Sparkling Water</b>
             </h2>
             <!-- search bar -->
-            <div class="search-bar">
-                <i class="uil uil-search"></i>
-                <input type="search" placeholder="search">
-            </div>
-            <div class="search-button">
-                <input type="button" value="search" class="btn btn-primary">
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="uil uil-search"></i>
+                    <input type="search" placeholder="search" id="searchInput">
+                    <input type="button" value="search" class="btn btn-primary" id="searchButton">
+                </div>
+                <div class="search-result">
+                    <ul id="searchResultList"></ul>
+                </div>
             </div>
 
             <!-- Dropdown menu -->
@@ -63,6 +66,68 @@
             </div>
         </div>
     </nav>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const searchResultsList = document.getElementById('searchResultList');
+        const searchResultContainer = document.querySelector('.search-result');
+
+        // Assume you have a search function that takes a query and returns results (replace with your actual implementation)
+        function search(query) {
+            // Implement logic to fetch or filter search results based on the query
+            // This could involve making an API call to a backend or manipulating existing data
+
+            const results = [{
+                    name: "Item 1",
+                    photo: "https://example.com/photo1.jpg"
+                },
+                {
+                    name: "Item 2",
+                    photo: "https://example.com/photo2.jpg"
+                },
+                {
+                    name: "naurah",
+                    photo: "https://example.com/photo3.jpg"
+                },
+                // ... more results
+            ];
+
+            return results;
+        }
+
+        searchButton.addEventListener('click', () => {
+            const searchQuery = searchInput.value.trim().toLowerCase();
+
+            // Clear previous results
+            searchResultsList.innerHTML = '';
+
+            // Fetch or filter results
+            const results = search(searchQuery);
+
+            if (results.length > 0) {
+                // Display results
+                const resultList = results.map(result => `
+            <li>
+                <img src="${result.photo}" alt="${result.name} photo">
+                <span class="result-name">${result.name}</span>
+            </li>
+        `).join('');
+                searchResultsList.innerHTML = resultList;
+                searchResultContainer.style.display = 'block';
+            } else {
+                // Display "No results found" message
+                searchResultsList.innerHTML = '<li>No results found.</li>';
+                searchResultContainer.style.display = 'block';
+            }
+        });
+
+        // Hide search results when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!searchResultContainer.contains(event.target) && !searchButton.contains(event.target) && !searchInput.contains(event.target)) {
+                searchResultContainer.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 
 </html>

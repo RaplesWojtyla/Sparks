@@ -12,6 +12,8 @@ use Illuminate\Support\Carbon;
     <title>{{$title ?? config('app.name', 'laravel')}}</title>
     <!-- iconscout cdn -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <!-- stylesheet -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
@@ -62,7 +64,6 @@ use Illuminate\Support\Carbon;
 
         <!----------------- FEEDS -------------------->
         <div class="feeds">
-            <!----------------- FEED 2 -------------------->
             @foreach ($posts as $post)
             <div class="feed">
                 <div class="head">
@@ -87,14 +88,16 @@ use Illuminate\Support\Carbon;
 
                 <div class="action-buttons">
                     <div class="interaction-buttons" data-post-id="{{ $post->id }}">
-                        <button id="likeButton" data-post-id="{{ $post->id }}" data-likes-count-id="likes-count-{{$post->id}}">
-                            <i class="uil uil-heart"></i>
+                        <button id="likeButton" class="like-button" data-post-id="{{ $post->id }}" data-likes-count-id="likes-count-{{$post->id}}">
+                        <i class="fa-regular fa-heart"></i>   
+                        <i class="fa-solid fa-heart" style="color: red; display: none;"></i>                     
                         </button>
                         <span><i class="uil uil-comment-dots"></i></span>
-                        <span><i class="uil uil-share-alt"></i></span>
                     </div>
                     <div class="bookmark">
-                        <span><i class="uil uil-bookmark-full"></i></span>
+                        <span><i class="fa-regular fa-bookmark"></i>
+                        <i class="fa-solid fa-bookmark" style="display: none;"></i>
+                        </span>
                     </div>
                 </div>
 
@@ -122,164 +125,53 @@ use Illuminate\Support\Carbon;
                 </div>
             </div>
             @endforeach
-            <!----------------- END OF FEED 2 -------------------->
-
-            <!----------------- FEED 3 -------------------->
-            <div class="feed">
-                <div class="head">
-                    <div class="user">
-                        <div class="profile-photo">
-                            <img src="./images/profile-4.jpg">
-                        </div>
-                        <div class="info">
-                            <h3>Rosalinda Clark</h3>
-                            <small>New York, 50 Minutes Ago</small>
-                        </div>
-                    </div>
-                    <span class="edit">
-                        <i class="uil uil-ellipsis-h"></i>
-                    </span>
-                </div>
-
-                <div class="photo">
-                    <img src="./images/feed-4.jpg">
-                </div>
-
-                <div class="action-buttons">
-                    <div class="interaction-buttons">
-                        <span><i class="uil uil-heart"></i></span>
-                        <span><i class="uil uil-comment-dots"></i></span>
-                        <span><i class="uil uil-share-alt"></i></span>
-                    </div>
-                    <div class="bookmark">
-                        <span><i class="uil uil-bookmark-full"></i></span>
-                    </div>
-                </div>
-
-                <div class="liked-by">
-                    <span><img src="./images/profile-12.jpg"></span>
-                    <span><img src="./images/profile-13.jpg"></span>
-                    <span><img src="./images/profile-14.jpg"></span>
-                    <p>Liked by <b>Clara Dwayne</b> and <b>2, 323 others</b></p>
-                </div>
-
-                <div class="caption">
-                    <p><b>Rosalinda Clark</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo ullam, quam voluptatibus natus ex corporis ea atque quisquam, necessitatibus, cumque eligendi aliquam nulla soluta hic. Obcaecati, tempore dignissimos! Esse cupiditate laborum ullam, quae necessitatibus, officiis, quaerat aspernatur illo voluptatum repellat perferendis voluptatem similique. Assumenda nostrum, eius sit laborum nesciunt deserunt!
-                        <span class="harsh-tag">#lifestyle</span>
-                    </p>
-                </div>
-
-                <div class="comments text-muted">
-                    View all 50 comments
-                </div>
-            </div>
-            <!----------------- END OF FEED 3 -------------------->
-
-            <!----------------- FEED 4 -------------------->
-            <div class="feed">
-                <div class="head">
-                    <div class="user">
-                        <div class="profile-photo">
-                            <img src="./images/profile-5.jpg">
-                        </div>
-                        <div class="info">
-                            <h3>Alexandria Riana</h3>
-                            <small>Dubai, 1 Hour Ago</small>
-                        </div>
-                    </div>
-                    <span class="edit">
-                        <i class="uil uil-ellipsis-h"></i>
-                    </span>
-                </div>
-
-                <div class="photo">
-                    <img src="./images/feed-5.jpg">
-                </div>
-
-                <div class="action-buttons">
-                    <div class="interaction-buttons">
-                        <span><i class="uil uil-heart"></i></span>
-                        <span><i class="uil uil-comment-dots"></i></span>
-                        <span><i class="uil uil-share-alt"></i></span>
-                    </div>
-                    <div class="bookmark">
-                        <span><i class="uil uil-bookmark-full"></i></span>
-                    </div>
-                </div>
-
-                <div class="liked-by">
-                    <span><img src="./images/profile-10.jpg"></span>
-                    <span><img src="./images/profile-4.jpg"></span>
-                    <span><img src="./images/profile-15.jpg"></span>
-                    <p>Liked by <b>Lana Rose</b> and <b>5, 323 others</b></p>
-                </div>
-
-                <div class="caption">
-                    <p><b>Alexandria Riana</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi architecto sunt itaque, in, enim non doloremque velit unde nihil vitae impedit dolorum, distinctio ab deleniti!
-                        <span class="harsh-tag">#lifestyle</span>
-                    </p>
-                </div>
-
-                <div class="comments text-muted">
-                    View all 540 comments
-                </div>
-            </div>
-            <!----------------- END OF FEED 4 -------------------->
-
-            <!----------------- FEED 5 -------------------->
-            <div class="feed">
-                <div class="head">
-                    <div class="user">
-                        <div class="profile-photo">
-                            <img src="./images/profile-7.jpg">
-                        </div>
-                        <div class="info">
-                            <h3>Keylie Hadid</h3>
-                            <small>Dubai, 3 Hours Ago</small>
-                        </div>
-                    </div>
-                    <span class="edit">
-                        <i class="uil uil-ellipsis-h"></i>
-                    </span>
-                </div>
-
-                <div class="photo">
-                    <img src="./images/feed-7.jpg">
-                </div>
-
-                <div class="action-buttons">
-                    <div class="interaction-buttons">
-                        <span><i class="uil uil-heart"></i></span>
-                        <span><i class="uil uil-comment-dots"></i></span>
-                        <span><i class="uil uil-share-alt"></i></span>
-                    </div>
-                    <div class="bookmark">
-                        <span><i class="uil uil-bookmark-full"></i></span>
-                    </div>
-                </div>
-
-                <div class="liked-by">
-                    <span><img src="./images/profile-10.jpg"></span>
-                    <span><img src="./images/profile-4.jpg"></span>
-                    <span><img src="./images/profile-15.jpg"></span>
-                    <p>Liked by <b>Riana Rose</b> and <b>1, 226 others</b></p>
-                </div>
-
-                <div class="caption">
-                    <p><b>Keylie Hadid</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem obcaecati nisi veritatis quisquam eius accusantium rem quo repellat facilis neque.
-                        <span class="harsh-tag">#lifestyle</span>
-                    </p>
-                </div>
-
-                <div class="comments text-muted">
-                    View all 199 comments
-                </div>
-            </div>
-            <!----------------- END OF FEED 5 -------------------->
         </div>
         <!----------------- END OF FEEDS -------------------->
     </div>
     <!----------------- END OF MIDDLE -------------------->
+
+<script>
+// script.js
+// script.js
+const likeButtons = document.querySelectorAll('.like-button');
+
+likeButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const heartIcon = button.querySelector('.fa-regular.fa-heart'); // Target the line heart icon
+    const solidHeartIcon = button.querySelector('.fa-solid.fa-heart'); // Target the solid heart icon
+
+    if (heartIcon.style.display === 'none') {
+      heartIcon.style.display = 'inline-block'; // Show the line heart icon
+      solidHeartIcon.style.display = 'none'; // Hide the solid heart icon
+    } else {
+      heartIcon.style.display = 'none'; // Hide the line heart icon
+      solidHeartIcon.style.display = 'inline-block'; // Show the solid heart icon
+      
+    }
+  });
+});
+
+const bookmarks = document.querySelectorAll('.bookmark');
+
+bookmarks.forEach(bookmark => {
+  bookmark.addEventListener('click', () => {
+    const regularBookmarkIcon = bookmark.querySelector('.fa-regular.fa-bookmark');
+    const solidBookmarkIcon = bookmark.querySelector('.fa-solid.fa-bookmark');
+
+    if (regularBookmarkIcon.style.display === 'none') {
+      regularBookmarkIcon.style.display = 'inline-block';
+      solidBookmarkIcon.style.display = 'none';
+    } else {
+      regularBookmarkIcon.style.display = 'none';
+      solidBookmarkIcon.style.display = 'inline-block';
+    }
+  });
+});
+
+
+</script>
+<script src="https://kit.fontawesome.com/b795265882.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
