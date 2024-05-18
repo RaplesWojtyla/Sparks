@@ -1,11 +1,11 @@
                         <div class="notifications-popup">
+                            <?php $i = 0 ?>
                             @foreach ($notifications as $notification)
-                                <?php $i = 0 ?>
                                 @if ($notification->posts->id_users == Auth::user()->id)
                                     <?php $i++ ?>
                                     <div>
                                         <div class="profile-photo">
-                                            <img src="{{$notification->users->avatar}}">
+                                            <img src="{{ asset($notification->users->profile_picture) }}">
                                         </div>
                                         <div class="notification-body">
                                             <b>{{$notification->users->name}}</b> 

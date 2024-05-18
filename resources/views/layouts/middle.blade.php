@@ -68,7 +68,7 @@ use Illuminate\Support\Carbon;
                 <div class="head">
                     <div class="user">
                         <div class="profile-photo">
-                            <img src="./images/profile-10.jpg">
+                            <img src="{{ asset($post->users->profile_picture) }}">
                         </div>
                         <div class="info">
                             <h3>{{ $post->users->username }}</h3>

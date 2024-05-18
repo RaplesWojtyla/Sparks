@@ -15,12 +15,12 @@
     <div class="left">
         <a class="profile">
             <div class="profile-photo">
-                <img src="./images/profile-1.jpg">
+                <img src="{{asset(Auth::user()->profile_picture)}}">
             </div>
             <div class="handle">
                 <h4>{{ Auth::user()->name }}</h4>
                 <p class="text-muted">
-                    @username
+                    {{'@' . Auth::user()->username}}
                 </p>
             </div>
         </a>
@@ -71,4 +71,4 @@
 
 </body>
 
-</html>bu
+</html>
