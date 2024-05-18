@@ -112,24 +112,79 @@ nav .container {
 
 }
 
-.search-bar {
-    background: var(--color-light);
-    border-radius: var(--border-radius);
-    padding: var(--search-padding);
+/* =============== searchbar ============== */
+.search-container {
+    width: 650px; /* Adjust width as needed */
+    background-color: #f8f9fa; /* Light background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px; /* Inner padding */
+    position: relative;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #f8f4f4;
+    border-radius: 10px; /* Match the container's border radius */
+    padding: 10px; /* Increase padding for better spacing */
+    background-color: white;
+    width: 100%;
 }
-
+.search-bar i {
+    margin-right: 10px; /* Increase spacing */
+}
 .search-bar input[type="search"] {
-    background: transparent;
-    width: 30vw;
-    margin-left: 1rem;
-    font-size: 0.9rem;
-    color: var(--color-dark);
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 5px; /* Add some padding for better text spacing */
 }
-
-nav .search-bar input[type="search"]::placeholder {
-    color: var(--color-grey);
+.search-bar input[type="button"] {
+    border: none;
+    background-color: var(--color-primary);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px; /* Slightly rounded button */
+    cursor: pointer;
+    margin-left: 10px; /* Increase spacing */
 }
-
+.search-result {
+    position: absolute;
+    top: calc(100% + 10px); /* Add spacing between the bar and the results */
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none; /* Initially hidden */
+    border-radius: 0 0 10px 10px; /* Match the container's border radius */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+.search-result ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.search-result li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+.search-result img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.search-result li:hover {
+    background-color: #f0f0f0;
+}
 nav .create {
     display: flex;
     align-items: center;
@@ -139,7 +194,7 @@ nav .create {
 /* =============== Main ============== */
 main {
     position: relative;
-    top: 2rem;
+    top: 3rem;
 }
 
 main .container {

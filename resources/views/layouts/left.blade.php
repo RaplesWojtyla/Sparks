@@ -31,12 +31,12 @@
                 <span><i class="uil uil-home"></i></span>
                 <h3>Home</h3>
             </a>
-            <a class="menu-item">
+            <a class="menu-item" id="exploreMenuItem">
                 <span><i class="uil uil-compass"></i></span>
                 <h3>Explore</h3>
             </a>
             <a class="menu-item" id="notifications">
-                <span><i class="uil uil-bell"><small class="notification-count">9+</small></i></span>
+                <span><i class="uil uil-bell"></i></span>
                 <h3>Notification</h3>
                 <!--------------- NOTIFICATION POPUP --------------->
                 @include('layouts.notif')
@@ -46,7 +46,7 @@
                 <span><i class="uil uil-envelope-alt"></i></span>
                 <h3>Messages</h3>
             </a>
-            <a class="menu-item">
+            <a class="menu-item" href="">
                 <span><i class="uil uil-bookmark"></i></span>
                 <h3>Bookmarks</h3>
             </a>
@@ -68,7 +68,13 @@
     </div>
     <!----------------- THEME CUSTOMIZATION -------------------->
 
-
+<script>
+            const exploreMenuItem = document.getElementById('exploreMenuItem');
+            exploreMenuItem.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            searchInput.focus();
+        });
+</script>
 </body>
 
 </html>
