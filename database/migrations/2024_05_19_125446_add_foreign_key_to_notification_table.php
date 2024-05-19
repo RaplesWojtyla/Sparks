@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('notification', function (Blueprint $table) {
             // $table->dropColumn('id_following');
 
-            $table->unsignedBigInteger('id_following')->nullable()->after('id_story');
+            // $table->unsignedBigInteger('id_following')->nullable()->after('id_story');
             $table->foreign('id_following')->references('id')->on('users')->onDelete('cascade');
         });
     }
