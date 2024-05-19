@@ -81,5 +81,5 @@ class HomeController extends Controller
             'likesCount' => $post->likes()->count(),
             'notifications' => Notification::where('seen', NULL)->take(6)->get()
         ]);
-    }
+    } 
 }

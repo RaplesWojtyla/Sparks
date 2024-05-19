@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,10 +30,13 @@ Route::get('/dashboard', [
     HomeController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::post('/post/{idPost}/like', [
     HomeController::class, 'countLikes'
 ])->middleware(['auth', 'verified'])->name('post.like');
 
+Route::get('/api/search', [SearchController::class, 'search'])->name('api.search');
+Route::get('/api/history', [SearchController::class, 'history'])->name('api.history');
 
 
 Route::middleware('auth')->group(function () {
