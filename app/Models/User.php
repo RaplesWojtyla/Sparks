@@ -94,6 +94,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Notification::class, 'id_users');
     }
+    public function searching()
+    {
+        return $this->hasMany(History::class, 'id_users');
+    }
+  
+    public function searched()
+    {
+        return $this->hasMany(History::class, 'id_searched');
+    }
 
     // public function followingNotif()
     // {
