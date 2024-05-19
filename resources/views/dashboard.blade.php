@@ -24,6 +24,7 @@
     </main>
 
     <script src="{{ asset('js/index.js') }}"></script>
+    <script src="https://kit.fontawesome.com/b795265882.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).on('click', '#likeButton', function() {
@@ -41,5 +42,41 @@
                 }
             });
         })
+    </script>
+    <script>
+        const likeButtons = document.querySelectorAll('.like-button');
+
+        likeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const heartIcon = button.querySelector('.fa-regular.fa-heart'); // Target the line heart icon
+                const solidHeartIcon = button.querySelector('.fa-solid.fa-heart'); // Target the solid heart icon
+
+                if (heartIcon.style.display === 'none') {
+                    heartIcon.style.display = 'inline-block'; // Show the line heart icon
+                    solidHeartIcon.style.display = 'none'; // Hide the solid heart icon
+                } else {
+                    heartIcon.style.display = 'none'; // Hide the line heart icon
+                    solidHeartIcon.style.display = 'inline-block'; // Show the solid heart icon
+
+                }
+            });
+        });
+
+        const bookmarks = document.querySelectorAll('.bookmark');
+
+        bookmarks.forEach(bookmark => {
+            bookmark.addEventListener('click', () => {
+                const regularBookmarkIcon = bookmark.querySelector('.fa-regular.fa-bookmark');
+                const solidBookmarkIcon = bookmark.querySelector('.fa-solid.fa-bookmark');
+
+                if (regularBookmarkIcon.style.display === 'none') {
+                    regularBookmarkIcon.style.display = 'inline-block';
+                    solidBookmarkIcon.style.display = 'none';
+                } else {
+                    regularBookmarkIcon.style.display = 'none';
+                    solidBookmarkIcon.style.display = 'inline-block';
+                }
+            });
+        });
     </script>
 </x-app-layout>

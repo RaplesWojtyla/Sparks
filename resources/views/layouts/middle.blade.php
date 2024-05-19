@@ -89,14 +89,14 @@ use Illuminate\Support\Carbon;
                 <div class="action-buttons">
                     <div class="interaction-buttons" data-post-id="{{ $post->id }}">
                         <button id="likeButton" class="like-button" data-post-id="{{ $post->id }}" data-likes-count-id="likes-count-{{$post->id}}">
-                        <i class="fa-regular fa-heart"></i>   
-                        <i class="fa-solid fa-heart" style="color: red; display: none;"></i>                     
+                            <i class="fa-regular fa-heart"></i>
+                            <i class="fa-solid fa-heart" style="color: red; display: none;"></i>
                         </button>
                         <span><i class="uil uil-comment-dots"></i></span>
                     </div>
                     <div class="bookmark">
                         <span><i class="fa-regular fa-bookmark"></i>
-                        <i class="fa-solid fa-bookmark" style="display: none;"></i>
+                            <i class="fa-solid fa-bookmark" style="display: none;"></i>
                         </span>
                     </div>
                 </div>
@@ -118,8 +118,8 @@ use Illuminate\Support\Carbon;
                 <div class="comments text-muted">
                     @if ($post->commments()->count() > 0)
                         View All {{ $post->commments()->count() }} Comments
-                        @else
-                            No Comment Yet
+                    @else
+                        No Comment Yet
                     @endif
 
                 </div>
@@ -130,47 +130,7 @@ use Illuminate\Support\Carbon;
     </div>
     <!----------------- END OF MIDDLE -------------------->
 
-<script>
-// script.js
-// script.js
-const likeButtons = document.querySelectorAll('.like-button');
-
-likeButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const heartIcon = button.querySelector('.fa-regular.fa-heart'); // Target the line heart icon
-    const solidHeartIcon = button.querySelector('.fa-solid.fa-heart'); // Target the solid heart icon
-
-    if (heartIcon.style.display === 'none') {
-      heartIcon.style.display = 'inline-block'; // Show the line heart icon
-      solidHeartIcon.style.display = 'none'; // Hide the solid heart icon
-    } else {
-      heartIcon.style.display = 'none'; // Hide the line heart icon
-      solidHeartIcon.style.display = 'inline-block'; // Show the solid heart icon
-      
-    }
-  });
-});
-
-const bookmarks = document.querySelectorAll('.bookmark');
-
-bookmarks.forEach(bookmark => {
-  bookmark.addEventListener('click', () => {
-    const regularBookmarkIcon = bookmark.querySelector('.fa-regular.fa-bookmark');
-    const solidBookmarkIcon = bookmark.querySelector('.fa-solid.fa-bookmark');
-
-    if (regularBookmarkIcon.style.display === 'none') {
-      regularBookmarkIcon.style.display = 'inline-block';
-      solidBookmarkIcon.style.display = 'none';
-    } else {
-      regularBookmarkIcon.style.display = 'none';
-      solidBookmarkIcon.style.display = 'inline-block';
-    }
-  });
-});
-
-
-</script>
-<script src="https://kit.fontawesome.com/b795265882.js" crossorigin="anonymous"></script>
+    
 
 </body>
 

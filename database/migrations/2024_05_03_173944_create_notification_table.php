@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('notification', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_users');
-            $table->unsignedBigInteger('id_comment')->nullable();
-            $table->unsignedBigInteger('id_like')->nullable();
-            $table->unsignedBigInteger('id_follower')->nullable();
+            $table->unsignedBigInteger('id_following')->nullable();
             $table->integer('tipe');
             
             $table->foreign('id_users')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_follower')->references('id')->on('follower')->onDelete('cascade');
+            // $table->foreign('id_following')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

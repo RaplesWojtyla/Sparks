@@ -1,7 +1,7 @@
                         <div class="notifications-popup">
                             <?php $i = 0 ?>
                             @foreach ($notifications as $notification)
-                                @if ($notification->posts->id_users == Auth::user()->id)
+                                @if ($notification->posts != NULL && $notification->posts->id_users == Auth::user()->id)
                                     <?php $i++ ?>
                                     <div>
                                         <div class="profile-photo">
@@ -22,12 +22,11 @@
                                                 @else
                                                     Commented in your Story
                                                 @endif
-                                            @else
-                                                Following You
                                             @endif
                                             <small class="text-muted">2 Days Ago</small>
                                         </div>
                                     </div>
+                                
                                 @endif
                             @endforeach
                             @if ($i == 0)

@@ -68,13 +68,13 @@
     </div>
     <!----------------- THEME CUSTOMIZATION -------------------->
 
-<script>
-            const exploreMenuItem = document.getElementById('exploreMenuItem');
-            exploreMenuItem.addEventListener('click', (event) => {
+    <script>
+        const exploreMenuItem = document.getElementById('exploreMenuItem');
+        exploreMenuItem.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent default link behavior
             searchInput.focus();
         });
-</script>
+    </script>
 </body>
 
 </html>
