@@ -14,57 +14,62 @@
 <body>
     <!----------------- RIGHT -------------------->
     <div class="right">
-        <!------- MESSAGES ------->
-        <div class="messages">
-            <div class="heading">
-                <h4>SUGGESTED FOR YOU</h4>
-                <i class="uil uil-edit"></i>
-            </div>
-            <!------- SEARCH BAR ------->
 
-            <!-- <div class="search-bar">
-                        <i class="uil uil-search"></i>
-                        <input type="search" placeholder="Search messages" id="message-search">
-                    </div> -->
+        <!------- SEARCH BAR ------->
+        <!--  <div class="search-bar">
+                    <i class="uil uil-search"></i>
+                    <input type="search" placeholder="Search messages" id="message-search">
+            </div> -->
 
-            <!------- MESSAGES CATEGORY ------->
-
-
+        <!------- SUGGESTED USER ------->
+        <div class="friend-requests">
+            <h2>Suggested For You</h2>
             @foreach ($suggestUsers as $suggestUser)
-            <div class="message">
-                <div class="profile-photo">
-                    <img src="{{ $suggestUser->profile_picture }}">
-                    <div class="active"></div>
-                </div>
-                <div class="message-body">
-                    <h5>{{ $suggestUser->name }}</h5>
-                    <p class="text-muted">Sparks Recommended LOL</p>
-                </div>
-            </div>
+                <form action="{{ route('follow', $suggestUser) }}" method="post">
+                @csrf
+                    <div class="request">
+                        <div class="info">
+                            <div class="profile-photo">
+                                <img src="{{ asset($suggestUser->profile_picture) }}">
+                            </div>
+                            <div>
+                                <h5>{{ $suggestUser->name }}</h5>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">
+                                Follow
+                            </button>
+                        </div>
+                    </div> 
+                </form>
             @endforeach
         </div>
-        <!------- END OF MESSAGES ------->
+        <!------- END OF SUGGESTED USER ------->
 
-        <!------- FRIEND REQUEST ------->
+        <!------- Follow Back User ------->
         <div class="friend-requests">
             <h2>Follower</h2>
 
             @foreach($follbacks as $follback)
-            <div class="request">
-                <div class="info">
-                    <div class="profile-photo">
-                        <img src="{{ $follback->avatar }}">
-                    </div>
-                    <div>
-                        <h5>{{ $follback->name }}</h5>
-                    </div>
-                </div>
-                <div class="action">
-                    <button class="btn btn-primary">
-                        Follback
-                    </button>
-                </div>
-            </div>
+            <form action="{{ route('follow', $follback) }}" method="post">
+                @csrf
+                    <div class="request">
+                        <div class="info">
+                            <div class="profile-photo">
+                                <img src="{{ asset($follback->profile_picture) }}">
+                            </div>
+                            <div>
+                                <h5>{{ $follback->name }}</h5>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">
+                                Follow Back
+                            </button>
+                        </div>
+                    </div> 
+                </form>
             @endforeach
 
 

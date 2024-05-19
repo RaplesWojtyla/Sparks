@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('notification', function (Blueprint $table) {
-            $table->tinyInteger('seen')->nullable()->after('id_follower');
+            // $table->dropColumn('id_following');
+
+            $table->unsignedBigInteger('id_following')->nullable()->after('id_story');
+            $table->foreign('id_following')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -22,7 +25,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('notification', function (Blueprint $table) {
-            $table->dropColumn('seen');
+            $table->dropForeign('notification_id_following_foreign');
+            $table->dropColumn('id_following');
         });
     }
 };

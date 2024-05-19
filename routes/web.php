@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -32,6 +33,10 @@ Route::get('/dashboard', [
 Route::post('/post/{idPost}/like', [
     HomeController::class, 'countLikes'
 ])->middleware(['auth', 'verified'])->name('post.like');
+
+Route::post('/follow/{user}', [
+    FollowController::class, 'follow'
+])->middleware(['auth', 'verified'])->name('follow');
 
 
 
