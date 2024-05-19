@@ -40,8 +40,13 @@ Route::post('/follow/{user}', [
     FollowController::class, 'follow'
 ])->middleware(['auth', 'verified'])->name('follow');
 
-Route::get('/api/search', [SearchController::class, 'search'])->name('api.search');
-Route::get('/api/history', [SearchController::class, 'history'])->name('api.history');
+Route::get('/api/search', [
+    SearchController::class, 'search'
+])->middleware(['auth', 'verified'])->name('api.search');
+
+Route::get('/api/history', [
+    SearchController::class, 'history'
+])->middleware(['auth', 'verified'])->name('api.history');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
