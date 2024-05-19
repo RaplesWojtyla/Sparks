@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -35,9 +36,12 @@ Route::post('/post/{idPost}/like', [
     HomeController::class, 'countLikes'
 ])->middleware(['auth', 'verified'])->name('post.like');
 
+Route::post('/follow/{user}', [
+    FollowController::class, 'follow'
+])->middleware(['auth', 'verified'])->name('follow');
+
 Route::get('/api/search', [SearchController::class, 'search'])->name('api.search');
 Route::get('/api/history', [SearchController::class, 'history'])->name('api.history');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

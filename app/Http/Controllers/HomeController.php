@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Follower;
+use App\Models\Follows;
 use App\Models\Like;
 use App\Models\Notification;
 use App\Models\Post;
@@ -17,15 +17,15 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $posts = Post::inRandomOrder()->get();
-        $notifications = Notification::where('seen', NULL)->take(6)->get();
-        $suggestUsers = User::where('name', '!=', $user->name)->get();
-
-        $followers = Follower::where('id_following', $user->id)->get();
-        $followings = Follower::where('id_follower', $user->id)->get();
+        $notifications = Notification::take(6)->get();
         
-        $idFollowers = Follower::where('id_following', $user->id)->pluck('id_follower');
-        $idFollowings = Follower::where('id_follower', $user->id)->pluck('id_following');
+        $idFollowers = Follows::where('id_following', $user->id)->pluck('id_follower');
+        $idFollowings = Follows::where('id_follower', $user->id)->pluck('id_following');
         $follbacks = User::whereIn('id', $idFollowers)->whereNotIn('id', $idFollowings)->get();
+        $suggestUsers = User::where('name', '!=', $user->name)
+                            ->whereNotIn('id', $idFollowers)
+                            ->whereNotIn('id', $idFollowings)
+                            ->get();
 
         return view('dashboard', [
             'posts' => $posts,

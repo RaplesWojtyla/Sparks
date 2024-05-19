@@ -14,7 +14,7 @@ class Notification extends Model
         'id_users',
         'id_post',
         'id_story',
-        'id_follower',
+        'id_following',
         'tipe'
     ];
 
@@ -33,8 +33,8 @@ class Notification extends Model
         return $this->belongsTo(Story::class, 'id_story');
     }
 
-    public function follower()
-    {
-        return $this->belongsTo(Follower::class, 'id_follower');
-    }
+    // public function following()
+    // {
+    //     return $this->belongsTo(User::class, 'id_following');
+    // }
 }
