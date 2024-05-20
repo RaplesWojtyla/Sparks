@@ -72,7 +72,7 @@ use Illuminate\Support\Carbon;
                             <img src="{{ asset($post->users->profile_picture) }}">
                         </div>
                         <div class="info">
-                            <h3>{{ $post->users->username }}</h3>
+                            <h3>{{ $post->users->name }}</h3>
                             <small>{{Carbon::parse($post->created_at)->format('d-m-Y')}}</small>
                             {{-- DB::table('post')->select(DB::raw('TIMESTAMPDIFF(DAY, created_at, NOW()) as duration'))->get(); --}}
                         </div>
