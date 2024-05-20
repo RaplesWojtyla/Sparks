@@ -22,7 +22,7 @@ class Story extends Model
         return $this->belongsTo(User::class, 'id_users');
     }
 
-    public function like()
+    public function likes()
     {
         return $this->hasMany(Like::class, 'id_story');
     }

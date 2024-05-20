@@ -11,14 +11,13 @@ class FollowController extends Controller
 {
     public function follow(User $user)
     {
-        // dd(Auth::user());
         Auth::user()->following()->attach($user);
 
 
         Notification::create([
             'id_users' => Auth::user()->id,
-            'id_following' => '1',
-            'tipe' => $user->id,
+            'id_following' => $user->id,
+            'tipe' => 'follow',
         ]);
 
         return back()->with('success', 'Followed');

@@ -45,27 +45,27 @@ class HomeController extends Controller
 
     }
 
-    public function countLikes(Request $request, $postId)
+    public function countLikes($postId)
     {
         $user = Auth::user();
         $post = Post::findOrFail($postId);
 
         $liked = Like::where('id_post', $post->id)->where('id_users', $user->id)->first();
 
-        if ($liked) {
+        if ($liked) 
+        {
             $liked->delete();
 
             Notification::where('id_post', $post->id)
                 ->where('id_users', $user->id)
                 ->where('tipe', 'like')
                 ->delete();
-        } else {
-
+        } 
+        else 
+        {
             Like::create([
                 'id_users' => $user->id,
                 'id_post' => $post->id,
-                'id_story' => NULL,
-                'id_comment' => NULL,
                 'tipe' => '1'
             ]);
 
@@ -74,12 +74,10 @@ class HomeController extends Controller
                 'id_post' => $post->id,
                 'tipe' => 'like',
             ]);
-
         }
 
         return response()->json([
             'likesCount' => $post->likes()->count(),
-            'notifications' => Notification::where('seen', NULL)->take(6)->get()
         ]);
     } 
 }
