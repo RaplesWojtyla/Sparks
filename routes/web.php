@@ -42,7 +42,7 @@ Route::post('/follow/{user}', [
 
 Route::get('/api/search', [
     SearchController::class, 'search'
-])->middleware(['auth', 'verified'])->name('api.search');
+])->middleware(['auth', 'verified'])->name('api.searchbar');
 
 Route::get('/api/history', [
     SearchController::class, 'history'
