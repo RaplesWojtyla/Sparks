@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -24,6 +25,10 @@ Route::get('/', function () {
 });
 
 Route::post('/upload-image', [
+    FileController::class, 'uploadImage'
+])->middleware(['auth', 'verified']);
+
+Route::post('registrasi/upload-image', [
     RegisteredUserController::class, 'uploadImage'
 ])->middleware('guest');
 

@@ -18,10 +18,10 @@
         @method('patch')
 
         <div>
-            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Gambar Profil" style="height: 100px; width: auto;">
+            <img src="{{ asset(Auth::user()->profile_picture) }}" alt="Gambar Profil" style="height: 100px; width: auto;">
             <x-input-label for="file" :value="__('Profile Picture')" />
-            <x-text-input id="name" name="name" type="file" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-text-input id="profile_picture" name="profile_picture" type="file" class="mt-1 block w-full" :value="old('profile_picture', $user->profile_picture)" required autofocus autocomplete="profile_picture" />
+            <x-input-error class="mt-2" :messages="$errors->get('profile_picture')" />
         </div>
 
         <div>
@@ -29,10 +29,16 @@
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
+        
+        <div>
+            <x-input-label for="username" :value="__('Username')" />
+            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', $user->username)" required autofocus autocomplete="username" />
+            <x-input-error class="mt-2" :messages="$errors->get('username')" />
+        </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="email" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
@@ -56,8 +62,8 @@
 
         <div>
             <x-input-label for="bio" :value="__('Bio')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-text-input id="bio" name="bio" type="text" class="mt-1 block w-full" :value="old('bio', $user->bio)" autofocus autocomplete="bio" />
+            <x-input-error class="mt-2" :messages="$errors->get('bio')" />
         </div>
 
         <div class="flex items-center gap-4">
