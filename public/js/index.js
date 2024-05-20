@@ -2,10 +2,10 @@
 const menuItems = document.querySelectorAll('.menu-item');
 
 // Messages 
-const messageNotification = document.querySelector('#messages-notifications');
-const messages = document.querySelector('.messages');
-const message = messages.querySelectorAll('.message');
-const messageSearch = document.querySelector('#message-search');
+// const messageNotification = document.querySelector('#messages-notifications');
+// const messages = document.querySelector('.messages');
+// const message = messages.querySelectorAll('.message');
+// const messageSearch = document.querySelector('#message-search');
 
 //Theme
 const theme = document.querySelector('#theme');
@@ -59,16 +59,16 @@ const searchMessage = () => {
 }
 
 //Search for messages
-messageSearch.addEventListener('keyup', searchMessage);
+// messageSearch.addEventListener('keyup', searchMessage);
 
-//Highlight messages card when messages menu item is clicked
-messageNotification.addEventListener('click', () => {
-    messages.style.boxShadow = '0 0 1rem var(--color-primary)';
-    messageNotification.querySelector('.notification-count').style.display = 'none';
-    setTimeout(() => {
-        messages.style.boxShadow = 'none';
-    }, 2000);
-})
+// //Highlight messages card when messages menu item is clicked
+// messageNotification.addEventListener('click', () => {
+//     messages.style.boxShadow = '0 0 1rem var(--color-primary)';
+//     messageNotification.querySelector('.notification-count').style.display = 'none';
+//     setTimeout(() => {
+//         messages.style.boxShadow = 'none';
+//     }, 2000);
+// })
 
 // ============== THEME / DISPLAY CUSTOMIZATION ============== 
 
