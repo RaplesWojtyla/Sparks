@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Like;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 ?>
 
 <!DOCTYPE html>
@@ -88,15 +91,35 @@ use Illuminate\Support\Carbon;
 
                 <div class="action-buttons">
                     <div class="interaction-buttons" data-post-id="{{ $post->id }}">
+                        <?php
+                            $displayRegularHeart = 'block';
+                            $displaySolidHeart = 'none';
+                        ?>
+                        @if ($post->likes()->count() > 0 && Auth::user()->id == $post->likes->first()->id_users)
+                        <?php 
+                                $displayRegularHeart = 'none;';
+                                $displaySolidHeart = 'block;';
+                        ?>
+                        @endif
                         <button id="likeButton" class="like-button" data-post-id="{{ $post->id }}" data-likes-count-id="likes-count-{{$post->id}}">
-                            <i class="fa-regular fa-heart"></i>
-                            <i class="fa-solid fa-heart" style="color: red; display: none;"></i>
+                            <i class="fa-regular fa-heart" style="display: {{$displayRegularHeart}}"></i>
+                            <i class="fa-solid fa-heart" style="color: red; display: {{$displaySolidHeart}}"></i>
                         </button>
                         <span><i class="uil uil-comment-dots"></i></span>
                     </div>
                     <div class="bookmark">
-                        <span><i class="fa-regular fa-bookmark"></i>
-                            <i class="fa-solid fa-bookmark" style="display: none;"></i>
+                        <?php
+                            $displayRegularBookmark = 'block';
+                            $displaySolidBookmark = 'none';
+                        ?>
+                        @if ($post->bookmarks()->count() > 0 && Auth::user()->id == $post->bookmarks->first()->id_users)
+                        <?php 
+                            $displayRegularBookmark = 'none;';
+                            $displaySolidBookmark = 'block;';
+                        ?>
+                        @endif
+                        <span><i class="fa-regular fa-bookmark" style="display: {{$displayRegularBookmark}};"></i>
+                            <i class="fa-solid fa-bookmark" style="display: {{$displaySolidBookmark}};"></i>
                         </span>
                     </div>
                 </div>
