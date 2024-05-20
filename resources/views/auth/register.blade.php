@@ -110,8 +110,8 @@
 
         FilePond.setOptions({
             server: {
-                process: '/upload-image',
-                revert: '/delete-image',
+                process: 'registrasi/upload-image',
+                revert: 'registrasi/delete-image',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 }
