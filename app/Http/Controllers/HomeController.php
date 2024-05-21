@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bookmark;
 use App\Models\Follows;
 use App\Models\Like;
 use App\Models\Notification;
@@ -17,7 +18,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $posts = Post::inRandomOrder()->get();
-        $notifications = Notification::take(6)->get();
+        $notifications = Notification::orderByDesc('id')->get();
         
         $idFollowers = Follows::where('id_following', $user->id)->pluck('id_follower');
         $idFollowings = Follows::where('id_follower', $user->id)->pluck('id_following');
@@ -79,5 +80,5 @@ class HomeController extends Controller
         return response()->json([
             'likesCount' => $post->likes()->count(),
         ]);
-    } 
+    }
 }

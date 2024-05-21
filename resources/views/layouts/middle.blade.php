@@ -92,13 +92,13 @@ use Illuminate\Support\Facades\Auth;
                 <div class="action-buttons">
                     <div class="interaction-buttons" data-post-id="{{ $post->id }}">
                         <?php
-                            $displayRegularHeart = 'block';
-                            $displaySolidHeart = 'none';
+                        $displayRegularHeart = 'block';
+                        $displaySolidHeart = 'none';
                         ?>
-                        @if ($post->likes()->count() > 0 && Auth::user()->id == $post->likes->first()->id_users)
-                        <?php 
-                                $displayRegularHeart = 'none;';
-                                $displaySolidHeart = 'block;';
+                        @if ($post->likes->where('id_users', Auth::user()->id)->first() != NULL)
+                        <?php
+                        $displayRegularHeart = 'none;';
+                        $displaySolidHeart = 'block;';
                         ?>
                         @endif
                         <button id="likeButton" class="like-button" data-post-id="{{ $post->id }}" data-likes-count-id="likes-count-{{$post->id}}">
@@ -109,14 +109,14 @@ use Illuminate\Support\Facades\Auth;
                     </div>
                     <div class="bookmark">
                         <?php
-                            $displayRegularBookmark = 'block';
+                            $displayRegularBookmark = 'inline-block';
                             $displaySolidBookmark = 'none';
                         ?>
-                        @if ($post->bookmarks()->count() > 0 && Auth::user()->id == $post->bookmarks->first()->id_users)
-                        <?php 
-                            $displayRegularBookmark = 'none;';
-                            $displaySolidBookmark = 'block;';
-                        ?>
+                        @if ($post->bookmarks->where('id_user', Auth::user()->id)->first() != NULL)
+                            <?php
+                                $displayRegularBookmark = 'none;';
+                                $displaySolidBookmark = 'inline-block;';
+                            ?>
                         @endif
                         <span><i class="fa-regular fa-bookmark" style="display: {{$displayRegularBookmark}};"></i>
                             <i class="fa-solid fa-bookmark" style="display: {{$displaySolidBookmark}};"></i>
@@ -153,8 +153,39 @@ use Illuminate\Support\Facades\Auth;
     </div>
     <!----------------- END OF MIDDLE -------------------->
 
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#likeButton', function() {
+                const postId = $(this).data('post-id');
+                const likesCountId = $(this).data('likes-count-id')
+                const heartIcon = $(this).find('.fa-regular.fa-heart');
+                const solidHeartIcon = $(this).find('.fa-solid.fa-heart');
 
+                $.ajax({
+                    url: '/post/' + postId + '/like',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $('#' + likesCountId).text(response.likesCount);
+
+                        if (heartIcon.css('display') === 'none') 
+                        {
+                            heartIcon.css('display', 'inline-block'); // Show the line heart icon
+                            solidHeartIcon.css('display', 'none'); // Hide the solid heart icon
+                        } 
+                        else 
+                        {
+                            heartIcon.css('display', 'none'); // Hide the line heart icon
+                            solidHeartIcon.css('display', 'inline-block'); // Show the solid heart icon
+                        }
+                    }
+                });
+            })
+        });
+    </script>
 </body>
 
 </html>

@@ -25,43 +25,27 @@
 
     <script src="{{ asset('js/index.js') }}"></script>
     <script src="https://kit.fontawesome.com/b795265882.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).on('click', '#likeButton', function() {
-            var postId = $(this).data('post-id');
-            var likesCountId = $(this).data('likes-count-id')
 
-            $.ajax({
-                url: '/post/' + postId + '/like',
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    $('#' + likesCountId).text(response.likesCount);
-                }
-            });
-        })
+    <script>
+        // const likeButtons = document.querySelectorAll('.like-button');
+
+        // likeButtons.forEach(button => {
+        //     button.addEventListener('click', () => {
+        //         const heartIcon = button.querySelector('.fa-regular.fa-heart'); // Target the line heart icon
+        //         const solidHeartIcon = button.querySelector('.fa-solid.fa-heart'); // Target the solid heart icon
+
+        //         if (heartIcon.style.display === 'none') {
+        //             heartIcon.style.display = 'inline-block'; // Show the line heart icon
+        //             solidHeartIcon.style.display = 'none'; // Hide the solid heart icon
+        //         } else {
+        //             heartIcon.style.display = 'none'; // Hide the line heart icon
+        //             solidHeartIcon.style.display = 'inline-block'; // Show the solid heart icon
+        //         }
+        //     });
+        // });
     </script>
+
     <script>
-        const likeButtons = document.querySelectorAll('.like-button');
-
-        likeButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const heartIcon = button.querySelector('.fa-regular.fa-heart'); // Target the line heart icon
-                const solidHeartIcon = button.querySelector('.fa-solid.fa-heart'); // Target the solid heart icon
-
-                if (heartIcon.style.display === 'none') {
-                    heartIcon.style.display = 'inline-block'; // Show the line heart icon
-                    solidHeartIcon.style.display = 'none'; // Hide the solid heart icon
-                } else {
-                    heartIcon.style.display = 'none'; // Hide the line heart icon
-                    solidHeartIcon.style.display = 'inline-block'; // Show the solid heart icon
-
-                }
-            });
-        });
-
         const bookmarks = document.querySelectorAll('.bookmark');
 
         bookmarks.forEach(bookmark => {
