@@ -36,4 +36,9 @@ class Post extends Model
     {
         return $this->hasMany(Notification::class, 'id_post');
     }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class, 'id_post');
+    }
 }

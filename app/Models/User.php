@@ -62,15 +62,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function follower()
     { 
-        return $this->hasMany(Follower::class, 'id_follower');
+        return $this->belongsToMany(User::class, 'follows', 'id_following', 'id_follower');
     }
      
     public function following()
     {
-        return $this->hasMany(Follower::class, 'id_following');
+        return $this->belongsToMany(User::class, 'follows', 'id_follower', 'id_following');
     }
 
-    public function post()
+    public function posts()
     {
         return $this->hasMany(Post::class, 'id_users');
     }
@@ -92,6 +92,25 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function notifications()
     {
-        return $this->hasMany(Like::class, 'id_users');
+        return $this->hasMany(Notification::class, 'id_users');
+    }
+    public function searching()
+    {
+        return $this->hasMany(History::class, 'id_users');
+    }
+  
+    public function searched()
+    {
+        return $this->hasMany(History::class, 'id_searched');
+    }
+
+    public function followerNotif()
+    {
+        return $this->hasMany(Notification::class, 'id_following');
+    }
+    
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class, 'id_users');
     }
 }
