@@ -26,8 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'berkas',
-        'size',
+        'profile_picture',
         'bio',
     ];
 
@@ -81,12 +80,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Story::class, 'id_users');
     }
 
-    public function comment()
+    public function comments()
     {
         return $this->hasMany(Comment::class, 'id_commenter');
     }
     
-    public function like()
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'id_users');
+    }
+
+    public function notifications()
     {
         return $this->hasMany(Like::class, 'id_users');
     }

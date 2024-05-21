@@ -27,4 +27,9 @@ class Comment extends Model
     {
         $this->belongsTo(Post::class, 'id_post');
     }
+
+    public function notifications()
+    {
+        $this->hasMany(Post::class, 'id_comment');
+    }
 }

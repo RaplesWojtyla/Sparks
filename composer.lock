@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d843ad285782cbea5244c3b9bd7547c6",
+    "content-hash": "b83a3f32e0072134a86ddd0526f1fe58",
     "packages": [
         {
             "name": "brick/math",
@@ -2003,20 +2003,20 @@
         },
         {
             "name": "munafio/chatify",
-            "version": "v1.6.3",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/munafio/chatify.git",
-                "reference": "559ff515fc83a822ed72cdd03ca8e36c574c5a25"
+                "reference": "9753ca0f72b28fb5884673569e0e06333c59752d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/munafio/chatify/zipball/559ff515fc83a822ed72cdd03ca8e36c574c5a25",
-                "reference": "559ff515fc83a822ed72cdd03ca8e36c574c5a25",
+                "url": "https://api.github.com/repos/munafio/chatify/zipball/9753ca0f72b28fb5884673569e0e06333c59752d",
+                "reference": "9753ca0f72b28fb5884673569e0e06333c59752d",
                 "shasum": ""
             },
             "require": {
-                "pusher/pusher-php-server": "^6.0|^7.0|^7.1"
+                "pusher/pusher-php-server": "^7.0"
             },
             "type": "library",
             "extra": {
@@ -2059,9 +2059,9 @@
             ],
             "support": {
                 "issues": "https://github.com/munafio/chatify/issues",
-                "source": "https://github.com/munafio/chatify/tree/v1.6.3"
+                "source": "https://github.com/munafio/chatify/tree/v1.5.0"
             },
-            "time": "2024-03-17T14:21:38+00:00"
+            "time": "2022-05-26T12:16:38+00:00"
         },
         {
             "name": "nesbot/carbon",
