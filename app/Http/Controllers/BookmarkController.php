@@ -11,7 +11,7 @@ class BookmarkController extends Controller
     public function create($postId)
     {
         $saved = Bookmark::where('id_users', Auth::user()->id)
-                ->where('id_post', $postId);
+                ->where('id_post', $postId)->first();
 
         if ($saved) $saved->delete();
         else 
