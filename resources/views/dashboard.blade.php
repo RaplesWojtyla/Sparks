@@ -26,7 +26,7 @@
     <script src="{{ asset('js/index.js') }}"></script>
     <script src="https://kit.fontawesome.com/b795265882.js" crossorigin="anonymous"></script>
 
-    <script>
+    <!-- <script>
         // const likeButtons = document.querySelectorAll('.like-button');
 
         // likeButtons.forEach(button => {
@@ -43,24 +43,5 @@
         //         }
         //     });
         // });
-    </script>
-
-    <script>
-        const bookmarks = document.querySelectorAll('.bookmark');
-
-        bookmarks.forEach(bookmark => {
-            bookmark.addEventListener('click', () => {
-                const regularBookmarkIcon = bookmark.querySelector('.fa-regular.fa-bookmark');
-                const solidBookmarkIcon = bookmark.querySelector('.fa-solid.fa-bookmark');
-
-                if (regularBookmarkIcon.style.display === 'none') {
-                    regularBookmarkIcon.style.display = 'inline-block';
-                    solidBookmarkIcon.style.display = 'none';
-                } else {
-                    regularBookmarkIcon.style.display = 'none';
-                    solidBookmarkIcon.style.display = 'inline-block';
-                }
-            });
-        });
-    </script>
+    </script> -->
 </x-app-layout>

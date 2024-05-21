@@ -186,6 +186,28 @@ use Illuminate\Support\Facades\Auth;
             })
         });
     </script>
+
+    <script>
+        const bookmarks = document.querySelectorAll('.bookmark');
+
+        bookmarks.forEach(bookmark => {
+            bookmark.addEventListener('click', () => {
+                const regularBookmarkIcon = bookmark.querySelector('.fa-regular.fa-bookmark');
+                const solidBookmarkIcon = bookmark.querySelector('.fa-solid.fa-bookmark');
+
+                if (regularBookmarkIcon.style.display === 'none') 
+                {
+                    regularBookmarkIcon.style.display = 'inline-block';
+                    solidBookmarkIcon.style.display = 'none';
+                } 
+                else 
+                {
+                    regularBookmarkIcon.style.display = 'none';
+                    solidBookmarkIcon.style.display = 'inline-block';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
