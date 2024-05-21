@@ -54,7 +54,7 @@ Route::get('/api/history', [
     SearchController::class, 'history'
 ])->middleware(['auth', 'verified'])->name('api.history');
 
-Route::post('/savePost/{idPost}', [
+Route::post('/save-post/{idPost}', [
     BookmarkController::class, 'create'
 ])->middleware(['auth', 'verified'])->name('bookmark');
 

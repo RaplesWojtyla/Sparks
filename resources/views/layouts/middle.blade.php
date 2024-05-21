@@ -90,15 +90,15 @@ use Illuminate\Support\Facades\Auth;
                 </div>
 
                 <div class="action-buttons">
-                    <div class="interaction-buttons" data-post-id="{{ $post->id }}">
+                    <div class="interaction-buttons">
                         <?php
-                        $displayRegularHeart = 'block';
-                        $displaySolidHeart = 'none';
+                            $displayRegularHeart = 'block;';
+                            $displaySolidHeart = 'none;';
                         ?>
                         @if ($post->likes->where('id_users', Auth::user()->id)->first() != NULL)
                         <?php
-                        $displayRegularHeart = 'none;';
-                        $displaySolidHeart = 'block;';
+                            $displayRegularHeart = 'none;';
+                            $displaySolidHeart = 'block;';
                         ?>
                         @endif
                         <button id="likeButton" class="like-button" data-post-id="{{ $post->id }}" data-likes-count-id="likes-count-{{$post->id}}">
@@ -109,18 +109,20 @@ use Illuminate\Support\Facades\Auth;
                     </div>
                     <div class="bookmark">
                         <?php
-                            $displayRegularBookmark = 'inline-block';
-                            $displaySolidBookmark = 'none';
+                            $displayRegularBookmark = 'inline-block;';
+                            $displaySolidBookmark = 'none;';
                         ?>
-                        @if ($post->bookmarks->where('id_user', Auth::user()->id)->first() != NULL)
+                        @if ($post->bookmarks->where('id_users', Auth::user()->id)->first() != NULL)
                             <?php
                                 $displayRegularBookmark = 'none;';
                                 $displaySolidBookmark = 'inline-block;';
                             ?>
                         @endif
-                        <span><i class="fa-regular fa-bookmark" style="display: {{$displayRegularBookmark}};"></i>
-                            <i class="fa-solid fa-bookmark" style="display: {{$displaySolidBookmark}};"></i>
-                        </span>
+
+                        <button id="bookmark-button", data-bookmark-id="{{$post->id}}">
+                            <i class="fa-regular fa-bookmark" style="display: {{$displayRegularBookmark}}"></i>
+                            <i class="fa-solid fa-bookmark" style="display: {{$displaySolidBookmark}}"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -154,6 +156,8 @@ use Illuminate\Support\Facades\Auth;
     <!----------------- END OF MIDDLE -------------------->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Like Button -->
     <script>
         $(document).ready(function() {
             $(document).on('click', '#likeButton', function() {
@@ -183,31 +187,41 @@ use Illuminate\Support\Facades\Auth;
                         }
                     }
                 });
-            })
-        });
-    </script>
-
-    <script>
-        const bookmarks = document.querySelectorAll('.bookmark');
-
-        bookmarks.forEach(bookmark => {
-            bookmark.addEventListener('click', () => {
-                const regularBookmarkIcon = bookmark.querySelector('.fa-regular.fa-bookmark');
-                const solidBookmarkIcon = bookmark.querySelector('.fa-solid.fa-bookmark');
-
-                if (regularBookmarkIcon.style.display === 'none') 
-                {
-                    regularBookmarkIcon.style.display = 'inline-block';
-                    solidBookmarkIcon.style.display = 'none';
-                } 
-                else 
-                {
-                    regularBookmarkIcon.style.display = 'none';
-                    solidBookmarkIcon.style.display = 'inline-block';
-                }
             });
         });
     </script>
+
+    <!-- Bookmarks Button -->
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#bookmark-button', function() {
+                const bookmarkId = $(this).data('bookmark-id');
+                const bookmarkIcon = $(this).find('.fa-regular.fa-bookmark')
+                const solidBookmarkIcon = $(this).find('.fa-solid.fa-bookmark')
+
+                $.ajax({
+                    url: '/save-post/' + bookmarkId,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function() {
+                        if (bookmarkIcon.css('display') === 'none')
+                        {
+                            bookmarkIcon.css('display', 'inline-block');
+                            solidBookmarkIcon.css('display', 'none');
+                        }
+                        else
+                        {
+                            bookmarkIcon.css('display', 'none');
+                            solidBookmarkIcon.css('display', 'inline-block');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
