@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
@@ -32,10 +33,10 @@ Route::post('registrasi/upload-image', [
     RegisteredUserController::class, 'uploadImage'
 ])->middleware('guest');
 
+
 Route::get('/dashboard', [
     HomeController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('dashboard');
-
 
 Route::post('/post/{idPost}/like', [
     HomeController::class, 'countLikes'
@@ -52,6 +53,10 @@ Route::get('/api/search', [
 Route::get('/api/history', [
     SearchController::class, 'history'
 ])->middleware(['auth', 'verified'])->name('api.history');
+
+Route::post('/savePost/{idPost}', [
+    BookmarkController::class, 'create'
+])->middleware(['auth', 'verified'])->name('bookmark');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
