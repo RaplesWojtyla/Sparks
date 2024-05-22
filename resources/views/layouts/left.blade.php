@@ -65,6 +65,11 @@
         </div>
         <!----------------- END OF SIDEBAR -------------------->
         <label class="btn btn-primary" for="create-post">Create Post</label>
+        @include('layouts.popup')
+        
+
+
+        
     </div>
     <!----------------- THEME CUSTOMIZATION -------------------->
 
