@@ -233,3 +233,8 @@ Bg3.addEventListener('click', () => {
     changeddbackground('dimgray');
 });
 
+const exploreMenuItem = document.getElementById('exploreMenuItem');
+        exploreMenuItem.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            searchInput.focus();
+        });
