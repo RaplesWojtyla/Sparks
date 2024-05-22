@@ -46,7 +46,7 @@
                 <span><i class="uil uil-envelope-alt"></i></span>
                 <h3>Messages</h3>
             </a>
-            <a class="menu-item" href="">
+            <a class="menu-item" href="{{ route('profile.show') }}?section=saved">
                 <span><i class="uil uil-bookmark"></i></span>
                 <h3>Bookmarks</h3>
             </a>
@@ -54,7 +54,7 @@
                 <span><i class="uil uil-palette"></i></span>
                 <h3>Theme</h3>
             </a>
-            <a class="menu-item">
+            <a class="menu-item" href="route('profile.edit')">
                 <span><i class="uil uil-setting"></i></span>
                 <h3>Setting</h3>
             </a>
@@ -68,13 +68,6 @@
     </div>
     <!----------------- THEME CUSTOMIZATION -------------------->
 
-    <!-- <script>
-        const exploreMenuItem = document.getElementById('exploreMenuItem');
-        exploreMenuItem.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default link behavior
-            searchInput.focus();
-        });
-    </script> -->
 </body>
 
 </html>

@@ -114,12 +114,6 @@ nav .container {
 
 /* =============== searchbar ============== */
 .search-container {
-    width: 650px; /* Adjust width as needed */
-    background-color: #f8f9fa; /* Light background color */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    margin: 0 auto; /* Center the container horizontally */
-    padding: 20px; /* Inner padding */
     position: relative;
   }
   
@@ -130,7 +124,7 @@ nav .container {
     border-radius: 10px; /* Match the container's border radius */
     padding: 10px; /* Increase padding for better spacing */
     background-color: white;
-    width: 100%;
+    width: 650px;
 }
 .search-bar i {
     margin-right: 10px; /* Increase spacing */
@@ -194,7 +188,7 @@ nav .create {
 /* =============== Main ============== */
 main {
     position: relative;
-    top: 3rem;
+    top: 1.5rem;
 }
 
 main .container {
