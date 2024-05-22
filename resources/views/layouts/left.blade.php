@@ -46,7 +46,7 @@
                 <span><i class="uil uil-envelope-alt"></i></span>
                 <h3>Messages</h3>
             </a>
-            <a class="menu-item" href="{{ route('profile.show') }}?section=saved">
+            <a class="menu-item" href="{{ route('profile.show', Auth::user()->id) }}?section=saved">
                 <span><i class="uil uil-bookmark"></i></span>
                 <h3>Bookmarks</h3>
             </a>
@@ -54,7 +54,7 @@
                 <span><i class="uil uil-palette"></i></span>
                 <h3>Theme</h3>
             </a>
-            <a class="menu-item" href="route('profile.edit')">
+            <a class="menu-item" href="{{ route('profile.edit') }}">
                 <span><i class="uil uil-setting"></i></span>
                 <h3>Setting</h3>
             </a>

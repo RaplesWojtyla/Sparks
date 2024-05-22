@@ -119,7 +119,7 @@ use Illuminate\Support\Facades\Auth;
                             ?>
                         @endif
 
-                        <button id="bookmark-button", data-bookmark-id="{{$post->id}}">
+                        <button id="bookmark-button" data-bookmark-id="{{$post->id}}">
                             <i class="fa-regular fa-bookmark" style="display: {{$displayRegularBookmark}}"></i>
                             <i class="fa-solid fa-bookmark" style="display: {{$displaySolidBookmark}}"></i>
                         </button>
