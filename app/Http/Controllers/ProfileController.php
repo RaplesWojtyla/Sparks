@@ -29,7 +29,13 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'username' => ['required', 'string', 'max:25', 'alpha_num'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
+            'profile_picture' => [''],
+            'bio' => ['nullable', 'string']
+        ]);
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
@@ -53,7 +59,15 @@ class ProfileController extends Controller
             Storage::deleteDirectory('posts/tmp/' . $tmpFile->folder);
             $tmpFile->delete();
         }
-        else $request->user()->save();
+        else
+        {
+            User::where('id', Auth::user()->id)->update([
+                'username' => $request->username,
+                'name' => $request->name,
+                'email' => $request->email,
+                'bio' => $request->bio,
+            ]);
+        }
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
