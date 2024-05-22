@@ -20,11 +20,12 @@ class SearchController extends Controller
         $users = User::where('name', 'LIKE', "%{$query}%")
             ->orWhere('username', 'LIKE', "%{$query}%")
             ->get()
-            ->map(function ($user) {
+            ->map(function ($searchUser) {
                 return [
-                    'name' => $user->name,
-                    'username' => $user->username,
-                    'profile_picture' => $user->profile_picture,
+                    'id_user' => $searchUser->id,
+                    'name' => $searchUser->name,
+                    'username' => $searchUser->username,
+                    'profile_picture' => $searchUser->profile_picture,
                 ];
             });
 
@@ -35,6 +36,7 @@ class SearchController extends Controller
             ->map(function ($historyItem) {
                 $searchedUser = User::find($historyItem->id_searched);
                 return [
+                    'id_user' => $searchedUser->id,
                     'name' => $searchedUser->name,
                     'username' => $searchedUser->username,
                     'profile_picture' => $searchedUser->profile_picture,
@@ -58,6 +60,7 @@ class SearchController extends Controller
             ->map(function ($historyItem) {
                 $searchedUser = User::find($historyItem->id_searched);
                 return [
+                    'id_user' => $searchedUser->id,
                     'name' => $searchedUser->name,
                     'username' => $searchedUser->username,
                     'profile_picture' => $searchedUser->profile_picture,

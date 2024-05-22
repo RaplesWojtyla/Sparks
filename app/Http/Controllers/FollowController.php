@@ -29,6 +29,6 @@ class FollowController extends Controller
 
         Auth::user()->following()->detach($user);
 
-        return back()->with('success', 'Followed');
+        return back()->with('success', 'Unfollowed');
     }
 }

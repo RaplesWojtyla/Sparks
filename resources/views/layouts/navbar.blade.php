@@ -69,6 +69,7 @@
             </div>
         </div>
     </nav>
+    
     <script>
         const searchInput = document.getElementById('searchInput');
         const searchResultsList = document.getElementById('searchResultList');
@@ -78,17 +79,17 @@
         fetch('/api/history')
             .then(response => response.json())
             .then(data => {
-                
                 searchResultsList.innerHTML = '';
-
                 
                 if (data.history && data.history.length > 0) {
                     const historyList = data.history.map(historyItem => `
                         <li>
                             <img src="${historyItem.profile_picture}" alt="${historyItem.name} photo">
                             <div>
-                                <b class="result-name">${historyItem.name}</b>
-                                <div class="result-details">${historyItem.username}</div>
+                                <a href="profile/${historyItem.id_user}">
+                                    <b class="result-name">${historyItem.name}</b>
+                                    <div class="result-details">${historyItem.username}</div>
+                                </a>
                             </div>
                         </li>
                     `).join('');
@@ -105,18 +106,18 @@
             if (searchQuery.length > 0) {
                 fetch(`/api/search?query=${searchQuery}`)
                     .then(response => response.json())
-                    .then(data => {
-                        
+                    .then(data => {  
                         searchResultsList.innerHTML = '';
-
                         
                         if (data.results && data.results.length > 0) {
                             const resultList = data.results.map(result => `
                                 <li>
                                     <img src="${result.profile_picture}" alt="${result.name} photo">
                                     <div>
-                                        <b class="result-name">${result.name}</b>
-                                        <div class="result-details">${result.username}</div>
+                                        <a href="profile/${result.id_user}">
+                                            <b class="result-name">${result.name}</b>
+                                            <div class="result-details">${result.username}</div>
+                                        </a>
                                     </div>
                                 </li>
                             `).join('');
@@ -127,8 +128,8 @@
                             searchResultContainer.style.display = 'block';
                         }
                     });
-            } else {
-                
+            } 
+            else {
                 fetch('/api/history')
                     .then(response => response.json())
                     .then(data => {
@@ -139,8 +140,10 @@
                                 <li>
                                     <img src="${historyItem.profile_picture}" alt="${historyItem.name} photo">
                                     <div>
-                                        <b class="result-name">${historyItem.name}</b>
-                                        <div class="result-details">${historyItem.username}</div>
+                                        <a href="profile/${historyItem.id_user}">
+                                            <b class="result-name">${historyItem.name}</b>
+                                            <div class="result-details">${historyItem.username}</div>
+                                        </a>
                                     </div>
                                 </li>
                             `).join('');
@@ -153,13 +156,11 @@
             }
         });
 
-        
         document.addEventListener('click', (event) => {
             if (!searchResultContainer.contains(event.target) && !searchInput.contains(event.target)) {
                 searchResultContainer.style.display = 'none';
             }
         });
-
     </script>
 </body>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,10 @@ Route::post('/follow/{user}', [
     FollowController::class, 'follow'
 ])->middleware(['auth', 'verified'])->name('follow');
 
+Route::post('/unfollow/{user}', [
+    FollowController::class, 'unfollow'
+])->middleware(['auth', 'verified'])->name('unfollow');
+
 Route::get('/api/search', [
     SearchController::class, 'search'
 ])->middleware(['auth', 'verified'])->name('api.searchbar');
@@ -59,12 +64,15 @@ Route::post('/save-post/{idPost}', [
 ])->middleware(['auth', 'verified'])->name('bookmark');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [SettingController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [SettingController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [SettingController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/myprofile', [ProfileController::class, 'showmine'])->name('profile.show');
+Route::get('/profile/{idUser}', [
+    ProfileController::class, 'index'
+])->middleware(['auth', 'verified'])->name('profile.show');
+
 
 
 require __DIR__.'/auth.php';
