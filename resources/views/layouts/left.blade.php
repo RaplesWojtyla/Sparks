@@ -64,15 +64,14 @@
             </a>
         </div>
         <!----------------- END OF SIDEBAR -------------------->
-        <label class="btn btn-primary" for="create-post">Create Post</label>
-        @include('layouts.popup')
+        <label class="btn btn-primary" for="create-post" id="create">Create Post</label>
         
 
 
         
     </div>
     <!----------------- THEME CUSTOMIZATION -------------------->
-
+   
 </body>
 
 </html>
