@@ -86,7 +86,11 @@ use Illuminate\Support\Facades\Auth;
                 </div>
 
                 <div class="photo">
-                    <img src="./images/feed-3.jpg">
+                    @if ($post->filePosts->first() != NULL)    
+                        @foreach ($post->filePosts as $filepost)
+                            <img src="{{ asset($filepost->berkas) }}">
+                        @endforeach
+                    @endif
                 </div>
 
                 <div class="action-buttons">
