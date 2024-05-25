@@ -21,6 +21,7 @@
             </div>
         </div>
         @include('layouts.theme')
+        @include('layouts.popup')
     </main>
 
     <script src="{{ asset('js/index.js') }}"></script>
