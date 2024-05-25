@@ -5,6 +5,7 @@ use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SearchController;
@@ -26,8 +27,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/upload-image', [
-    FileController::class, 'uploadImage'
+Route::post('/upload-file', [
+    FileController::class, 'uploadFile'
 ])->middleware(['auth', 'verified']);
 
 Route::post('registrasi/upload-image', [
@@ -38,6 +39,10 @@ Route::post('registrasi/upload-image', [
 Route::get('/dashboard', [
     HomeController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::post('/create-post', [
+    PostController::class, 'create'
+])->middleware(['auth', 'verified'])->name('create.post');
 
 Route::post('/post/{idPost}/like', [
     HomeController::class, 'countLikes'

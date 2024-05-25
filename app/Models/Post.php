@@ -41,4 +41,9 @@ class Post extends Model
     {
         return $this->hasMany(Bookmark::class, 'id_post');
     }
+    
+    public function filePosts()
+    {
+        return $this->hasMany(FilePost::class, 'id_post');
+    }
 }
