@@ -35,25 +35,26 @@
 						{{ $user->bio }}
 					</p>
 				</div>
+				<a href="{{ route('dashboard') }}" class="btn">Sparks</a>
 			</div>
 			<div class="right__col">
 				<nav>
 					@if (Auth::user()->following->contains($user->id))
-						<form action="{{ route('unfollow', $user) }}" method="post">
-							@csrf
-							<button>Unfollow</button>
-						</form>
-					@else	
-						<form action="{{ route('follow', $user) }}" method="post">
-							@csrf
-							<button>Follow</button>
-						</form>
+					<form action="{{ route('unfollow', $user) }}" method="post">
+						@csrf
+						<button>Unfollow</button>
+					</form>
+					@else
+					<form action="{{ route('follow', $user) }}" method="post">
+						@csrf
+						<button>Follow</button>
+					</form>
 					@endif
 				</nav>
 
 				<div class="photos">
 					@foreach ($posts as $post)
-						<img src="" alt="Photo postingan" />
+					<img src="" alt="Photo postingan" />
 					@endforeach
 				</div>
 			</div>

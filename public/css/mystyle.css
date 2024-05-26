@@ -214,3 +214,24 @@ nav ul li a.active {
     margin-top: 0;
   }
 }
+.btn {
+  padding: 10px 10px;
+  font-size: 16px;
+  color: #373599;
+  background-color: #7700ff25;
+  border: none;
+  border-radius: 50px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn:hover {
+  background-color: #e9f0f700;
+}
+
+.left__col .btn {
+  margin-top: 30px; /* Adjust this value to move the button further down */
+}
