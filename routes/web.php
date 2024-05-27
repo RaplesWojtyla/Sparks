@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -45,8 +47,16 @@ Route::post('/create-post', [
 ])->middleware(['auth', 'verified'])->name('create.post');
 
 Route::post('/post/{idPost}/like', [
-    HomeController::class, 'countLikes'
+    LikeController::class, 'create'
 ])->middleware(['auth', 'verified'])->name('post.like');
+
+Route::post('/post/{idPost}/comment', [
+    CommentController::class, 'create'
+])->middleware(['auth', 'verified'])->name('post.comment');
+
+Route::post('/post/{idPost}/save', [
+    BookmarkController::class, 'create'
+])->middleware(['auth', 'verified'])->name('post.bookmark');
 
 Route::post('/follow/{user}', [
     FollowController::class, 'follow'
@@ -63,10 +73,6 @@ Route::get('/api/search', [
 Route::get('/api/history', [
     SearchController::class, 'history'
 ])->middleware(['auth', 'verified'])->name('api.history');
-
-Route::post('/save-post/{idPost}', [
-    BookmarkController::class, 'create'
-])->middleware(['auth', 'verified'])->name('bookmark');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [SettingController::class, 'edit'])->name('profile.edit');
