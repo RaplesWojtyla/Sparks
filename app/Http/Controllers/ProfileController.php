@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
+use App\Models\History;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ class ProfileController extends Controller
 {
     public function index($userId)
     {
-        $user = User::where('id', $userId)->first();
+        $user = User::find($userId);
         $posts = Post::where('id_users', $userId)->get();
         
         if ($user == Auth::user())
@@ -27,6 +28,11 @@ class ProfileController extends Controller
         }
         else
         {
+            History::create([
+                'id_users' => Auth::user()->id,
+                'id_searched' => $user->id,
+            ]);
+            
             return view('urprofile', [
                 'user' => $user,
                 'posts' => $posts,
