@@ -75,31 +75,6 @@
         const searchResultsList = document.getElementById('searchResultList');
         const searchResultContainer = document.querySelector('.search-result');
 
-        
-        fetch('/api/history')
-            .then(response => response.json())
-            .then(data => {
-                searchResultsList.innerHTML = '';
-                
-                if (data.history && data.history.length > 0) {
-                    const historyList = data.history.map(historyItem => `
-                        <li>
-                            <img src="${historyItem.profile_picture}" alt="${historyItem.name} photo">
-                            <div>
-                                <a href="profile/${historyItem.id_user}">
-                                    <b class="result-name">${historyItem.name}</b>
-                                    <div class="result-details">${historyItem.username}</div>
-                                </a>
-                            </div>
-                        </li>
-                    `).join('');
-                    searchResultsList.innerHTML += `<li><b>Search History</b></li>${historyList}`;
-                    searchResultContainer.style.display = 'block';
-                } else {
-                    searchResultContainer.style.display = 'none';
-                }
-            });
-
         searchInput.addEventListener('input', () => {
             const searchQuery = searchInput.value.trim().toLowerCase();
 
