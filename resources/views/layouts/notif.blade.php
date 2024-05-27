@@ -6,7 +6,7 @@ use Illuminate\Support\Carbon;
                        <div class="notifications-popup">
                             <?php $i = 0 ?>
                             @foreach ($notifications as $notification)
-                                @if ($notification->id_post != NULL && $notification->posts->id_users == Auth::user()->id)
+                                @if ($notification->id_post != NULL && $notification->posts->id_users == Auth::user()->id && $notification->id_users != Auth::user()->id)
                                     <?php $i++ ?>
                                     <div>
                                         <div class="profile-photo">
@@ -22,7 +22,7 @@ use Illuminate\Support\Carbon;
                                             <small class="text-muted">{{Carbon::parse($notification->created_at)->format('d-m-Y')}}</small>
                                         </div>
                                     </div>
-                                @elseif ($notification->stories != NULL && $notification->stories->id_users == Auth::user()->id)
+                                @elseif ($notification->stories != NULL && $notification->stories->id_users == Auth::user()->id && $notification->id_users != Auth::user()->id)
                                     <?php $i++ ?>
                                     <div>
                                         <div class="profile-photo">
@@ -38,7 +38,7 @@ use Illuminate\Support\Carbon;
                                             <small class="text-muted">{{Carbon::parse($notification->created_at)->format('d-m-Y')}}</small>
                                         </div>
                                     </div> 
-                                @elseif ($notification->following != NULL && $notification->following->id == Auth::user()->id)
+                                @elseif ($notification->following != NULL && $notification->following->id == Auth::user()->id && $notification->id_users != Auth::user()->id)
                                     <?php $i++ ?>
                                     <div>
                                         <div class="profile-photo">

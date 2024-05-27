@@ -33,7 +33,9 @@
                                 <img src="{{ asset($suggestUser->profile_picture) }}">
                             </div>
                             <div>
-                                <h5>{{ $suggestUser->name }}</h5>
+                                <a href="{{ route('profile.show', $suggestUser->id)}}">
+                                    <h5>{{ $suggestUser->name }}</h5>
+                                </a>
                             </div>
                         </div>
                         <div class="action">
@@ -60,7 +62,9 @@
                                 <img src="{{ asset($follback->profile_picture) }}">
                             </div>
                             <div>
-                                <h5>{{ $follback->name }}</h5>
+                                <a href="{{ route('profile.show', $follback->id)}}">
+                                    <h5>{{ $follback->name }}</h5>
+                                </a>
                             </div>
                         </div>
                         <div class="action">

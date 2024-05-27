@@ -15,21 +15,20 @@ class Comment extends Model
         'id_commenter',
         'id_post',
         'comment',
-        'id_parent_commenter',
     ];
 
     public function users()
     {
-        $this->belongsTo(User::class, 'id_commenter');
+        return $this->belongsTo(User::class, 'id_commenter');
     }
 
     public function post()
     {
-        $this->belongsTo(Post::class, 'id_post');
+        return $this->belongsTo(Post::class, 'id_post');
     }
 
     public function notifications()
     {
-        $this->hasMany(Post::class, 'id_comment');
+        return $this->hasMany(Post::class, 'id_comment');
     }
 }
