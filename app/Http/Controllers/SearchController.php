@@ -10,7 +10,6 @@ use App\Models\History;
 
 class SearchController extends Controller
 {
-    //
     public function search(Request $request)
     {
         $query = $request->get('query');
@@ -29,7 +28,6 @@ class SearchController extends Controller
                 ];
             });
 
-       
         $history = History::where('id_users', $user->id)
             ->limit(8)
             ->get()
@@ -52,7 +50,6 @@ class SearchController extends Controller
     public function history()
     {
         $user = Auth::user();
-
         
         $history = History::where('id_users', $user->id)
             ->limit(8)
