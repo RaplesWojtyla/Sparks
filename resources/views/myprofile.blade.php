@@ -50,17 +50,17 @@
 
                 <div class="photos" id="post">
                     @foreach ($posts as $post)
-
-                    <img src="{{ asset('img/img_1.avif') }}" alt="Photo postingan" />
-
+						@if ($post->filePosts->first() != NULL)
+                        	<img src="{{ asset($post->filePosts->first()->berkas) }}" alt="Photo postingan" />
+						@endif
                     @endforeach
                 </div>
 
                 <div class="photos" id="saved" style="display: none;">
                     @foreach ($bookmarks as $bookmark)
-
-                    <img src="{{ asset('img/img_1.avif') }}" alt="Photo postingan yang di save" />
-
+                        @if ($bookmark->post->filePosts->first() != NULL)
+                            <img src="{{ asset($bookmark->post->filePosts->first()->berkas) }}" alt="Photo postingan yang di save" />
+                        @endif
                     @endforeach
                 </div>
             </div>

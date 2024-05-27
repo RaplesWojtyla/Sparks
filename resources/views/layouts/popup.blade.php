@@ -16,11 +16,12 @@
         <div class="wrapper">
             <section class="post">
                 <header>Create Post</header>
-                <form action="#">
+                <form action="{{ route('create.post') }}" method="post" enctype="multipart/form-data">
+                @csrf
                     <div class="content">
-                        <img src="icons/logo.png" alt="logo">
+                        <img src="{{ asset(Auth::user()->profile_picture) }}" alt="user pp">
                         <div class="details">
-                            <p>Sparks</p>
+                            <p>{{Auth::user()->name}}</p>
                             <div class="privacy">
                                 <i class="fas fa-user-friends"></i>
                                 <span>Friends</span>
@@ -28,20 +29,14 @@
                             </div>
                         </div>
                     </div>
-                    <textarea placeholder="What's on your mind, Sparks?" spellcheck="false" required></textarea>
+                    <textarea name="caption" placeholder="What's on your mind, Sparks?" spellcheck="false" required></textarea>
                     <div class="theme-emoji">
                         <img src="icons/theme.svg" alt="theme">
                         <img src="icons/smile.svg" alt="smile">
                     </div>
-                    <div class="options">
-                        <p>Add to Your Post here</p>
-                        <ul class="list">
-                            <li><img src="icons/gallery.svg" alt="gallery"></li>
-                            <li><img src="icons/tag.svg" alt="tag"></li>
-                            <li><img src="icons/emoji.svg" alt="emoji"></li>
-                            <li><img src="icons/mic.svg" alt="mic"></li>
-                            <li><img src="icons/more.svg" alt="more"></li>
-                        </ul>
+                    <div class="input-box">
+                        <label>Add to Your Post here</label>
+                        <input name="file_post" type="file">
                     </div>
                     <button>Post</button>
                 </form>

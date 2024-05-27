@@ -54,8 +54,10 @@
 
 				<div class="photos">
 					@foreach ($posts as $post)
-					<img src="" alt="Photo postingan" />
-					@endforeach
+						@if ($post->filePosts->first() != NULL)
+              <img src="{{ asset($post->filePosts->first()->berkas) }}" alt="Photo postingan" />
+					  @endif
+          @endforeach
 				</div>
 			</div>
 		</div>
