@@ -54,8 +54,15 @@
 
 				<div class="photos">
 					@foreach ($posts as $post)
-						<img src="" alt="Photo postingan" />
+<<<<<<<<< Temporary merge branch 1
+						@if ($post->filePosts->first() != NULL)
+                        	<img src="{{ asset($post->filePosts->first()->berkas) }}" alt="Photo postingan" />
+						@endif
+                    @endforeach
+=========
+					<img src="" alt="Photo postingan" />
 					@endforeach
+>>>>>>>>> Temporary merge branch 2
 				</div>
 			</div>
 		</div>

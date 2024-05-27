@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
+use App\Models\Comment;
 use App\Models\Follows;
 use App\Models\Like;
 use App\Models\Notification;
@@ -44,41 +45,5 @@ class HomeController extends Controller
     public function countComments()
     {
 
-    }
-
-    public function countLikes($postId)
-    {
-        $user = Auth::user();
-        $post = Post::findOrFail($postId);
-
-        $liked = Like::where('id_post', $post->id)->where('id_users', $user->id)->first();
-
-        if ($liked) 
-        {
-            $liked->delete();
-
-            Notification::where('id_post', $post->id)
-                ->where('id_users', $user->id)
-                ->where('tipe', 'like')
-                ->delete();
-        } 
-        else 
-        {
-            Like::create([
-                'id_users' => $user->id,
-                'id_post' => $post->id,
-                'tipe' => '1'
-            ]);
-
-            Notification::create([
-                'id_users' => $user->id,
-                'id_post' => $post->id,
-                'tipe' => 'like',
-            ]);
-        }
-
-        return response()->json([
-            'likesCount' => $post->likes()->count(),
-        ]);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Like;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -96,9 +95,11 @@ use Illuminate\Support\Facades\Auth;
                             <img src="{{ asset($post->users->profile_picture) }}">
                         </div>
                         <div class="info">
-                            <h3>{{ $post->users->name }}</h3>
-                            <small>{{Carbon::parse($post->created_at)->format('d-m-Y')}}</small>
-                            {{-- DB::table('post')->select(DB::raw('TIMESTAMPDIFF(DAY, created_at, NOW()) as duration'))->get(); --}}
+                            <a href="{{ route('profile.show', $post->id_users)}}">
+                                <h3>{{ $post->users->name }}</h3>
+                                <small>{{Carbon::parse($post->created_at)->format('d-m-Y')}}</small>
+                            </a>
+                            {{-- DB::table('post')->select(DB::raw('TIMESTAMPDIFF(DAY, created_at, NOW()) as duration'))->first()->duration --}}
                         </div>
                     </div>
                     <span class="edit">
@@ -107,10 +108,8 @@ use Illuminate\Support\Facades\Auth;
                 </div>
 
                 <div class="photo">
-                    @if ($post->filePosts->first() != NULL)    
-                        @foreach ($post->filePosts as $filepost)
-                            <img src="{{ asset($filepost->berkas) }}">
-                        @endforeach
+                    @if ($post->filePosts->first() != NULL)
+                        <img src="{{ asset($post->filePosts->first()->berkas) }}">
                     @endif
                 </div>
 
@@ -137,11 +136,12 @@ use Illuminate\Support\Facades\Auth;
                         $displayRegularBookmark = 'inline-block;';
                         $displaySolidBookmark = 'none;';
                         ?>
+
                         @if ($post->bookmarks->where('id_users', Auth::user()->id)->first() != NULL)
-                        <?php
-                        $displayRegularBookmark = 'none;';
-                        $displaySolidBookmark = 'inline-block;';
-                        ?>
+                            <?php
+                            $displayRegularBookmark = 'none;';
+                            $displaySolidBookmark = 'inline-block;';
+                            ?>
                         @endif
 
                         <button id="bookmark-button" data-bookmark-id="{{$post->id}}">
@@ -152,47 +152,58 @@ use Illuminate\Support\Facades\Auth;
                 </div>
 
                 <div class="liked-by">
-                    <!-- <span><img src="./images/profile-11.jpg"></span>
-                            <span><img src="./images/profile-5.jpg"></span>
-                            <span><img src="./images/profile-16.jpg"></span> -->
                     <p id="likes-count-{{$post->id}}">{{ $post->likes()->count() }}</p>
-                    <!-- <p>Liked by <b>Diana Rose</b> and <b>2, 323 others</b></p> -->
                 </div>
 
                 <div class="caption">
                     <p><b>{{ $post->users->username }}</b> {{ $post->caption }}
-                        <span class="harsh-tag">#lifestyle</span>
                     </p>
                 </div>
 
                 <div class="comments text-muted">
-                    @if ($post->commments()->count() > 0)
-                    View All {{ $post->commments()->count() }} Comments
-                    @else
-                    No Comment Yet
-                    @endif
-
+                    <span id="comments-count-{{$post->id}}">
+                        @if ($post->commments()->count() == 0)
+                            No Comment Yet
+                        @elseif($post->commments()->count() == 1)
+                            View {{ $post->commments()->count()}} comment
+                        @elseif ($post->commments()->count() > 3)
+                            View {{ $post->commments()->count() - 3 }} more comments
+                        @else 
+                            View {{ $post->commments()->count()}} comments
+                        @endif
+                    </span>
                 </div>
                 <!-- Input komentar -->
                 <!-- Daftar komentar -->
-                    <div class="caption">
-                        <p><b>Username</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                    <div class="caption">
-                        <p><b>Username2</b> Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
+                @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first())
+                    <?php $i = 1 ?>
+                    @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
+                        <div id="comments-{{$post->id}}" class="caption">
+                            <p>
+                                <a href="{{ route('profile.show', $comment->id_commenter)}}">
+                                    <b>{{ $comment->users->username }}</b> 
+                                </a>
+                                {{ $comment->comment }}
+                            </p>
+                        </div>
+
+                        @if ($i == 3)
+                            @break
+                        @endif
+                        <?php $i++ ?>
+                    @endforeach
+                @endif
 
                 <!-- Input komentar -->
                 <div class="comment-input">
-                    <form id="commentForm">
+                    <form id="commentForm" data-post-id="{{$post->id}}" data-comment-id="comments-{{$post->id}}" data-comments-count-id="comments-count-{{$post->id}}">
+                        @csrf
                         <div class="input-wrapper">
-                            <input type="text" id="commentText" placeholder="Add a comment...">
-                            <button type="submit">Post</button>
+                            <input type="text" id="commentText" name="comment" placeholder="Add a comment...">
+                            <button id="comments-button" type="submit">Send</button>
                         </div>
                     </form>
                 </div>
-
-
             </div>
             @endforeach
         </div>
@@ -242,7 +253,7 @@ use Illuminate\Support\Facades\Auth;
                 const solidBookmarkIcon = $(this).find('.fa-solid.fa-bookmark')
 
                 $.ajax({
-                    url: '/save-post/' + bookmarkId,
+                    url: '/post/' + bookmarkId + '/save',
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}'
@@ -261,6 +272,32 @@ use Illuminate\Support\Facades\Auth;
         });
     </script>
 
+    <script>
+        $(document).ready(function() {
+            $(document).on('submit', '#commentForm', function(e) {
+                e.preventDefault();
+
+                const postId = $(this).data('post-id');
+                const commentsPostId = $(this).data('comment-id')
+                const commentsCounterId = $(this).data('comments-count-id');
+
+                $.ajax({
+                    url: '/post/' + postId + '/comment',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#' + commentsPostId).prepend('<p><b>' + response.username + '</b> ' + response.comment + '</p>')
+                        if (response.commentsCount > 3)
+                            $('#' + commentsCounterId).text('View more ' + (response.commentsCount - 3) + ' comments');
+                        else if(response.commentsCount == 1) 
+                            $('#' + commentsCounterId).text('View ' + response.commentsCount + ' comment');
+                        else $('#' + commentsCounterId).text('View ' + (response.commentsCount) + ' comments');
+                        $('input[name="comment"]').val('');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
