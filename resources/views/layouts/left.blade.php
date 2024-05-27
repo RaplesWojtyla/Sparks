@@ -58,17 +58,13 @@
                 <span><i class="uil uil-setting"></i></span>
                 <h3>Setting</h3>
             </a>
-            <a class="menu-item">
+            <a class="menu-item" href="{{ route('info') }}">
                 <span><i class="uil uil-info-circle"></i></span>
                 <h3>Info</h3>
             </a>
         </div>
         <!----------------- END OF SIDEBAR -------------------->
-        <label class="btn btn-primary" for="create-post" id="create">Create Post</label>
-        
-
-
-        
+        <label class="btn btn-primary" for="create-post" id="create">Create Post</label>     
     </div>
     <!----------------- THEME CUSTOMIZATION -------------------->
    

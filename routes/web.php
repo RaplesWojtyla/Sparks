@@ -78,6 +78,8 @@ Route::get('/profile/{idUser}', [
     ProfileController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('profile.show');
 
-
+Route::get('info', function(){
+    return view('info');
+})->name('info');
 
 require __DIR__.'/auth.php';

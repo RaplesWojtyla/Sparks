@@ -33,10 +33,7 @@
                 <div class="content">
                     <p>{{$user->bio}}</p>
                 </div>
-
-                <!-- <div class="">
-              <a href="{{ route('dashboard') }}">Sparks</a>
-            </div> -->
+                <a href="{{ route('dashboard') }}" class="btn">Sparks</a>
             </div>
             <div class="right__col">
                 <nav>

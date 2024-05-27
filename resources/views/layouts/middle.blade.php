@@ -26,18 +26,39 @@ use Illuminate\Support\Facades\Auth;
     <div class="middle">
         <!----------------- STORIES -------------------->
         <div class="stories">
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/profile-8.jpg">
-                </div>
-                <p class="name">Your Story</p>
+            <div class="story" style="background-image: url('../images/sparks.png');">
+                <span></span>
+                <button class="add-story-btn" id="openStoryModalBtn">+</button>
+
+                <p class="name">Add Your Story</p>
             </div>
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/profile-9.jpg">
+            <div class="story" onclick="showStory(0)">
+                <div class="profile-photo" style="background-image: url('./images/profile-8.jpg');">
+                    <img src="{{ asset('images/sparks.jpg') }}" alt="">
                 </div>
-                <p class="name">your friend's story</p>
+                <p class="name">Mixed media story</p>
             </div>
+            <!-- Story Modal -->
+            <div id="storyModal" class="modal">
+                <div class="story-modal-content">
+                    <div class="story-container">
+                        <div class="story-content">
+                            <img src="story1.jpg" alt="Story 1">
+                        </div>
+                        <div class="story-content">
+                            <video src="story2.mp4" controls></video>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="prev-btn">&lt;</button>
+                        <button class="play-btn">&#9658;</button>
+                        <button class="next-btn">&gt;</button>
+                    </div>
+                    <span class="close" onclick="closeStoryModal()">&times;</span>
+                </div>
+            </div>
+
+
             <div class="story">
                 <div class="profile-photo">
                     <img src="./images/profile-10.jpg">
@@ -96,13 +117,13 @@ use Illuminate\Support\Facades\Auth;
                 <div class="action-buttons">
                     <div class="interaction-buttons">
                         <?php
-                            $displayRegularHeart = 'block;';
-                            $displaySolidHeart = 'none;';
+                        $displayRegularHeart = 'block;';
+                        $displaySolidHeart = 'none;';
                         ?>
                         @if ($post->likes->where('id_users', Auth::user()->id)->first() != NULL)
                         <?php
-                            $displayRegularHeart = 'none;';
-                            $displaySolidHeart = 'block;';
+                        $displayRegularHeart = 'none;';
+                        $displaySolidHeart = 'block;';
                         ?>
                         @endif
                         <button id="likeButton" class="like-button" data-post-id="{{ $post->id }}" data-likes-count-id="likes-count-{{$post->id}}">
@@ -113,14 +134,14 @@ use Illuminate\Support\Facades\Auth;
                     </div>
                     <div class="bookmark">
                         <?php
-                            $displayRegularBookmark = 'inline-block;';
-                            $displaySolidBookmark = 'none;';
+                        $displayRegularBookmark = 'inline-block;';
+                        $displaySolidBookmark = 'none;';
                         ?>
                         @if ($post->bookmarks->where('id_users', Auth::user()->id)->first() != NULL)
-                            <?php
-                                $displayRegularBookmark = 'none;';
-                                $displaySolidBookmark = 'inline-block;';
-                            ?>
+                        <?php
+                        $displayRegularBookmark = 'none;';
+                        $displaySolidBookmark = 'inline-block;';
+                        ?>
                         @endif
 
                         <button id="bookmark-button" data-bookmark-id="{{$post->id}}">
@@ -146,12 +167,32 @@ use Illuminate\Support\Facades\Auth;
 
                 <div class="comments text-muted">
                     @if ($post->commments()->count() > 0)
-                        View All {{ $post->commments()->count() }} Comments
+                    View All {{ $post->commments()->count() }} Comments
                     @else
-                        No Comment Yet
+                    No Comment Yet
                     @endif
 
                 </div>
+                <!-- Input komentar -->
+                <!-- Daftar komentar -->
+                    <div class="caption">
+                        <p><b>Username</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                    <div class="caption">
+                        <p><b>Username2</b> Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+
+                <!-- Input komentar -->
+                <div class="comment-input">
+                    <form id="commentForm">
+                        <div class="input-wrapper">
+                            <input type="text" id="commentText" placeholder="Add a comment...">
+                            <button type="submit">Post</button>
+                        </div>
+                    </form>
+                </div>
+
+
             </div>
             @endforeach
         </div>
@@ -179,13 +220,10 @@ use Illuminate\Support\Facades\Auth;
                     success: function(response) {
                         $('#' + likesCountId).text(response.likesCount);
 
-                        if (heartIcon.css('display') === 'none') 
-                        {
+                        if (heartIcon.css('display') === 'none') {
                             heartIcon.css('display', 'inline-block'); // Show the line heart icon
                             solidHeartIcon.css('display', 'none'); // Hide the solid heart icon
-                        } 
-                        else 
-                        {
+                        } else {
                             heartIcon.css('display', 'none'); // Hide the line heart icon
                             solidHeartIcon.css('display', 'inline-block'); // Show the solid heart icon
                         }
@@ -210,13 +248,10 @@ use Illuminate\Support\Facades\Auth;
                         _token: '{{ csrf_token() }}'
                     },
                     success: function() {
-                        if (bookmarkIcon.css('display') === 'none')
-                        {
+                        if (bookmarkIcon.css('display') === 'none') {
                             bookmarkIcon.css('display', 'inline-block');
                             solidBookmarkIcon.css('display', 'none');
-                        }
-                        else
-                        {
+                        } else {
                             bookmarkIcon.css('display', 'none');
                             solidBookmarkIcon.css('display', 'inline-block');
                         }
