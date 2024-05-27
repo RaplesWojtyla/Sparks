@@ -14,10 +14,11 @@ class ProfileController extends Controller
     {
         $user = User::where('id', $userId)->first();
         $posts = Post::where('id_users', $userId)->get();
-        $bookmarks = Bookmark::where('id_users', $userId)->get();
-
+        
         if ($user == Auth::user())
         {
+            $bookmarks = Bookmark::where('id_users', $userId)->get();
+            
             return view('myprofile', [
                 'user' => $user,
                 'posts' => $posts,
@@ -29,7 +30,6 @@ class ProfileController extends Controller
             return view('urprofile', [
                 'user' => $user,
                 'posts' => $posts,
-                'bookmarks' => $bookmarks,
             ]);
         } 
     }

@@ -54,7 +54,7 @@
 
 				<div class="photos">
 					@foreach ($posts as $post)
-					<img src="" alt="Photo postingan" />
+						<img src="" alt="Photo postingan" />
 					@endforeach
 				</div>
 			</div>
