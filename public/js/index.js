@@ -266,9 +266,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 //      STORY
   document.addEventListener('DOMContentLoaded', () => {
     const uploadModal = document.getElementById("uploadStoryModal");
-    const storyModal = document.getElementById("storyModal");
     const uploadBtn = document.getElementById("openStoryModalBtn");
-    const storyImage = document.getElementById("storyImage");
     const uploadSpan = uploadModal.getElementsByClassName("story-modal-close")[0];
     const storySpan = storyModal.getElementsByClassName("story-modal-close")[0];
   
@@ -278,10 +276,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   
     uploadSpan.onclick = function() {
       uploadModal.style.display = "none";
-    }
-  
-    storySpan.onclick = function() {
-      storyModal.style.display = "none";
     }
   
     window.onclick = function(event) {
@@ -307,106 +301,50 @@ document.addEventListener('DOMContentLoaded', (event) => {
       uploadModal.style.display = "none";
     });
   });
-//   document.addEventListener('DOMContentLoaded', function() {
-//     const storyContainer = document.querySelector('.story-container');
-//     const storyContents = document.querySelectorAll('.story-content');
-//     const totalStories = storyContents.length;
-//     let currentStoryIndex = 0;
-//     let isPlaying = false;
-//     let interval;
-
-//     function showStory(index) {
-//         storyContents.forEach((story, i) => {
-//             if (i === index) {
-//                 story.style.display = 'block';
-//             } else {
-//                 story.style.display = 'none';
-//             }
-//         });
-//     }
-
-//     function nextStory() {
-//         currentStoryIndex++;
-//         if (currentStoryIndex >= totalStories) {
-//             currentStoryIndex = 0;
-//         }
-//         showStory(currentStoryIndex);
-//     }
-
-//     function prevStory() {
-//         currentStoryIndex--;
-//         if (currentStoryIndex < 0) {
-//             currentStoryIndex = totalStories - 1;
-//         }
-//         showStory(currentStoryIndex);
-//     }
-
-//     function play() {
-//         interval = setInterval(() => {
-//             nextStory();
-//         }, 5000); // Ubah angka ini untuk mengatur waktu masing-masing story
-//         isPlaying = true;
-//         document.querySelector('.play-btn').innerHTML = '&#10074;&#10074;'; // Simbol pause
-//     }
-
-//     function pause() {
-//         clearInterval(interval);
-//         isPlaying = false;
-//         document.querySelector('.play-btn').innerHTML = '&#9658;'; // Simbol play
-//     }
-
-//     document.querySelector('.play-btn').addEventListener('click', function() {
-//         if (isPlaying) {
-//             pause();
-//         } else {
-//             play();
-//         }
-//     });
-
-//     document.querySelector('.next-btn').addEventListener('click', function() {
-//         pause();
-//         nextStory();
-//     });
-
-//     document.querySelector('.prev-btn').addEventListener('click', function() {
-//         pause();
-//         prevStory();
-//     });
-
-//     showStory(currentStoryIndex);
-//     play(); // Mulai pemutaran otomatis ketika halaman dimuat
-
-//     // Fungsi untuk menampilkan modal story
-//     function showStoryModal(imagePaths, mediaTypes) {
-//         currentStoryIndex = 0; // Set ulang index story
-//         isPlaying = false; // Jeda pemutaran otomatis saat modal ditampilkan
-//         clearInterval(interval);
-        
-//         // Tampilkan modal
-//         const modal = document.getElementById("storyModal");
-//         modal.style.display = "block";
-        
-//         // Tampilkan konten story
-//         storyContents.forEach((story, index) => {
-//             if (mediaTypes[index] === 'image') {
-//                 story.innerHTML = `<img src="${imagePaths[index]}" alt="Story ${index + 1}">`;
-//             } else if (mediaTypes[index] === 'video') {
-//                 story.innerHTML = `<video src="${imagePaths[index]}" controls></video>`;
-//             }
-//         });
-        
-//         // Tampilkan story pertama
-//         showStory(currentStoryIndex);
-//     }
-
-//     // Fungsi untuk menutup modal story
-//     function closeStoryModal() {
-//         const modal = document.getElementById("storyModal");
-//         modal.style.display = "none";
-//     }
-
-//     // Tambahkan event listener untuk tombol close
-//     document.querySelector('.close').addEventListener('click', closeStoryModal);
-// });
-
   
+// comment 
+function loadMoreComments(postId) {
+    const comments = document.querySelectorAll(`#comments-list-${postId} .comment`);
+    let hiddenCount = 0;
+
+    comments.forEach(comment => {
+        if (comment.style.display === 'none') {
+            comment.style.display = 'block';
+            hiddenCount++;
+            if (hiddenCount >= 3) return;  // Show up to 3 hidden comments at a time
+        }
+    });
+
+    // If there are no more hidden comments, hide the "View more comments" link
+    const remainingHiddenComments = Array.from(comments).filter(comment => comment.style.display === 'none');
+    if (remainingHiddenComments.length === 0) {
+        const commentsToggle = document.getElementById(`comments-count-${postId}`);
+        if (commentsToggle) {
+            commentsToggle.style.display = 'none';
+        }
+    }
+}
+
+
+// dropdown
+function toggleDropdown(element) {
+    const dropdown = element.nextElementSibling;
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.edit')) {
+        const dropdowns = document.getElementsByClassName("dropdown-menu");
+        for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.style.display === 'block') {
+                openDropdown.style.display = 'none';
+            }
+        }
+    }
+}
+
+function deletePost() {
+    // Add your delete post logic here
+    alert("Post deleted");
+}
