@@ -26,8 +26,9 @@
     </main>
 
     <script src="{{ asset('js/index.js') }}"></script>
+    <script src="{{ asset('js/story.js') }}"></script>
     <script src="https://kit.fontawesome.com/b795265882.js" crossorigin="anonymous"></script>
-
+    
     <!-- <script>
         // const likeButtons = document.querySelectorAll('.like-button');
 
