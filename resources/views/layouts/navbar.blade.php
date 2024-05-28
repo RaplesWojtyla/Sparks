@@ -15,7 +15,7 @@
     <nav>
         <div class="container">
             <h2 class="log">
-                <a href="{{ route('dashboard') }}">Sparkling Water</a>
+                <a href="{{ route('dashboard') }}">Sparks</a>
             </h2>
             <!-- search bar -->
             <div class="search-container">
