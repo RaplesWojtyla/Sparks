@@ -64,7 +64,7 @@
             </a>
         </div>
         <!----------------- END OF SIDEBAR -------------------->
-        <label class="btn btn-primary" for="create-post" id="create">Create Post</label>     
+        <label class="btn btn-primary" for="create-post" id="create">Create Post</label>    
     </div>
     <!----------------- THEME CUSTOMIZATION -------------------->
    
