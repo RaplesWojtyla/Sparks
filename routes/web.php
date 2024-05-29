@@ -25,67 +25,59 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Landing Page & Upload Profile
+Route::middleware('guest')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::post('registrasi/upload-image', [RegisteredUserController::class, 'uploadImage']);
 });
 
-Route::post('/upload-file', [
-    FileController::class, 'uploadFile'
-])->middleware(['auth', 'verified']);
-
-Route::post('registrasi/upload-image', [
-    RegisteredUserController::class, 'uploadImage'
-])->middleware('guest');
-
-
+// Home
 Route::get('/dashboard', [
     HomeController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/create-post', [
-    PostController::class, 'create'
-])->middleware(['auth', 'verified'])->name('create.post');
+// Upload File
+Route::post('/upload-file', [
+    FileController::class, 'uploadFile'
+])->middleware(['auth', 'verified']);
 
-Route::post('/post/{idPost}/like', [
-    LikeController::class, 'create'
-])->middleware(['auth', 'verified'])->name('post.like');
-
-Route::post('/post/{idPost}/comment', [
-    CommentController::class, 'create'
-])->middleware(['auth', 'verified'])->name('post.comment');
-
-Route::post('/post/{idPost}/save', [
-    BookmarkController::class, 'create'
-])->middleware(['auth', 'verified'])->name('post.bookmark');
-
-Route::post('/follow/{user}', [
-    FollowController::class, 'follow'
-])->middleware(['auth', 'verified'])->name('follow');
-
-Route::post('/unfollow/{user}', [
-    FollowController::class, 'unfollow'
-])->middleware(['auth', 'verified'])->name('unfollow');
-
-Route::get('/api/search', [
-    SearchController::class, 'search'
-])->middleware(['auth', 'verified'])->name('api.searchbar');
-
-Route::get('/api/history', [
-    SearchController::class, 'history'
-])->middleware(['auth', 'verified'])->name('api.history');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [SettingController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [SettingController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [SettingController::class, 'destroy'])->name('profile.destroy');
+// Post
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/create-post', [PostController::class, 'create'])->name('post.create');
+    Route::post('/post/{idPost}/like', [LikeController::class, 'create'])->name('post.like');
+    Route::post('/post/{idPost}/comment', [CommentController::class, 'create'])->name('post.comment');
+    Route::post('/post/{idPost}/save', [BookmarkController::class, 'create'])->name('post.save');
+    Route::delete('/post/{idPost}/delete', [BookmarkController::class, 'delete'])->name('post.delete');
 });
 
+// Follow
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
+    Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
+});
+
+// Search & Search History
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/api/search', [SearchController::class, 'search'])->name('api.searched');
+    Route::get('/api/history', [SearchController::class, 'history'])->name('api.history');
+});
+
+// Update Profile
+Route::middleware('auth')->group(function () {
+    Route::get('/update-profile', [SettingController::class, 'edit'])->name('profile.edit');
+    Route::patch('/update-profile', [SettingController::class, 'update'])->name('profile.update');
+    Route::delete('/delete-account', [SettingController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Show user profile
 Route::get('/profile/{idUser}', [
     ProfileController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('profile.show');
 
 Route::get('info', function(){
     return view('info');
-})->name('info');
+})->middleware(['auth', 'verified'])->name('info');
 
 require __DIR__.'/auth.php';

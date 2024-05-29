@@ -110,23 +110,23 @@ use Illuminate\Support\Facades\Auth;
                 <div class="comments text-muted" onclick="showComments()" style="cursor: pointer;">
                     <span id="comments-count-{{$post->id}}">
                         @if ($post->commments()->count() == 0)
-                        No Comment Yet
+                            No Comment Yet
                         @elseif($post->commments()->count() == 1)
-                        View {{ $post->commments()->count()}} comment
+                            View {{ $post->commments()->count()}} comment
                         @elseif ($post->commments()->count() > 3)
-                        View {{ $post->commments()->count() - 3 }} more comments
+                            View {{ $post->commments()->count() - 3 }} more comments
                         @else
-                        View {{ $post->commments()->count()}} comments
+                            View {{ $post->commments()->count()}} comments
                         @endif
                     </span>
                 </div>
 
                 <!-- Daftar komentar -->
-                <div class="comment-section-{{$post->id}}">
+                <div id="comments-{{$post->id}}">
                     @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first())
                       <?php $i = 1 ?>
                       @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
-                        <div id="comments-{{$post->id}}" class="caption">
+                        <div class="caption">
                             <p>
                                 <a href="{{ route('profile.show', $comment->id_commenter)}}">
                                     <b>{{ $comment->users->username }}</b>
@@ -135,12 +135,13 @@ use Illuminate\Support\Facades\Auth;
                             </p>
                         </div>
                         @if ($i == 3)
-                          @break
+                            @break
                         @endif
                         <?php $i++ ?>
                       @endforeach
                     @endif
                 </div>
+
                 <!-- Input komentar -->
                 <div class="comment-input">
                     <form id="commentForm" data-post-id="{{$post->id}}" data-comment-id="comments-{{$post->id}}" data-comments-count-id="comments-count-{{$post->id}}">
@@ -161,7 +162,7 @@ use Illuminate\Support\Facades\Auth;
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Like Button -->
+    <!-- Like Ajax -->
     <script>
         $(document).ready(function() {
             $(document).on('click', '#likeButton', function() {
@@ -192,7 +193,7 @@ use Illuminate\Support\Facades\Auth;
         });
     </script>
 
-    <!-- Bookmarks Button -->
+    <!-- Bookmarks Ajax -->
     <script>
         $(document).ready(function() {
             $(document).on('click', '#bookmark-button', function() {
@@ -221,7 +222,7 @@ use Illuminate\Support\Facades\Auth;
     </script>
 
 
-    <!-- Send Comment -->
+    <!-- Send Comment Ajax -->
     <script>
         $(document).ready(function() {
             $(document).on('submit', '#commentForm', function(e) {
@@ -236,12 +237,12 @@ use Illuminate\Support\Facades\Auth;
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function(response) {
-                        $('#' + commentsPostId).prepend('<p><b>' + response.username + '</b> ' + response.comment + '</p>')
-                        if (response.commentsCount > 3)
-                            $('#' + commentsCounterId).text('View more ' + (response.commentsCount - 3) + ' comments');
-                        else if (response.commentsCount == 1)
-                            $('#' + commentsCounterId).text('View ' + response.commentsCount + ' comment');
-                        else $('#' + commentsCounterId).text('View ' + (response.commentsCount) + ' comments');
+                        $('#' + commentsPostId).prepend('<p><b>' + response.username + '</b> ' + response.comment + '</p>');
+
+                        if (response.commentsCount > 1)
+                            $('#' + commentsCounterId).text('View ' + response.commentsCount + ' comments');
+                        else $('#' + commentsCounterId).text('View ' + response.commentsCount + ' comment');
+
                         $('input[name="comment"]').val('');
                     }
                 });

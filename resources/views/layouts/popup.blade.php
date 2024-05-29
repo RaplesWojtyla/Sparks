@@ -16,7 +16,7 @@
         <div class="wrapper">
             <section class="post">
                 <header>Create Post</header>
-                <form action="{{ route('create.post') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('post.create') }}" method="post" enctype="multipart/form-data">
                 @csrf
                     <div class="content">
                         <img src="{{ asset(Auth::user()->profile_picture) }}" alt="user pp">
