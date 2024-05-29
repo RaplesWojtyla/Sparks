@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Slabo+27px&display=swap');
 
 
 :root {
@@ -118,7 +118,8 @@ nav .container {
 }
 
  .log a{
-    font-size: 28px;
+    font-size: 30px;
+    font-family: pacifico;
 }
 /* =============== searchbar ============== */
 .search-container {
@@ -263,8 +264,9 @@ main .container .left .profile {
 }
 
 .left .sidebar h3 {
+    font-family: slabo;
     margin-left: 1.5rem;
-    font-size: 1rem;
+    font-size: 17px;
 }
 
 .left .sidebar .active {
@@ -429,6 +431,7 @@ main .container .left .profile {
 .middle .feed .user {
     display: flex;
     gap: 1rem;
+    align-items: center;
 }
 
 .middle .feed .photo {
