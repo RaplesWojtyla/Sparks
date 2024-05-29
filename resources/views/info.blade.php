@@ -23,21 +23,21 @@
             <div class="column">
                 <div class="card">
                     <div class="img-container">
-                        <img src="{{ asset('images/pikun.jpg')}}" />
+                        <img src="{{ asset('images/pikun.jpg') }}" />
                     </div>
                     <h3>Alfi Syahrin</h3>
                     <p>Database Administrator</p>
                     <div class="icons">
-                        <a href="https://www.instagram.com/a.syhrnn_21/">
+                        <a href="https://www.instagram.com/a.syhrnn_21/" target="_blank">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/alfi-syahrin-320866310/.">
+                        <a href="https://www.linkedin.com/in/alfi-syahrin-320866310/." target="_blank">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="https://github.com/GoatMudryk">
+                        <a href="https://github.com/GoatMudryk" target="_blank">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="mailto:alfisyahrin2421@gmail.com">
+                        <a href="mailto:alfisyahrin2421@gmail.com" target="_blank">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
@@ -52,16 +52,16 @@
                     <h3>Naurah Alya Rahmah</h3>
                     <p>Frontend</p>
                     <div class="icons">
-                        <a href="https://www.instagram.com/naurahlya/">
+                        <a href="https://www.instagram.com/naurahlya/" target="_blank">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/naurah-rahmah-4061082ba/">
+                        <a href="https://www.linkedin.com/in/naurah-rahmah-4061082ba/" target="_blank">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="https://github.com/nauchann">
+                        <a href="https://github.com/nauchann" target="_blank">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="mailto:naurahalyarahmah05@gmail.com">
+                        <a href="mailto:naurahalyarahmah05@gmail.com" target="_blank">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
@@ -71,21 +71,21 @@
             <div class="column">
                 <div class="card">
                     <div class="img-container">
-                        <img src="{{ asset('images/patg.jpg') }}" />
+                        <img src="{{ asset('images/unknown.jpg') }}" />
                     </div>
                     <h3>Patra Rafles Wostyla Sinaga</h3>
                     <p>Backend</p>
                     <div class="icons">
-                        <a href="https://www.instagram.com/raples.wojtyla/">
+                        <a href="https://www.instagram.com/raples.wojtyla/" target="_blank">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#">
+                        <a href="https://www.linkedin.com/in/wojtyla-karma/" target="_blank">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="https://github.com/RaplesWojtyla">
+                        <a href="https://github.com/RaplesWojtyla" target="_blank">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="mailto:patrarwsinaga04@gmail.com">
+                        <a href="mailto:patrarwsinaga04@gmail.com" target="_blank">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
@@ -100,16 +100,16 @@
                     <h3>Jonathan C Amadeo Sembiring</h3>
                     <p>Frontend</p>
                     <div class="icons">
-                        <a href="https://www.instagram.com/jonathan_christian17/">
+                        <a href="https://www.instagram.com/jonathan_christian17/" target="_blank">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/jonathan-c-amadeo-sembiring-227bb028a">
+                        <a href="https://www.linkedin.com/in/jonathan-c-amadeo-sembiring-227bb028a" target="_blank">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="https://github.com/JonathanChristian17">
+                        <a href="https://github.com/JonathanChristian17" target="_blank">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="mailto:jonathanamadeo17@gmail.com">
+                        <a href="mailto:jonathanamadeo17@gmail.com" target="_blank">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
@@ -117,7 +117,7 @@
             </div>
         </div>
         <div class="btn-container">
-        <a href="{{ route('dashboard') }}" class="btn">Sparks</a>
+            <a href="{{ route('dashboard') }}" class="btn">Sparks</a>
         </div>
     </section>
 </body>

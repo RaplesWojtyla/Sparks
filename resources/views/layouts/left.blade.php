@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{$title ?? config('app.name', 'laravel')}}</title>
+    <title>{{ $title ?? config('app.name', 'laravel') }}</title>
     <!-- iconscout cdn -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
     <!-- stylesheet -->
@@ -15,12 +15,12 @@
     <div class="left">
         <a class="profile">
             <div class="profile-photo">
-                <img src="{{asset(Auth::user()->profile_picture)}}">
+                <img src="{{ asset(Auth::user()->profile_picture) }}">
             </div>
             <div class="handle">
                 <h4>{{ Auth::user()->name }}</h4>
                 <p class="text-muted">
-                    {{'@' . Auth::user()->username}}
+                    {{ '@' . Auth::user()->username }}
                 </p>
             </div>
         </a>
@@ -64,10 +64,10 @@
             </a>
         </div>
         <!----------------- END OF SIDEBAR -------------------->
-        <label class="btn btn-primary" for="create-post" id="create">Create Post</label>    
+        <label class="btn btn-primary" for="create-post" id="create">Create Post</label>
     </div>
     <!----------------- THEME CUSTOMIZATION -------------------->
-   
+
 </body>
 
 </html>
