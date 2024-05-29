@@ -34,10 +34,10 @@
 
     <section class="home">
         <div class="content">
-            <h2>Sparkling your memory to universe</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. fwfiwhfi
+            <h2>"Sparkling your memory to universe"</h2>
+            <p>"Unlock the secrets of the universe within your memories with Sparks, where each spark ignites a cascade of recollections, illuminating the vast expanse of your consciousness with its ethereal glow."
             </p>
-            <a href="#">Get Started</a>
+            <a href="{{ route('register') }}">Get Started</a>
         </div>
 
         <div class="wrapper-login">
