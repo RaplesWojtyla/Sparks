@@ -112,6 +112,9 @@ nav .container {
 
 }
 
+ .log a{
+    font-size: 28px;
+}
 /* =============== searchbar ============== */
 .search-container {
     position: relative;
