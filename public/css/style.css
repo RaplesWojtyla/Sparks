@@ -52,6 +52,11 @@ body {
     margin: 0 auto;
 }
 
+.container .logo {
+    font-size: 1.7em;
+    color: #fff;
+    text-decoration: none;
+}
 .profile{
     margin-left: -2;
 }

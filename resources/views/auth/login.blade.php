@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+        <link rel="icon" href="{{ asset('icon/sparksicon.png') }}" type="x-icon">
         <title>Sparks</title>
         <link rel="stylesheet" href="{{ asset('css/stylelandingpage.css') }}"
+        
     </head>
     <header class="header">
         <a href="#" class="logo"><ion-icon name="sparkles-sharp"></ion-icon>Sparks</a>
