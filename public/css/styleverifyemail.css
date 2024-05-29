@@ -5,10 +5,13 @@
 body {
     font-family: 'Poppins', sans-serif;
     background: url('../images/verify.jpg') no-repeat center center;
+    background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    
 }
 
 .container {

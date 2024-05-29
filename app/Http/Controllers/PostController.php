@@ -38,4 +38,19 @@ class PostController extends Controller
 
         return redirect('/dashboard');
     }
+
+    public function edit()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete($postId)
+    {
+        
+    }
 }

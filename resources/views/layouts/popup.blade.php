@@ -6,6 +6,7 @@
   <title>Sparks Post Box</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="icon" href="{{ asset('icon/sparks.png') }}">
   <link rel="stylesheet" href="{{ asset('css/stylecreatetable.css') }}">
 </head>
 
@@ -16,7 +17,7 @@
         <div class="wrapper">
             <section class="post">
                 <header>Create Post</header>
-                <form action="{{ route('create.post') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('post.create') }}" method="post" enctype="multipart/form-data">
                 @csrf
                     <div class="content">
                         <img src="{{ asset(Auth::user()->profile_picture) }}" alt="user pp">
