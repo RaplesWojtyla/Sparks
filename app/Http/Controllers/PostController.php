@@ -39,11 +39,6 @@ class PostController extends Controller
         return redirect('/dashboard');
     }
 
-    public function edit()
-    {
-
-    }
-
     public function update()
     {
 
@@ -51,6 +46,8 @@ class PostController extends Controller
 
     public function delete($postId)
     {
-        
+        Post::findOrFail($postId)->first()->delete();
+
+        return back();
     }
 }
