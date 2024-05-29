@@ -49,7 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/post/{idPost}/like', [LikeController::class, 'create'])->name('post.like');
     Route::post('/post/{idPost}/comment', [CommentController::class, 'create'])->name('post.comment');
     Route::post('/post/{idPost}/save', [BookmarkController::class, 'create'])->name('post.save');
-    Route::delete('/post/{idPost}/delete', [BookmarkController::class, 'delete'])->name('post.delete');
+    Route::delete('/post/{idPost}/delete', [PostController::class, 'delete'])->name('post.delete');
 });
 
 // Follow

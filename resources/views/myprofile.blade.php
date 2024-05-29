@@ -80,8 +80,8 @@ use Illuminate\Support\Facades\Auth;
                                                     <i class="uil uil-ellipsis-h"></i>
                                                 </span>
                                                 <div class="dropdown-menu">
-                                                    <a href="#" onclick="deletePost()">Delete</a>
-                                                    <a href="#" onclick="updatePost()">Update</a>
+                                                    <a onclick="deletePost({{ $post->id }})">Delete</a>
+                                                    <a onclick="updatePost({{ $post->id }})">Update</a>
                                                 </div>
 
                                             </div>
@@ -93,190 +93,153 @@ use Illuminate\Support\Facades\Auth;
                                             @endif
                                         </div>
 
-                                        <div class="action-buttons">
-                                            <div class="interaction-buttons">
-                                                <?php
-                                                $displayRegularHeart = 'block;';
-                                                $displaySolidHeart = 'none;';
-                                                ?>
-
-                                                @if ($post->likes->where('id_users', Auth::user()->id)->first() != null)
-                                                    <?php
-                                                    $displayRegularHeart = 'none;';
-                                                    $displaySolidHeart = 'block;';
-                                                    ?>
-                                                @endif
-
-
-                                            </div>
-                                        </div>
-
-                                        <div class="liked-by">
-                                            <p id="likes-count-{{ $post->id }}">{{ $post->likes()->count() }}</p>
-                                        </div>
-
                                         <div class="caption">
                                             <p><b>{{ $post->users->username }}</b> {{ $post->caption }}
                                             </p>
                                         </div>
-
-                                        <div class="comments text-muted" onclick="showComments()"
-                                            style="cursor: pointer;">
-                                            <span id="comments-count-{{ $post->id }}">
-                                                @if ($post->commments()->count() == 0)
-                                                    No Comment Yet
-                                                @elseif($post->commments()->count() == 1)
-                                                    View {{ $post->commments()->count() }} comment
-                                                @elseif ($post->commments()->count() > 3)
-                                                    View {{ $post->commments()->count() - 3 }} more comments
-                                                @else
-                                                    View {{ $post->commments()->count() }} comments
-                                                @endif
-                                            </span>
-                                        </div>
-
-                                        <!-- Daftar komentar -->
-                                        <div class="comment-section-{{ $post->id }}">
-                                            @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first())
-                                                <?php $i = 1; ?>
-                                                @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
-                                                    <div id="comments-{{ $post->id }}" class="caption">
-                                                        <p>
-                                                            <a
-                                                                href="{{ route('profile.show', $comment->id_commenter) }}">
-                                                                <b>{{ $comment->users->username }}</b>
-                                                            </a>
-                                                            {{ $comment->comment }}
-                                                        </p>
-                                                    </div>
-                                                    @if ($i == 3)
-                                                    @break
-                                                @endif
-                                                <?php $i++; ?>
-                                            @endforeach
-                                        @endif
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Photos Section -->
-            <div class="photos" id="post">
-                @foreach ($posts as $post)
-                    @if ($post->filePosts->first() != null)
-                        <img src="{{ asset($post->filePosts->first()->berkas) }}" alt="Photo postingan"
-                            class="photo-thumbnail" data-post-id="{{ $post->id }}" />
-                    @endif
-                @endforeach
-            </div>
+                <!-- Photos Section -->
+                <div class="photos" id="post">
+                    @foreach ($posts as $post)
+                        @if ($post->filePosts->first() != null)
+                            <img src="{{ asset($post->filePosts->first()->berkas) }}" alt="Photo postingan"
+                                class="photo-thumbnail" data-post-id="{{ $post->id }}" />
+                        @endif
+                    @endforeach
+                </div>
 
 
-            <div class="photos" id="saved" style="display: none;">
-                @foreach ($bookmarks as $bookmark)
-                    @if ($bookmark->post->filePosts->first() != null)
-                        <img src="{{ asset($bookmark->post->filePosts->first()->berkas) }}"
-                            alt="Photo postingan yang di save" />
-                    @endif
-                @endforeach
+                <div class="photos" id="saved" style="display: none;">
+                    @foreach ($bookmarks as $bookmark)
+                        @if ($bookmark->post->filePosts->first() != null)
+                            <img src="{{ asset($bookmark->post->filePosts->first()->berkas) }}"
+                                alt="Photo postingan yang di save" />
+                        @endif
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    const postsLink = document.getElementById('postsLink');
-    const savedLink = document.getElementById('savedLink');
-    const postSection = document.getElementById('post');
-    const savedSection = document.getElementById('saved');
+    <script>
+        function deletePost(postId) 
+        {
+            if (!confirm(`Hapus postingan ini?`)) return;
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const section = urlParams.get('section');
+            fetch(`/post/${postId}/delete`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success)
+                    {
+                        alert(data.message);
+                        location.reload();
+                    }
+                    else alert(data.message);
+                })
+                .catch(error => {
+                    console.error('Error: ', error);
+                    alert('Terjadi kesalahan saat menghapus post tersebut.');
+                });
+        }
+    </script>
 
-    if (section === 'saved') {
-        postSection.style.display = 'none';
-        savedSection.style.display = 'grid';
-        savedLink.classList.add('active');
-        postsLink.classList.remove('active');
-    } else {
-        postSection.style.display = 'grid';
-        savedSection.style.display = 'none';
-        postsLink.classList.add('active');
-        savedLink.classList.remove('active');
-    }
+    <script>
+        const postsLink = document.getElementById('postsLink');
+        const savedLink = document.getElementById('savedLink');
+        const postSection = document.getElementById('post');
+        const savedSection = document.getElementById('saved');
 
-    postsLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        window.location.href = '?section=posts';
-    });
+        const urlParams = new URLSearchParams(window.location.search);
+        const section = urlParams.get('section');
 
-    savedLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        window.location.href = '?section=saved';
-    });
+        if (section === 'saved') {
+            postSection.style.display = 'none';
+            savedSection.style.display = 'grid';
+            savedLink.classList.add('active');
+            postsLink.classList.remove('active');
+        } else {
+            postSection.style.display = 'grid';
+            savedSection.style.display = 'none';
+            postsLink.classList.add('active');
+            savedLink.classList.remove('active');
+        }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get the modal
-        var modal = document.getElementById("postModal");
-        var span = document.getElementsByClassName("close")[0];
-        var images = document.getElementsByClassName('photo-thumbnail');
-        var modalBody = modal.querySelector('.modal-body .feeds');
+        postsLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '?section=posts';
+        });
+
+        savedLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '?section=saved';
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the modal
+            var modal = document.getElementById("postModal");
+            var span = document.getElementsByClassName("close")[0];
+            var images = document.getElementsByClassName('photo-thumbnail');
+            var modalBody = modal.querySelector('.modal-body .feeds');
 
 
-        // Loop through each image and add click event
-        Array.from(images).forEach(function(image) {
-            image.onclick = function() {
-                var postId = this.getAttribute('data-post-id');
-                var postContent = document.getElementById('feed-' + postId).innerHTML;
+            // Loop through each image and add click event
+            Array.from(images).forEach(function(image) {
+                image.onclick = function() {
+                    var postId = this.getAttribute('data-post-id');
+                    var postContent = document.getElementById('feed-' + postId).innerHTML;
 
-                // Insert content into the modal
-                modal.querySelector('.modal-body2').innerHTML = postContent;
+                    // Insert content into the modal
+                    modal.querySelector('.modal-body2').innerHTML = postContent;
 
 
-                // Display the modal
-                modal.style.display = "block";
+                    // Display the modal
+                    modal.style.display = "block";
+                }
+            });
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
             }
         });
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
+        function toggleDropdown(element) {
+            var dropdown = element.nextElementSibling;
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
 
-        // When the user clicks anywhere outside of the modal, close it
+        // Close the dropdown menu if the user clicks outside of it
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    });
-
-    function toggleDropdown(element) {
-        var dropdown = element.nextElementSibling;
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function deletePost(element) {
-        var post = element.closest('.post-options');
-        post.parentNode.removeChild(post);
-        alert('Post has been deleted.');
-    }
-
-    // Close the dropdown menu if the user clicks outside of it
-    window.onclick = function(event) {
-        if (!event.target.matches('.edit, .edit *')) {
-            var dropdowns = document.getElementsByClassName("dropdown-menu");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.style.display === 'block') {
-                    openDropdown.style.display = 'none';
+            if (!event.target.matches('.edit, .edit *')) {
+                var dropdowns = document.getElementsByClassName("dropdown-menu");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                    }
                 }
             }
         }
-    }
-</script>
+    </script>
 </body>
 
 </html>
