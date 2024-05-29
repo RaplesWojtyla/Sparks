@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Auth;
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <!-- stylesheet -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/storystyle.css') }}">
 </head>
 
 <body>
@@ -41,14 +40,7 @@ use Illuminate\Support\Facades\Auth;
                             {{-- DB::table('post')->select(DB::raw('TIMESTAMPDIFF(DAY, created_at, NOW()) as duration'))->first()->duration --}}
                         </div>
                     </div>
-                    <div class="post-options">
-                        <span class="edit" onclick="toggleDropdown(this)">
-                            <i class="uil uil-ellipsis-h"></i>
-                        </span>
-                        <div class="dropdown-menu">
-                            <a href="#" onclick="deletePost()">Delete</a>
-                        </div>
-                    </div>
+                 
 
                 </div>
 
