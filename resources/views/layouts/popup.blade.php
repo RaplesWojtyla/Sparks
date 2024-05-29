@@ -12,7 +12,7 @@
 <body>
 <div class="modal" id="CreatePostModal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close-modal">&times;</span>
         <div class="wrapper">
             <section class="post">
                 <header>Create Post</header>
@@ -22,17 +22,11 @@
                         <img src="{{ asset(Auth::user()->profile_picture) }}" alt="user pp">
                         <div class="details">
                             <p>{{Auth::user()->name}}</p>
-                            <div class="privacy">
-                                <i class="fas fa-user-friends"></i>
-                                <span>Friends</span>
-                                <i class="fas fa-caret-down"></i>
-                            </div>
                         </div>
                     </div>
                     <textarea name="caption" placeholder="What's on your mind, Sparks?" spellcheck="false" required></textarea>
                     <div class="theme-emoji">
-                        <img src="icons/theme.svg" alt="theme">
-                        <img src="icons/smile.svg" alt="smile">
+                        <img src="{{ asset('icon/smile.svg') }}" alt="smile">
                     </div>
                     <div class="input-box">
                         <label>Add to Your Post here</label>
@@ -107,7 +101,30 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var modal = document.getElementById('CreatePostModal');
+      var closeModal = document.getElementsByClassName('close-modal')[0];
 
+      closeModal.onclick = function () {
+        modal.style.display = 'none';
+      }
+
+      // Mencegah modal dari tertutup ketika mengklik di luar konten modal
+      modal.addEventListener('click', function(event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+      // Mencegah penutupan ketika mengklik di dalam konten modal
+      var modalContent = document.getElementsByClassName('modal-content')[0];
+      modalContent.addEventListener('click', function(event) {
+        event.stopPropagation();
+      });
+    });
+  </script>
 </body>
+
 
 </html>

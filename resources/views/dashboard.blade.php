@@ -25,25 +25,5 @@
     </main>
 
     <script src="{{ asset('js/index.js') }}"></script>
-    <script src="{{ asset('js/story.js') }}"></script>
-    <script src="https://kit.fontawesome.com/b795265882.js" crossorigin="anonymous"></script>
-    
-    <!-- <script>
-        // const likeButtons = document.querySelectorAll('.like-button');
-
-        // likeButtons.forEach(button => {
-        //     button.addEventListener('click', () => {
-        //         const heartIcon = button.querySelector('.fa-regular.fa-heart'); // Target the line heart icon
-        //         const solidHeartIcon = button.querySelector('.fa-solid.fa-heart'); // Target the solid heart icon
-
-        //         if (heartIcon.style.display === 'none') {
-        //             heartIcon.style.display = 'inline-block'; // Show the line heart icon
-        //             solidHeartIcon.style.display = 'none'; // Hide the solid heart icon
-        //         } else {
-        //             heartIcon.style.display = 'none'; // Hide the line heart icon
-        //             solidHeartIcon.style.display = 'inline-block'; // Show the solid heart icon
-        //         }
-        //     });
-        // });
-    </script> -->
+    <script src="https://kit.fontawesome.com/b795265882.js" crossorigin="anonymous"></script>\
 </x-app-layout>

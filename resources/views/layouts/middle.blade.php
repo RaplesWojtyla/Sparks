@@ -24,13 +24,12 @@ use Illuminate\Support\Facades\Auth;
 <body>
     <!----------------- MIDDLE -------------------->
     <div class="middle">
-
         <!----------------- FEEDS -------------------->
         <div class="feeds">
             @foreach ($posts as $post)
             <div class="feed">
                 <div class="head">
-                    <div class="user">
+                      <div class="user">
                         <div class="profile-photo">
                             <img src="{{ asset($post->users->profile_picture) }}">
                         </div>
@@ -65,12 +64,14 @@ use Illuminate\Support\Facades\Auth;
                         $displayRegularHeart = 'block;';
                         $displaySolidHeart = 'none;';
                         ?>
+
                         @if ($post->likes->where('id_users', Auth::user()->id)->first() != NULL)
-                        <?php
-                        $displayRegularHeart = 'none;';
-                        $displaySolidHeart = 'block;';
-                        ?>
+                            <?php
+                            $displayRegularHeart = 'none;';
+                            $displaySolidHeart = 'block;';
+                            ?>
                         @endif
+
                         <button id="likeButton" class="like-button" data-post-id="{{ $post->id }}" data-likes-count-id="likes-count-{{$post->id}}">
                             <i class="fa-regular fa-heart" style="display: {{$displayRegularHeart}}"></i>
                             <i class="fa-solid fa-heart" style="color: red; display: {{$displaySolidHeart}}"></i>
@@ -123,22 +124,21 @@ use Illuminate\Support\Facades\Auth;
                 <!-- Daftar komentar -->
                 <div class="comment-section-{{$post->id}}">
                     @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first())
-                    <?php $i = 1 ?>
-                    @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
-                    <div id="comments-{{$post->id}}" class="caption">
-                        <p>
-                            <a href="{{ route('profile.show', $comment->id_commenter)}}">
-                                <b>{{ $comment->users->username }}</b>
-                            </a>
-                            {{ $comment->comment }}
-                        </p>
-                    </div>
-
-                    @if ($i == 3)
-                    @break
-                    @endif
-                    <?php $i++ ?>
-                    @endforeach
+                      <?php $i = 1 ?>
+                      @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
+                        <div id="comments-{{$post->id}}" class="caption">
+                            <p>
+                                <a href="{{ route('profile.show', $comment->id_commenter)}}">
+                                    <b>{{ $comment->users->username }}</b>
+                                </a>
+                                {{ $comment->comment }}
+                            </p>
+                        </div>
+                        @if ($i == 3)
+                          @break
+                        @endif
+                        <?php $i++ ?>
+                      @endforeach
                     @endif
                 </div>
                 <!-- Input komentar -->
@@ -220,6 +220,8 @@ use Illuminate\Support\Facades\Auth;
         });
     </script>
 
+
+    <!-- Send Comment -->
     <script>
         $(document).ready(function() {
             $(document).on('submit', '#commentForm', function(e) {

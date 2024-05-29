@@ -263,6 +263,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
   });
 
+
 // comment 
 function showComments(event, postId) {
     event.preventDefault();
