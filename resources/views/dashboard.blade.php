@@ -22,7 +22,6 @@
         </div>
         @include('layouts.theme')
         @include('layouts.popup')
-        @include('layouts.story')
     </main>
 
     <script src="{{ asset('js/index.js') }}"></script>
