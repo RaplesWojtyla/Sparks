@@ -13,12 +13,12 @@ sparks adalah web aplikasi di mana pengguna dapat berinteraksi secara online den
 
 ## Tim Pengembang
 
-Kelompok 7 KOM A 23
-Anggota:
-1. {231402028} - {Alfi Syahrin} - {Database Administrator}
-2. {231402049} - {Naurah Alya Rahmah} - {Frontend}
-3. {231402052} - {Patra Rafles Wostyla Sinaga} - {Backend}
-4. {231402111} - {Jonathan C. Amadeo Sembiring} - {Frontend}
++ Kelompok 7 KOM A 23
++ Anggota:
++ {231402028} - {Alfi Syahrin} - {Database Administrator}
++ {231402049} - {Naurah Alya Rahmah} - {Frontend}
++ {231402052} - {Patra Rafles Wostyla Sinaga} - {Backend}
++ {231402111} - {Jonathan C. Amadeo Sembiring} - {Frontend}
 
 ## Fitur Sparks
 
@@ -56,8 +56,8 @@ Fitur ini berfungsi untuk pengguna mencari pengguna lain nya.
 Tindakan yang memungkinkan pengguna untuk keluar dari akun atau sesi yang sedang aktif.
 
 ## Environment
-1. PHP Version: ^8.1
-2. Laravel Version: ^10.0
-3. Breeze Version: ^1.29.1
-4. Database: MySQL
-5. Chatify Version: ^1.5
++ PHP Version: ^8.1
++ Laravel Version: ^10.0
++ Breeze Version: ^1.29.1
++ Database: MySQL
++ Chatify Version: ^1.5

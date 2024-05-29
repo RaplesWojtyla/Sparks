@@ -23,74 +23,12 @@ use Illuminate\Support\Facades\Auth;
 <body>
     <!----------------- MIDDLE -------------------->
     <div class="middle">
-        <!----------------- STORIES -------------------->
-        <div class="stories">
-            <div class="story" style="background-image: url('../images/sparks.png');">
-                <span></span>
-                <button class="add-story-btn" id="openStoryModalBtn">+</button>
-
-                <p class="name">Add Your Story</p>
-            </div>
-            <div class="story" onclick="showStory(0)">
-                <div class="profile-photo" style="background-image: url('./images/profile-8.jpg');">
-                    <img src="{{ asset('images/sparks.jpg') }}" alt="">
-                </div>
-                <p class="name">Mixed media story</p>
-            </div>
-            <!-- Story Modal -->
-            <div id="storyModal" class="modal">
-                <div class="story-modal-content">
-                    <div class="story-container">
-                        <div class="story-content">
-                            <img src="story1.jpg" alt="Story 1">
-                        </div>
-                        <div class="story-content">
-                            <video src="story2.mp4" controls></video>
-                        </div>
-                    </div>
-                    <div class="controls">
-                        <button class="prev-btn">&lt;</button>
-                        <button class="play-btn">&#9658;</button>
-                        <button class="next-btn">&gt;</button>
-                    </div>
-                    <span class="close" onclick="closeStoryModal()">&times;</span>
-                </div>
-            </div>
-
-
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/profile-10.jpg">
-                </div>
-                <p class="name">your friend's story</p>
-            </div>
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/profile-11.jpg">
-                </div>
-                <p class="name">your friend's story</p>
-            </div>
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/profile-12.jpg">
-                </div>
-                <p class="name">your friend's story</p>
-            </div>
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/profile-13.jpg">
-                </div>
-                <p class="name">your friend's story</p>
-            </div>
-        </div>
-        <!----------------- END OF STORIES -------------------->
-
         <!----------------- FEEDS -------------------->
         <div class="feeds">
             @foreach ($posts as $post)
             <div class="feed">
                 <div class="head">
-                    <div class="user">
+                      <div class="user">
                         <div class="profile-photo">
                             <img src="{{ asset($post->users->profile_picture) }}">
                         </div>
@@ -102,14 +40,13 @@ use Illuminate\Support\Facades\Auth;
                             {{-- DB::table('post')->select(DB::raw('TIMESTAMPDIFF(DAY, created_at, NOW()) as duration'))->first()->duration --}}
                         </div>
                     </div>
-                    <span class="edit">
-                        <i class="uil uil-ellipsis-h"></i>
-                    </span>
+                 
+
                 </div>
 
                 <div class="photo">
                     @if ($post->filePosts->first() != NULL)
-                        <img src="{{ asset($post->filePosts->first()->berkas) }}">
+                    <img src="{{ asset($post->filePosts->first()->berkas) }}">
                     @endif
                 </div>
 
@@ -119,12 +56,14 @@ use Illuminate\Support\Facades\Auth;
                         $displayRegularHeart = 'block;';
                         $displaySolidHeart = 'none;';
                         ?>
+
                         @if ($post->likes->where('id_users', Auth::user()->id)->first() != NULL)
-                        <?php
-                        $displayRegularHeart = 'none;';
-                        $displaySolidHeart = 'block;';
-                        ?>
+                            <?php
+                            $displayRegularHeart = 'none;';
+                            $displaySolidHeart = 'block;';
+                            ?>
                         @endif
+
                         <button id="likeButton" class="like-button" data-post-id="{{ $post->id }}" data-likes-count-id="likes-count-{{$post->id}}">
                             <i class="fa-regular fa-heart" style="display: {{$displayRegularHeart}}"></i>
                             <i class="fa-solid fa-heart" style="color: red; display: {{$displaySolidHeart}}"></i>
@@ -138,10 +77,10 @@ use Illuminate\Support\Facades\Auth;
                         ?>
 
                         @if ($post->bookmarks->where('id_users', Auth::user()->id)->first() != NULL)
-                            <?php
-                            $displayRegularBookmark = 'none;';
-                            $displaySolidBookmark = 'inline-block;';
-                            ?>
+                        <?php
+                        $displayRegularBookmark = 'none;';
+                        $displaySolidBookmark = 'inline-block;';
+                        ?>
                         @endif
 
                         <button id="bookmark-button" data-bookmark-id="{{$post->id}}">
@@ -160,40 +99,40 @@ use Illuminate\Support\Facades\Auth;
                     </p>
                 </div>
 
-                <div class="comments text-muted">
+                <div class="comments text-muted" onclick="showComments()" style="cursor: pointer;">
                     <span id="comments-count-{{$post->id}}">
                         @if ($post->commments()->count() == 0)
-                            No Comment Yet
+                        No Comment Yet
                         @elseif($post->commments()->count() == 1)
-                            View {{ $post->commments()->count()}} comment
+                        View {{ $post->commments()->count()}} comment
                         @elseif ($post->commments()->count() > 3)
-                            View {{ $post->commments()->count() - 3 }} more comments
-                        @else 
-                            View {{ $post->commments()->count()}} comments
+                        View {{ $post->commments()->count() - 3 }} more comments
+                        @else
+                        View {{ $post->commments()->count()}} comments
                         @endif
                     </span>
                 </div>
-                <!-- Input komentar -->
+
                 <!-- Daftar komentar -->
-                @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first())
-                    <?php $i = 1 ?>
-                    @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
+                <div class="comment-section-{{$post->id}}">
+                    @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first())
+                      <?php $i = 1 ?>
+                      @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
                         <div id="comments-{{$post->id}}" class="caption">
                             <p>
                                 <a href="{{ route('profile.show', $comment->id_commenter)}}">
-                                    <b>{{ $comment->users->username }}</b> 
+                                    <b>{{ $comment->users->username }}</b>
                                 </a>
                                 {{ $comment->comment }}
                             </p>
                         </div>
-
                         @if ($i == 3)
-                            @break
+                          @break
                         @endif
                         <?php $i++ ?>
-                    @endforeach
-                @endif
-
+                      @endforeach
+                    @endif
+                </div>
                 <!-- Input komentar -->
                 <div class="comment-input">
                     <form id="commentForm" data-post-id="{{$post->id}}" data-comment-id="comments-{{$post->id}}" data-comments-count-id="comments-count-{{$post->id}}">
@@ -207,6 +146,7 @@ use Illuminate\Support\Facades\Auth;
             </div>
             @endforeach
         </div>
+
         <!----------------- END OF FEEDS -------------------->
     </div>
     <!----------------- END OF MIDDLE -------------------->
@@ -272,6 +212,8 @@ use Illuminate\Support\Facades\Auth;
         });
     </script>
 
+
+    <!-- Send Comment -->
     <script>
         $(document).ready(function() {
             $(document).on('submit', '#commentForm', function(e) {
@@ -289,7 +231,7 @@ use Illuminate\Support\Facades\Auth;
                         $('#' + commentsPostId).prepend('<p><b>' + response.username + '</b> ' + response.comment + '</p>')
                         if (response.commentsCount > 3)
                             $('#' + commentsCounterId).text('View more ' + (response.commentsCount - 3) + ' comments');
-                        else if(response.commentsCount == 1) 
+                        else if (response.commentsCount == 1)
                             $('#' + commentsCounterId).text('View ' + response.commentsCount + ' comment');
                         else $('#' + commentsCounterId).text('View ' + (response.commentsCount) + ' comments');
                         $('input[name="comment"]').val('');
