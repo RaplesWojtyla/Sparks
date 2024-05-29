@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Auth;
             @foreach ($posts as $post)
             <div class="feed">
                 <div class="head">
-                    <div class="user">
+                      <div class="user">
                         <div class="profile-photo">
                             <img src="{{ asset($post->users->profile_picture) }}">
                         </div>
@@ -46,9 +46,10 @@ use Illuminate\Support\Facades\Auth;
                             <i class="uil uil-ellipsis-h"></i>
                         </span>
                         <div class="dropdown-menu">
-                            <a href="#" onclick="deletePost()">Delete Post</a>
+                            <a href="#" onclick="deletePost()">Delete</a>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="photo">
@@ -106,8 +107,8 @@ use Illuminate\Support\Facades\Auth;
                     </p>
                 </div>
 
-                <div class="comments text-muted">
-                    <span id="comments-count-{{$post->id}}" class="comments-toggle" onclick="loadMoreComments({{ $post->id }})">
+                <div class="comments text-muted" onclick="showComments()" style="cursor: pointer;">
+                    <span id="comments-count-{{$post->id}}">
                         @if ($post->commments()->count() == 0)
                         No Comment Yet
                         @elseif($post->commments()->count() == 1)
@@ -121,11 +122,11 @@ use Illuminate\Support\Facades\Auth;
                 </div>
 
                 <!-- Daftar komentar -->
-                @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first() != NULL)
-                    <?php $i = 1 ?>
-                    @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
-
-                        <div id="comments-{{$post->id}}" class="caption comment" style="{{ $i > 3 ? 'display:none;' : '' }}">
+                <div class="comment-section-{{$post->id}}">
+                    @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first())
+                      <?php $i = 1 ?>
+                      @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
+                        <div id="comments-{{$post->id}}" class="caption">
                             <p>
                                 <a href="{{ route('profile.show', $comment->id_commenter)}}">
                                     <b>{{ $comment->users->username }}</b>
@@ -133,12 +134,13 @@ use Illuminate\Support\Facades\Auth;
                                 {{ $comment->comment }}
                             </p>
                         </div>
+                        @if ($i == 3)
+                          @break
+                        @endif
                         <?php $i++ ?>
-                    @endforeach
-                @else
-                    <div id="comments-{{ $post->id }}"></div>
-                @endif
-
+                      @endforeach
+                    @endif
+                </div>
                 <!-- Input komentar -->
                 <div class="comment-input">
                     <form id="commentForm" data-post-id="{{$post->id}}" data-comment-id="comments-{{$post->id}}" data-comments-count-id="comments-count-{{$post->id}}">
@@ -152,6 +154,7 @@ use Illuminate\Support\Facades\Auth;
             </div>
             @endforeach
         </div>
+
         <!----------------- END OF FEEDS -------------------->
     </div>
     <!----------------- END OF MIDDLE -------------------->

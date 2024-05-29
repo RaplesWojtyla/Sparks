@@ -22,7 +22,7 @@
             <div class="column">
                 <div class="card">
                     <div class="img-container">
-                        <img src="profile-img-1.png" />
+                        <img src="{{ asset('images/pikun.jpg')}}" />
                     </div>
                     <h3>Alfi Syahrin</h3>
                     <p>Database Administrator</p>
@@ -30,13 +30,13 @@
                         <a href="https://www.instagram.com/a.syhrnn_21/">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#">
+                        <a href="https://www.linkedin.com/in/alfi-syahrin-320866310/.">
                             <i class="fab fa-linkedin"></i>
                         </a>
                         <a href="https://github.com/GoatMudryk">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="#">
+                        <a href="mailto:alfisyahrin2421@gmail.com">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
@@ -46,7 +46,7 @@
             <div class="column">
                 <div class="card">
                     <div class="img-container">
-                        <img src="profile-img-2.png" />
+                        <img src="{{ asset('images/nauchan.jpg') }}" />
                     </div>
                     <h3>Naurah Alya Rahmah</h3>
                     <p>Frontend</p>
@@ -70,7 +70,7 @@
             <div class="column">
                 <div class="card">
                     <div class="img-container">
-                        <img src="profile-img-3.png" />
+                        <img src="{{ asset('images/patg.jpg') }}" />
                     </div>
                     <h3>Patra Rafles Wostyla Sinaga</h3>
                     <p>Backend</p>
@@ -84,7 +84,7 @@
                         <a href="https://github.com/RaplesWojtyla">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="#">
+                        <a href="mailto:patrarwsinaga04@gmail.com">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
@@ -94,7 +94,7 @@
             <div class="column">
                 <div class="card">
                     <div class="img-container">
-                        <img src="profile-img-1.png" />
+                        <img src="{{ asset('images/jojo.jpg') }}" />
                     </div>
                     <h3>Jonathan C Amadeo Sembiring</h3>
                     <p>Frontend</p>
@@ -102,13 +102,13 @@
                         <a href="https://www.instagram.com/jonathan_christian17/">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#">
+                        <a href="https://www.linkedin.com/in/jonathan-c-amadeo-sembiring-227bb028a">
                             <i class="fab fa-linkedin"></i>
                         </a>
                         <a href="https://github.com/JonathanChristian17">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="#">
+                        <a href="mailto:jonathanamadeo17@gmail.com">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>

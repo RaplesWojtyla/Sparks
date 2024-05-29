@@ -263,88 +263,44 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
   });
 
-//      STORY
-//   document.addEventListener('DOMContentLoaded', () => {
-//     const uploadModal = document.getElementById("uploadStoryModal");
-//     const uploadBtn = document.getElementById("openStoryModalBtn");
-//     const uploadSpan = uploadModal.getElementsByClassName("story-modal-close")[0];
-//     const storySpan = storyModal.getElementsByClassName("story-modal-close")[0];
-  
-//     uploadBtn.onclick = function() {
-//       uploadModal.style.display = "block";
-//     }
-  
-//     uploadSpan.onclick = function() {
-//       uploadModal.style.display = "none";
-//     }
-  
-//     window.onclick = function(event) {
-//       if (event.target == uploadModal) {
-//         uploadModal.style.display = "none";
-//       }
-//       if (event.target == storyModal) {
-//         storyModal.style.display = "none";
-//       }
-//     }
-  
-//     document.getElementById('storyForm').addEventListener('submit', function(event) {
-//       event.preventDefault();
-//       const fileInput = document.getElementById('fileUpload');
-//       const captionInput = document.getElementById('caption');
-  
-//       if (fileInput.files.length === 0) {
-//         alert('Please select a file to upload.');
-//         return;
-//       }
-  
-//       // Close the modal after submission
-//       uploadModal.style.display = "none";
-//     });
-//   });
-  
+
 // comment 
-function loadMoreComments(postId) {
-    const comments = document.querySelectorAll(`#comments-list-${postId} .comment`);
-    let hiddenCount = 0;
-
-    comments.forEach(comment => {
-        if (comment.style.display === 'none') {
-            comment.style.display = 'block';
-            hiddenCount++;
-            if (hiddenCount >= 3) return;  // Show up to 3 hidden comments at a time
-        }
-    });
-
-    // If there are no more hidden comments, hide the "View more comments" link
-    const remainingHiddenComments = Array.from(comments).filter(comment => comment.style.display === 'none');
-    if (remainingHiddenComments.length === 0) {
-        const commentsToggle = document.getElementById(`comments-count-${postId}`);
-        if (commentsToggle) {
-            commentsToggle.style.display = 'none';
-        }
+function showComments(event, postId) {
+    event.preventDefault();
+    var commentsSection = document.getElementById('comments-section-' + postId);
+    var comments = commentsSection.getElementsByClassName('comment');
+    
+    for (var i = 0; i < comments.length; i++) {
+        comments[i].style.display = 'block';
     }
+
+    // Update the text or hide the link if necessary
+    var commentsCount = document.getElementById('comments-count-' + postId);
+    commentsCount.textContent = 'All comments are now visible';
 }
 
 
 // dropdown
 function toggleDropdown(element) {
-    const dropdown = element.nextElementSibling;
+    var dropdown = element.nextElementSibling;
     dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
 
+function deletePost(element) {
+    var post = element.closest('.post-options');
+    post.parentNode.removeChild(post);
+    alert('Post has been deleted.');
+}
+
+// Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
-    if (!event.target.matches('.edit')) {
-        const dropdowns = document.getElementsByClassName("dropdown-menu");
-        for (let i = 0; i < dropdowns.length; i++) {
-            const openDropdown = dropdowns[i];
+    if (!event.target.matches('.edit, .edit *')) {
+        var dropdowns = document.getElementsByClassName("dropdown-menu");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
             if (openDropdown.style.display === 'block') {
                 openDropdown.style.display = 'none';
             }
         }
     }
-}
-
-function deletePost() {
-    // Add your delete post logic here
-    alert("Post deleted");
 }
