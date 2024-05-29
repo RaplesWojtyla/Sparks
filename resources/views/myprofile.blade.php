@@ -61,6 +61,7 @@ use Illuminate\Support\Facades\Auth;
                 <div id="postModal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
+                        <div class="modal-body2"></div>
                         <div class="modal-body">
                             <div class="feeds">
                                 @foreach ($posts as $post)
@@ -68,15 +69,12 @@ use Illuminate\Support\Facades\Auth;
                                     <div class="head">
                                         <div class="user">
                                             <div class="profile-photo">
-                                                <img src="{{ asset($post->users->profile_picture) }}">
+                                                <img src="{{ asset('images/nauchan.jpg') }}">
                                             </div>
-                                            <div class="info">
-                                                <a href="{{ route('profile.show', $post->id_users)}}">
+                                        
                                                     <h3>{{ $post->users->name }}</h3>
+                                                </div>
                                                     <small>{{Carbon::parse($post->created_at)->format('d-m-Y')}}</small>
-                                                </a>
-                                            </div>
-                                        </div>
                                         <div class="post-options">
                                             <span class="edit" onclick="toggleDropdown(this)">
                                                 <i class="uil uil-ellipsis-h"></i>
@@ -218,12 +216,10 @@ use Illuminate\Support\Facades\Auth;
         document.addEventListener('DOMContentLoaded', function() {
             // Get the modal
             var modal = document.getElementById("postModal");
-
-            // Get the <span> element that closes the modal
             var span = document.getElementsByClassName("close")[0];
-
-            // Get all the images with class "photo-thumbnail"
             var images = document.getElementsByClassName('photo-thumbnail');
+            var modalBody = modal.querySelector('.modal-body .feeds');
+
 
             // Loop through each image and add click event
             Array.from(images).forEach(function(image) {
@@ -232,7 +228,8 @@ use Illuminate\Support\Facades\Auth;
                     var postContent = document.getElementById('feed-' + postId).innerHTML;
 
                     // Insert content into the modal
-                    modal.querySelector('.modal-body').innerHTML = postContent;
+                    modal.querySelector('.modal-body2').innerHTML = postContent;
+
 
                     // Display the modal
                     modal.style.display = "block";

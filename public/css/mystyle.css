@@ -278,7 +278,7 @@ nav ul li a.active {
 }
 
 .close {
-  color: white;
+  color: black;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -286,7 +286,7 @@ nav ul li a.active {
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: var(--color-dim);
   text-decoration: none;
   cursor: pointer;
 }
@@ -296,11 +296,28 @@ nav ul li a.active {
   background: #fff;
 }
 
+.modal-body2 {
+  padding: 20px;
+  background: #fff;
+}
+
 /* Ensure the image fits within the modal */
 .modal .photo img {
   width: 100%;
   height: auto;
 }
+.profile-photo {
+  width: 2.7rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.profile-photo img {
+  width: 100%; /* Menyesuaikan lebar gambar dengan elemen induk */
+  height: 100%; /* Menyesuaikan tinggi gambar dengan elemen induk */
+  object-fit: cover; /* Memastikan gambar menutupi elemen tanpa merusak rasio aspek */
+}
+
 
  .feeds .feed {
   background: var(--color-white);
