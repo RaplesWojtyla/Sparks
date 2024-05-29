@@ -264,43 +264,43 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 
 //      STORY
-  document.addEventListener('DOMContentLoaded', () => {
-    const uploadModal = document.getElementById("uploadStoryModal");
-    const uploadBtn = document.getElementById("openStoryModalBtn");
-    const uploadSpan = uploadModal.getElementsByClassName("story-modal-close")[0];
-    const storySpan = storyModal.getElementsByClassName("story-modal-close")[0];
+//   document.addEventListener('DOMContentLoaded', () => {
+//     const uploadModal = document.getElementById("uploadStoryModal");
+//     const uploadBtn = document.getElementById("openStoryModalBtn");
+//     const uploadSpan = uploadModal.getElementsByClassName("story-modal-close")[0];
+//     const storySpan = storyModal.getElementsByClassName("story-modal-close")[0];
   
-    uploadBtn.onclick = function() {
-      uploadModal.style.display = "block";
-    }
+//     uploadBtn.onclick = function() {
+//       uploadModal.style.display = "block";
+//     }
   
-    uploadSpan.onclick = function() {
-      uploadModal.style.display = "none";
-    }
+//     uploadSpan.onclick = function() {
+//       uploadModal.style.display = "none";
+//     }
   
-    window.onclick = function(event) {
-      if (event.target == uploadModal) {
-        uploadModal.style.display = "none";
-      }
-      if (event.target == storyModal) {
-        storyModal.style.display = "none";
-      }
-    }
+//     window.onclick = function(event) {
+//       if (event.target == uploadModal) {
+//         uploadModal.style.display = "none";
+//       }
+//       if (event.target == storyModal) {
+//         storyModal.style.display = "none";
+//       }
+//     }
   
-    document.getElementById('storyForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const fileInput = document.getElementById('fileUpload');
-      const captionInput = document.getElementById('caption');
+//     document.getElementById('storyForm').addEventListener('submit', function(event) {
+//       event.preventDefault();
+//       const fileInput = document.getElementById('fileUpload');
+//       const captionInput = document.getElementById('caption');
   
-      if (fileInput.files.length === 0) {
-        alert('Please select a file to upload.');
-        return;
-      }
+//       if (fileInput.files.length === 0) {
+//         alert('Please select a file to upload.');
+//         return;
+//       }
   
-      // Close the modal after submission
-      uploadModal.style.display = "none";
-    });
-  });
+//       // Close the modal after submission
+//       uploadModal.style.display = "none";
+//     });
+//   });
   
 // comment 
 function loadMoreComments(postId) {
