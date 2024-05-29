@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Auth;
 <body>
     <!----------------- MIDDLE -------------------->
     <div class="middle">
-       
         <!----------------- FEEDS -------------------->
         <div class="feeds">
             @foreach ($posts as $post)
@@ -43,14 +42,13 @@ use Illuminate\Support\Facades\Auth;
                         </div>
                     </div>
                     <div class="post-options">
-    <span class="edit" onclick="toggleDropdown(this)">
-        <i class="uil uil-ellipsis-h"></i>
-    </span>
-    <div class="dropdown-menu">
-        <a href="#" onclick="deletePost()">Delete Post</a>
-    </div>
-</div>
-
+                        <span class="edit" onclick="toggleDropdown(this)">
+                            <i class="uil uil-ellipsis-h"></i>
+                        </span>
+                        <div class="dropdown-menu">
+                            <a href="#" onclick="deletePost()">Delete Post</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="photo">
@@ -65,12 +63,14 @@ use Illuminate\Support\Facades\Auth;
                         $displayRegularHeart = 'block;';
                         $displaySolidHeart = 'none;';
                         ?>
+
                         @if ($post->likes->where('id_users', Auth::user()->id)->first() != NULL)
-                        <?php
-                        $displayRegularHeart = 'none;';
-                        $displaySolidHeart = 'block;';
-                        ?>
+                            <?php
+                            $displayRegularHeart = 'none;';
+                            $displaySolidHeart = 'block;';
+                            ?>
                         @endif
+
                         <button id="likeButton" class="like-button" data-post-id="{{ $post->id }}" data-likes-count-id="likes-count-{{$post->id}}">
                             <i class="fa-regular fa-heart" style="display: {{$displayRegularHeart}}"></i>
                             <i class="fa-solid fa-heart" style="color: red; display: {{$displaySolidHeart}}"></i>
@@ -121,19 +121,22 @@ use Illuminate\Support\Facades\Auth;
                 </div>
 
                 <!-- Daftar komentar -->
-                @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first())
-                <?php $i = 1 ?>
-                @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
-                <div id="comment-{{$post->id}}-{{$i}}" class="caption comment" style="{{ $i > 3 ? 'display:none;' : '' }}">
-                    <p>
-                        <a href="{{ route('profile.show', $comment->id_commenter)}}">
-                            <b>{{ $comment->users->username }}</b>
-                        </a>
-                        {{ $comment->comment }}
-                    </p>
-                </div>
-                <?php $i++ ?>
-                @endforeach
+                @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first() != NULL)
+                    <?php $i = 1 ?>
+                    @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
+
+                        <div id="comments-{{$post->id}}" class="caption comment" style="{{ $i > 3 ? 'display:none;' : '' }}">
+                            <p>
+                                <a href="{{ route('profile.show', $comment->id_commenter)}}">
+                                    <b>{{ $comment->users->username }}</b>
+                                </a>
+                                {{ $comment->comment }}
+                            </p>
+                        </div>
+                        <?php $i++ ?>
+                    @endforeach
+                @else
+                    <div id="comments-{{ $post->id }}"></div>
                 @endif
 
                 <!-- Input komentar -->
@@ -214,6 +217,8 @@ use Illuminate\Support\Facades\Auth;
         });
     </script>
 
+
+    <!-- Send Comment -->
     <script>
         $(document).ready(function() {
             $(document).on('submit', '#commentForm', function(e) {
