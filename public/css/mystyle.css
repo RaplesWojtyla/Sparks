@@ -1,5 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
+:root {
+  --primary-color-hue: 252;
+  --dark-color-lightness: 17%;
+  --light-color-lightness: 95%;
+  --white-color-lightness: 100%;
+
+  --color-white: hsl(252, 30%, var(--white-color-lightness));
+  --color-light: hsl(252, 30%, var(--light-color-lightness));
+  --color-grey: hsl(252, 15%, 65%);
+  --color-primary: hsl(var(--primary-color-hue), 75%, 60%);
+  --color-secondary: hsl(252, 100%, 90%);
+  --color-success: hsl(120, 95%, 65%);
+  --color-danger: hsl(0, 95%, 65%);
+  --color-dark: hsl(252, 30%, 17%);
+  --color-black: hsl(252, 30%, 10%);
+  --color-dim: hsl(254, 30%, 17%);
+
+  --border-radius: 2rem;
+  --card-border-radius: 1rem;
+  --btn-padding: 0.6rem 2rem;
+  --search-padding: 0.6rem 1rem;
+  --card-padding: 1rem;
+
+  --sticky-top-left: 5.4rem;
+  --sticky-top-right: -18rem;
+
+}
+
 body {
   width: 100%;
   margin: 0;
@@ -219,9 +247,174 @@ nav ul li a.active {
 }
 
 .btn:hover {
-  background-color: #e9f0f700;
+  opacity: 0.8;
 }
 
 .left__col .btn {
   margin-top: 30px; /* Adjust this value to move the button further down */
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  position: relative;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 700px;
+}
+
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 20px;
+  background: #fff;
+}
+
+/* Ensure the image fits within the modal */
+.modal .photo img {
+  width: 100%;
+  height: auto;
+}
+
+ .feeds .feed {
+  background: var(--color-white);
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  margin: 1rem 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+ .feed .head {
+  display: flex;
+  justify-content: space-between;
+}
+
+ .feed .user {
+  display: flex;
+  gap: 1rem;
+}
+
+ .feed .action-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.4rem;
+  margin: 0.6rem 0;
+}
+
+ .liked-by {
+  display: flex;
+}
+
+ .liked-by span {
+  width: 1.4rem;
+  height: 1.4rem;
+  display: block;
+  border-radius:50%;
+  overflow: hidden;
+  border: 2px solid var(--color-white);
+  margin-left: -0.6rem;
+}
+
+ .liked-by span:first-child {
+  margin: 0;
+}
+
+ .liked-by p {
+  margin-left: 0.5rem;
+}
+
+.post-options {
+  position: relative;
+  display: inline-block;
+  float: right;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: auto;
+}
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-menu a:hover {
+  background-color: var(--color-grey);
+}
+
+/* COMMENT */
+.comment-input {
+  margin-top: 10px;
+}
+
+.comment-input form {
+  display: flex;
+  justify-content: left; 
+}
+
+.input-wrapper {
+  display: flex;
+  padding: 2px;
+  align-items: left; 
+}
+
+.comment-input input[type="text"] {
+  flex: 1;
+  padding: 2px;
+  border: 1px solid #ccc;
+  border-radius: 20px 0 0 20px; /* Sudut bulat kiri */
+}
+
+.comment-input button {
+  padding: 2px 8px;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 0 20px 20px 0; /* Sudut bulat kanan */
+  cursor: pointer;
+}
+
+.comment-input button:hover {
+  opacity: 0.8;
+}
+.comments-list {
+  margin-top: 5px;
+  margin-left: 0;
+}
+
+.comment-toggle{
+  cursor: pointer;
 }

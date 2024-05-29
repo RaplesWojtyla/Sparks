@@ -279,28 +279,3 @@ function showComments(event, postId) {
     commentsCount.textContent = 'All comments are now visible';
 }
 
-
-// dropdown
-function toggleDropdown(element) {
-    var dropdown = element.nextElementSibling;
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-
-function deletePost(element) {
-    var post = element.closest('.post-options');
-    post.parentNode.removeChild(post);
-    alert('Post has been deleted.');
-}
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-    if (!event.target.matches('.edit, .edit *')) {
-        var dropdowns = document.getElementsByClassName("dropdown-menu");
-        for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.style.display === 'block') {
-                openDropdown.style.display = 'none';
-            }
-        }
-    }
-}
