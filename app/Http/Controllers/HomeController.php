@@ -36,14 +36,4 @@ class HomeController extends Controller
             'follbacks' => $follbacks,
         ]);
     }
-
-    public function create()
-    {
-        //
-    }
-
-    public function countComments()
-    {
-
-    }
 }

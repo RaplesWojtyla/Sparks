@@ -24,8 +24,10 @@ class FollowController extends Controller
     
     public function unfollow(User $user)
     {
-        Notification::where('id_users', Auth::user()->id)
-                    ->where('id_following', $user->id)->first()->delete();
+        $followingNotification = Notification::where('id_users', Auth::user()->id)
+                                             ->where('id_following', $user->id)->first();
+                                             
+        if ($followingNotification) $followingNotification->delete();
 
         Auth::user()->following()->detach($user);
 
