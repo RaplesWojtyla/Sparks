@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{$title ?? config('app.name', 'laravel')}}</title>
+    <title>{{ $title ?? config('app.name', 'laravel') }}</title>
     <!-- iconscout cdn -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
     <!-- stylesheet -->
@@ -31,7 +31,7 @@
             <!-- Dropdown menu -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <div class="profile-photo profile">
-                    <img src="{{asset(Auth::user()->profile_picture)}}" alt="user's pp">
+                    <img src="{{ asset(Auth::user()->profile_picture) }}" alt="user's pp">
                 </div>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -59,7 +59,8 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                            <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -69,7 +70,7 @@
             </div>
         </div>
     </nav>
-    
+
     <script>
         const searchInput = document.getElementById('searchInput');
         const searchResultsList = document.getElementById('searchResultList');
@@ -81,9 +82,9 @@
             if (searchQuery.length > 0) {
                 fetch(`/api/search?query=${searchQuery}`)
                     .then(response => response.json())
-                    .then(data => {  
+                    .then(data => {
                         searchResultsList.innerHTML = '';
-                        
+
                         if (data.results && data.results.length > 0) {
                             const resultList = data.results.map(result => `
                                 <li>
@@ -103,8 +104,7 @@
                             searchResultContainer.style.display = 'block';
                         }
                     });
-            } 
-            else {
+            } else {
                 fetch('/api/history')
                     .then(response => response.json())
                     .then(data => {
