@@ -80,8 +80,7 @@ use Illuminate\Support\Facades\Auth;
                                                     <i class="uil uil-ellipsis-h"></i>
                                                 </span>
                                                 <div class="dropdown-menu">
-                                                    <a onclick="deletePost({{ $post->id }})">Delete</a>
-                                                    <a onclick="updatePost({{ $post->id }})">Update</a>
+                                                    <a onclick="deletePost({{ $post->id }})" style="cursor: pointer;">Delete</a>
                                                 </div>
 
                                             </div>

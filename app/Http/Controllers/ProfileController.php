@@ -28,11 +28,17 @@ class ProfileController extends Controller
         }
         else
         {
-            History::create([
+            $history = History::where('id_searched', $user->id)->first();
+
+            if ($history) History::where('id_searched', $user->id)->update([
                 'id_users' => Auth::user()->id,
                 'id_searched' => $user->id,
             ]);
-            
+            else History::create([
+                'id_users' => Auth::user()->id,
+                'id_searched' => $user->id,
+            ]);
+
             return view('urprofile', [
                 'user' => $user,
                 'posts' => $posts,
