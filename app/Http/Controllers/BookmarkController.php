@@ -13,7 +13,7 @@ class BookmarkController extends Controller
         $saved = Bookmark::where('id_users', Auth::user()->id)
                 ->where('id_post', $postId)->first();
 
-        if ($saved) $saved->delete();
+        if ($saved) $saved->delete(); // Jika sudah disave, maka dihapus
         else 
         {
             Bookmark::create([
@@ -23,5 +23,25 @@ class BookmarkController extends Controller
         }
 
         return back();
+    }
+
+    public function delete($bookmarkId)
+    {
+        $saved = Bookmark::where('id_users', Auth::user()->id)
+                ->where('id_post', $bookmarkId)->first();
+        
+        if ($saved != NULL) 
+        {
+            $saved->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil menghapus postingan tersebut dari bookmark.'
+            ]);
+        }
+        else return response()->json([
+            'success' => true,
+            'message' => 'Postingan tidak ditemukan dibookmark.'
+        ], 404);
     }
 }
