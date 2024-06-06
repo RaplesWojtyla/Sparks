@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('berkas')->nullable();
-            $table->integer('size')->nullable();
             $table->foreign('id_creator')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('notification', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_users');
+            $table->unsignedBigInteger('id_post')->nullable();
             $table->unsignedBigInteger('id_following')->nullable();
-            $table->integer('tipe');
-            
+            $table->string('tipe');
             $table->foreign('id_users')->references('id')->on('users')->onDelete('cascade');
-            // $table->foreign('id_following')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_post')->references('id')->on('post')->onDelete('cascade');
+            $table->foreign('id_following')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
