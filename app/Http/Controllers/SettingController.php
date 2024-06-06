@@ -29,13 +29,7 @@ class SettingController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->validate([
-            'username' => ['required', 'string', 'max:25', 'alpha_num'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
-            'profile_picture' => [''],
-            'bio' => ['nullable', 'string']
-        ]);
+        $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
