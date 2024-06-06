@@ -57,7 +57,7 @@ use Illuminate\Support\Facades\Auth;
                     </form>
                 </nav>
 
-                <!-- Modal Structure -->
+                <!-- Post Modal Structure -->
                 <div id="postModal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
@@ -74,14 +74,13 @@ use Illuminate\Support\Facades\Auth;
 
                                                 <h3>{{ $post->users->name }}</h3>
                                             </div>
-                                            <small>{{ Carbon::parse($post->created_at)->format('d-m-Y') }}</small>
+                                            <small>Posted At: {{ Carbon::parse($post->created_at)->format('d-m-Y') }}</small>
                                             <div class="post-options">
                                                 <span class="edit" onclick="toggleDropdown(this)">
                                                     <i class="uil uil-ellipsis-h"></i>
                                                 </span>
                                                 <div class="dropdown-menu">
-                                                    <a onclick="deletePost({{ $post->id }})">Delete</a>
-                                                    <a onclick="updatePost({{ $post->id }})">Update</a>
+                                                    <a onclick="deletePost({{ $post->id }})" style="cursor: pointer;">Delete</a>
                                                 </div>
 
                                             </div>
@@ -114,12 +113,58 @@ use Illuminate\Support\Facades\Auth;
                     @endforeach
                 </div>
 
+                <!-- Bookmark Modal -->
+                <div id="bookmark-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-2">&times;</span>
+                        <div class="modal-body-bookmarks-2"></div>
+                        <div class="modal-body">
+                            <div class="feeds">
+                                @foreach ($bookmarks as $bookmark)
+                                    @if ($bookmark->post->filePosts->first() != null)
+                                    <div class="feed" id="bookmark-{{ $bookmark->id_post }}" style="display: none;">
+                                        <div class="head">
+                                            <div class="user">
+                                                <div class="profile-photo">
+                                                    <img src="{{ asset($bookmark->post->users->profile_picture) }}">
+                                                </div>
+
+                                                <h3>{{ $bookmark->post->users->name }}</h3>
+                                            </div>
+                                            <small>Posted At: {{ Carbon::parse($bookmark->post->created_at)->format('d-m-Y') }}</small>
+                                            <div class="post-options">
+                                                <span class="edit" onclick="toggleDropdown(this)">
+                                                    <i class="uil uil-ellipsis-h"></i>
+                                                </span>
+                                                <div class="dropdown-menu">
+                                                    <a onclick="deleteBookmark({{ $bookmark->id_post }})" style="cursor: pointer;">Unsave</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="photo">
+                                            @if ($bookmark->post->filePosts->first() != null)
+                                                <img src="{{ asset($bookmark->post->filePosts->first()->berkas) }}" />
+                                            @endif
+                                        </div>
+
+                                        <div class="caption">
+                                            <p><b>{{ $bookmark->post->users->username }}</b> {{ $bookmark->post->caption }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="photos" id="saved" style="display: none;">
                     @foreach ($bookmarks as $bookmark)
                         @if ($bookmark->post->filePosts->first() != null)
                             <img src="{{ asset($bookmark->post->filePosts->first()->berkas) }}"
-                                alt="Photo postingan yang di save" />
+                               class="bookmark-thumbnail" alt="Photo postingan yang di save" data-bookmark-id="{{ $bookmark->id_post }}" />
                         @endif
                     @endforeach
                 </div>
@@ -133,25 +178,53 @@ use Illuminate\Support\Facades\Auth;
             if (!confirm(`Hapus postingan ini?`)) return;
 
             fetch(`/post/${postId}/delete`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success)
-                    {
-                        alert(data.message);
-                        location.reload();
-                    }
-                    else alert(data.message);
-                })
-                .catch(error => {
-                    console.error('Error: ', error);
-                    alert('Terjadi kesalahan saat menghapus post tersebut.');
-                });
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success)
+                {
+                    alert(data.message);
+                    location.reload();
+                }
+                else alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error: ', error);
+                alert('Terjadi kesalahan saat menghapus post tersebut.');
+            });
+        }
+    </script>
+    
+    <script>
+        function deleteBookmark(bookmarkId) 
+        {
+            if (!confirm(`Hapus postingan ini dari bookmark?`)) return;
+
+            fetch(`/post/bookmark/${bookmarkId}/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success)
+                {
+                    alert(data.message);
+                    location.reload();
+                }
+                else alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error: ', error);
+                alert('Terjadi kesalahan saat menghapus post tersebut.');
+            });
         }
     </script>
 
@@ -188,11 +261,9 @@ use Illuminate\Support\Facades\Auth;
 
         document.addEventListener('DOMContentLoaded', function() {
             // Get the modal
-            var modal = document.getElementById("postModal");
-            var span = document.getElementsByClassName("close")[0];
-            var images = document.getElementsByClassName('photo-thumbnail');
-            var modalBody = modal.querySelector('.modal-body .feeds');
-
+            const modal = document.getElementById("postModal");
+            const span = document.getElementsByClassName("close")[0];
+            const images = document.getElementsByClassName('photo-thumbnail');
 
             // Loop through each image and add click event
             Array.from(images).forEach(function(image) {
@@ -203,15 +274,32 @@ use Illuminate\Support\Facades\Auth;
                     // Insert content into the modal
                     modal.querySelector('.modal-body2').innerHTML = postContent;
 
-
                     // Display the modal
                     modal.style.display = "block";
+                }
+            });
+
+            const bookmarkModal = document.getElementById("bookmark-modal");
+            const span2 = document.getElementsByClassName("close-2")[0];
+            const bookmarkImages = document.getElementsByClassName('bookmark-thumbnail');
+
+            Array.from(bookmarkImages).forEach(function(img) {
+                img.onclick = function() {
+                    const bookmarkId = this.getAttribute('data-bookmark-id');
+                    const bookmarkContent = document.getElementById('bookmark-' + bookmarkId).innerHTML;
+
+                    bookmarkModal.querySelector('.modal-body-bookmarks-2').innerHTML = bookmarkContent;
+                    bookmarkModal.style.display = "block";
                 }
             });
 
             // When the user clicks on <span> (x), close the modal
             span.onclick = function() {
                 modal.style.display = "none";
+            }
+            
+            span2.onclick = function() {
+                bookmarkModal.style.display = "none";
             }
 
             // When the user clicks anywhere outside of the modal, close it

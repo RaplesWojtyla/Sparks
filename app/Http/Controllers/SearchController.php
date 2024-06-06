@@ -51,7 +51,7 @@ class SearchController extends Controller
     {
         $user = Auth::user();
         
-        $history = History::where('id_users', $user->id)
+        $history = History::orderByDesc('updated_at')->where('id_users', $user->id)
             ->limit(8)
             ->get()
             ->map(function ($historyItem) {
