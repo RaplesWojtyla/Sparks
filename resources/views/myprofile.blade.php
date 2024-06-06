@@ -59,75 +59,133 @@ use Illuminate\Support\Facades\Auth;
 
                 <!-- Modal Structure -->
                 <!-- Modal Structure -->
-<div id="postModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="modal-body2"></div>
-        <div class="modal-body">
-            <div class="feeds">
-                @foreach ($posts as $post)
-                <div class="feed" id="feed-{{ $post->id }}" style="display: none;">
-                    <div class="head">
-                        <div class="user">
-                            <div class="profile-photo">
-                                <img src="{{ asset($post->users->profile_picture) }}">
-                            </div>
-                            <h3>{{ $post->users->name }}</h3>
+                <div id="postModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="modal-body2"></div>
+                        <div class="modal-body">
+                            <div class="feeds">
+                                @foreach ($posts as $post)
+                                    <div class="feed" id="feed-{{ $post->id }}" style="display: none;">
+                                        <div class="head">
+                                            <div class="user">
+                                                <div class="profile-photo">
+                                                    <img src="{{ asset($post->users->profile_picture) }}">
+                                                </div>
+
+                                                <h3>{{ $post->users->name }}</h3>
+                                            </div>
+                                            <small>{{ Carbon::parse($post->created_at)->format('d-m-Y') }}</small>
+                                            <div class="post-options">
+                                                <span class="edit" onclick="toggleDropdown(this)">
+                                                    <i class="uil uil-ellipsis-h"></i>
+                                                </span>
+                                                <div class="dropdown-menu">
+                                                    <a href="#" onclick="deletePost()">Delete</a>
+                                                    <a href="#" onclick="updatePost()">Update</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="photo">
+                                            @if ($post->filePosts->first() != null)
+                                                <img src="{{ asset($post->filePosts->first()->berkas) }}">
+                                            @endif
+                                        </div>
+
+                                        <div class="action-buttons">
+                                            <div class="interaction-buttons">
+                                                <?php
+                                                $displayRegularHeart = 'block;';
+                                                $displaySolidHeart = 'none;';
+                                                ?>
+
+                                                @if ($post->likes->where('id_users', Auth::user()->id)->first() != null)
+                                                    <?php
+                                                    $displayRegularHeart = 'none;';
+                                                    $displaySolidHeart = 'block;';
+                                                    ?>
+                                                @endif
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="liked-by">
+                                            <p id="likes-count-{{ $post->id }}">{{ $post->likes()->count() }}</p>
+                                        </div>
+
+                                        <div class="caption">
+                                            <p><b>{{ $post->users->username }}</b> {{ $post->caption }}
+                                            </p>
+                                        </div>
+
+                                        <div class="comments text-muted" onclick="showComments()"
+                                            style="cursor: pointer;">
+                                            <span id="comments-count-{{ $post->id }}">
+                                                @if ($post->commments()->count() == 0)
+                                                    No Comment Yet
+                                                @elseif($post->commments()->count() == 1)
+                                                    View {{ $post->commments()->count() }} comment
+                                                @elseif ($post->commments()->count() > 3)
+                                                    View {{ $post->commments()->count() - 3 }} more comments
+                                                @else
+                                                    View {{ $post->commments()->count() }} comments
+                                                @endif
+                                            </span>
+                                        </div>
+
+                                        <!-- Daftar komentar -->
+                                        <div class="comment-section-{{ $post->id }}">
+                                            @if ($post->commments->sortByDesc('id')->groupBy('id_post')->first())
+                                                <?php $i = 1; ?>
+                                                @foreach ($post->commments->sortByDesc('id')->groupBy('id_post')->first() as $comment)
+                                                    <div id="comments-{{ $post->id }}" class="caption">
+                                                        <p>
+                                                            <a
+                                                                href="{{ route('profile.show', $comment->id_commenter) }}">
+                                                                <b>{{ $comment->users->username }}</b>
+                                                            </a>
+                                                            {{ $comment->comment }}
+                                                        </p>
+                                                    </div>
+                                                    @if ($i == 3)
+                                                    @break
+                                                @endif
+                                                <?php $i++; ?>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                        <small>{{ Carbon::parse($post->created_at)->format('d-m-Y') }}</small>
-                        <div class="post-options">
-                            <span class="edit" onclick="toggleDropdown(this)">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                            <div class="dropdown-menu">
-                                <a href="#" onclick="deletePost()">Delete</a>
-                                <a href="#" onclick="updateCaption(this)">Update</a>
-                            </div>
-                        </div>
                     </div>
-                    <div class="photo">
-                        @if ($post->filePosts->first() != null)
-                        <img src="{{ asset($post->filePosts->first()->berkas) }}">
-                        @endif
-                    </div>
-                    <div class="caption">
-                        <!-- Initial caption content -->
-                        <p><b>{{ $post->users->username }}</b> <span id="caption-{{ $post->id }}">{{ $post->caption }}</span></p>
-                    </div>
-                    <!-- Input for updating caption (initially hidden) -->
-                    <div class="update-caption" style="display: none;">
-                        <input type="text" id="new-caption-{{ $post->id }}" value="{{ $post->caption }}">
-                        <!-- Save Change button (initially hidden) -->
-                    </div>
-                    <button class="save-change-btn" onclick="saveChange(this)" style="display: none;">Save Change</button>
                 </div>
+            </div>
+
+            <!-- Photos Section -->
+            <div class="photos" id="post">
+                @foreach ($posts as $post)
+                    @if ($post->filePosts->first() != null)
+                        <img src="{{ asset($post->filePosts->first()->berkas) }}" alt="Photo postingan"
+                            class="photo-thumbnail" data-post-id="{{ $post->id }}" />
+                    @endif
+                @endforeach
+            </div>
+
+
+            <div class="photos" id="saved" style="display: none;">
+                @foreach ($bookmarks as $bookmark)
+                    @if ($bookmark->post->filePosts->first() != null)
+                        <img src="{{ asset($bookmark->post->filePosts->first()->berkas) }}"
+                            alt="Photo postingan yang di save" />
+                    @endif
                 @endforeach
             </div>
         </div>
     </div>
 </div>
-
-
-                <!-- Photos Section -->
-                <div class="photos" id="post">
-                    @foreach ($posts as $post)
-                    @if ($post->filePosts->first() != null)
-                    <img src="{{ asset($post->filePosts->first()->berkas) }}" alt="Photo postingan" class="photo-thumbnail" data-post-id="{{ $post->id }}" />
-                    @endif
-                    @endforeach
-                </div>
-
-
-                <div class="photos" id="saved" style="display: none;">
-                    @foreach ($bookmarks as $bookmark)
-                    @if ($bookmark->post->filePosts->first() != null)
-                    <img src="{{ asset($bookmark->post->filePosts->first()->berkas) }}" alt="Photo postingan yang di save" />
-                    @endif
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         const postsLink = document.getElementById('postsLink');
@@ -196,16 +254,16 @@ use Illuminate\Support\Facades\Auth;
             }
         });
 
-        function toggleDropdown(element) {
-            var dropdown = element.nextElementSibling;
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        }
+    function toggleDropdown(element) {
+        var dropdown = element.nextElementSibling;
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
 
-        function deletePost(element) {
-            var post = element.closest('.post-options');
-            post.parentNode.removeChild(post);
-            alert('Post has been deleted.');
-        }
+    function deletePost(element) {
+        var post = element.closest('.post-options');
+        post.parentNode.removeChild(post);
+        alert('Post has been deleted.');
+    }
 
         // Close the dropdown menu if the user clicks outside of it
         window.onclick = function(event) {
