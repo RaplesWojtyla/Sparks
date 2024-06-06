@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id_users');
             $table->string('caption')->nullable();
             $table->string('berkas');
-            $table->integer('size');
             $table->foreign('id_users')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
