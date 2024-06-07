@@ -27,6 +27,7 @@ class CommentController extends Controller
         return response()->json([
             'comment' => $comment->comment,
             'username' => Auth::user()->username,
+            'profile_picture' => Auth::user()->profile_picture,
             'commentsCount' => Post::findOrFail($postId)->commments()->count(),
         ]);
     }

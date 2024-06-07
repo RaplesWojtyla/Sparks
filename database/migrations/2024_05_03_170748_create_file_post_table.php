@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_post');
             $table->string('berkas');
-            $table->integer('size');
             $table->foreign('id_post')->references('id')->on('post')->onDelete('cascade');
             $table->timestamps();
         });

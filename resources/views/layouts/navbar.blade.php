@@ -92,7 +92,7 @@
                                     <div>
                                         <a href="profile/${result.id_user}">
                                             <b class="result-name">${result.name}</b>
-                                            <div class="result-details">${result.username}</div>
+                                            <div class="result-details">@${result.username}</div>
                                         </a>
                                     </div>
                                 </li>
@@ -117,7 +117,7 @@
                                     <div>
                                         <a href="profile/${historyItem.id_user}">
                                             <b class="result-name">${historyItem.name}</b>
-                                            <div class="result-details">${historyItem.username}</div>
+                                            <div class="result-details">@${historyItem.username}</div>
                                         </a>
                                     </div>
                                 </li>
