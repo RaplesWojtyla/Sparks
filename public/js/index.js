@@ -229,53 +229,36 @@ exploreMenuItem.addEventListener("click", (event) => {
     searchInput.focus();
 });
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    const createButton = document.getElementById('create');
-    const modal = document.getElementById('CreatePostModal');
-    const closeModal = document.querySelector('.modal .close');
+document.addEventListener("DOMContentLoaded", (event) => {
+    const createButton = document.getElementById("create");
+    const modal = document.getElementById("CreatePostModal");
+    const closeModal = document.querySelector(".modal .close");
 
-    createButton.addEventListener('click', () => {
-      modal.style.display = 'block';
+    createButton.addEventListener("click", () => {
+        modal.style.display = "block";
     });
 
-    closeModal.addEventListener('click', () => {
-      modal.style.display = 'none';
+    closeModal.addEventListener("click", () => {
+        modal.style.display = "none";
     });
 
-    window.addEventListener('click', (event) => {
-      if (event.target == modal) {
-        modal.style.display = 'none';
-      }
+    window.addEventListener("click", (event) => {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     });
-  });
+});
 
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     const privacy = document.querySelector(".post .privacy");
     const arrowBack = document.querySelector(".audience .arrow-back");
     const wrapper = document.querySelector(".wrapper");
 
     privacy.addEventListener("click", () => {
-      wrapper.classList.add("active");
+        wrapper.classList.add("active");
     });
 
     arrowBack.addEventListener("click", () => {
-      wrapper.classList.remove("active");
+        wrapper.classList.remove("active");
     });
-  });
-
-
-// comment 
-function showComments(event, postId) {
-    event.preventDefault();
-    var commentsSection = document.getElementById('comments-section-' + postId);
-    var comments = commentsSection.getElementsByClassName('comment');
-    
-    for (var i = 0; i < comments.length; i++) {
-        comments[i].style.display = 'block';
-    }
-
-    // Update the text or hide the link if necessary
-    var commentsCount = document.getElementById('comments-count-' + postId);
-    commentsCount.textContent = 'All comments are now visible';
-}
-
+});

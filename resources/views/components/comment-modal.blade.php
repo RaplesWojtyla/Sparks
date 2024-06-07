@@ -12,24 +12,28 @@
 
         <div class="comments-container">
             <div id="comments-list-{{ $post->id }}">
-            @foreach ($post->commments as $comment)
-                <div class="comment">
-                    <div class="comment-info">
-                        <img src="{{ $comment->users->profile_picture }}" alt="Profile Picture" class="profile-picture">
+                @foreach ($post->commments as $comment)
+                    <div class="comment">
+                        <div class="comment-info">
+                            <img src="{{ $comment->users->profile_picture }}" alt="Profile Picture"
+                                class="profile-picture" />
+                        </div>
+                        <div class="comment-content">
+                            <p>
+                                <a href="{{ route('profile.show', $post->id_users) }}">
+                                    <b>{{ $comment->users->username }}</b>
+                                </a>
+                                {{ $comment->comment }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="comment-content">
-                    <p>
-                        <a href="{{ route('profile.show', $post->id_users) }}">
-                            <b>{{ $comment->users->username }}</b>
-                        </a>
-                        {{ $comment->comment }}</p>
-                    </div>
-                </div>
-            @endforeach
+                @endforeach
             </div>
         </div>
         <div class="comment-input">
-            <form class="commentForm" id="modalCommentForm-{{ $post->id }}" data-post-id="{{ $post->id }}">
+            <form class="commentForm" id="commentForm" data-post-id="{{ $post->id }}"
+                data-comment-id="comments-{{ $post->id }}"
+                data-comments-count-id="comments-count-{{ $post->id }}">
                 @csrf
                 <div class="input-wrapper">
                     <input type="text" class="commentText" name="comment" placeholder="Add a comment...">
@@ -49,7 +53,8 @@
         top: 0;
         width: 100%;
         height: 100%;
-        overflow: hidden; /* Prevent scrolling of the entire modal */
+        overflow: hidden;
+        /* Prevent scrolling of the entire modal */
         background-color: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(5px);
     }
@@ -60,8 +65,10 @@
         padding: 20px;
         border-radius: 12px;
         max-width: 600px;
-        max-height: 80vh; /* Limit the height of the modal */
-        overflow: hidden; /* Prevent scrolling of the entire modal */
+        max-height: 80vh;
+        /* Limit the height of the modal */
+        overflow: hidden;
+        /* Prevent scrolling of the entire modal */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         display: flex;
         flex-direction: column;
@@ -101,7 +108,8 @@
 
     .comments-container {
         flex: 1;
-        overflow-y: auto; /* Enable vertical scrolling for comments */
+        overflow-y: auto;
+        /* Enable vertical scrolling for comments */
     }
 
     .comment-input {
