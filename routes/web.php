@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,9 +35,14 @@ Route::middleware('guest')->group(function () {
 });
 
 // Home
-Route::get('/dashboard', [
+Route::get('/sparks', [
     HomeController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('dashboard');
+
+// Admin
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/sparks/users', [UsersController::class, 'index'])->name('show.users');
+});
 
 // Upload File
 Route::post('/upload-file', [
@@ -65,10 +71,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/api/history', [SearchController::class, 'history'])->name('api.history');
 });
 
-// Update Profile
+// Update Users
 Route::middleware('auth')->group(function () {
-    Route::get('/update-profile', [SettingController::class, 'edit'])->name('profile.edit');
-    Route::patch('/update-profile', [SettingController::class, 'update'])->name('profile.update');
+    Route::get('/update/{user}/profile', [SettingController::class, 'edit'])->name('profile.edit');
+    Route::patch('/update/{user}/profile', [SettingController::class, 'update'])->name('profile.update');
+    Route::patch('/banned/{idUser}/user', [SettingController::class, 'banned'])->name('user.banned');
+    Route::patch('/unbanned/{idUser}/user', [SettingController::class, 'unbanned'])->name('user.unbanned');
     Route::delete('/delete-account', [SettingController::class, 'destroy'])->name('profile.destroy');
 });
 

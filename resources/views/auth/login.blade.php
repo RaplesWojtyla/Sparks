@@ -14,7 +14,7 @@
             @if (Route::has('login'))
                 <div>
                     @auth
-                        <a href="{{ url('/dashboard') }}">Dashboard </a>
+                        <a href="{{ url('/sparks') }}">Dashboard </a>
                     @else
                         <a href="{{ route('login') }}">Log in</a>
 
