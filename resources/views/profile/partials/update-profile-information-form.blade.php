@@ -13,12 +13,12 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update', $user) }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
         <div>
-            <img src="{{ asset(Auth::user()->profile_picture) }}" alt="Gambar Profil" style="height: 100px; width: auto;">
+            <img src="{{ asset($user->profile_picture) }}" alt="Gambar Profil" style="height: 100px; width: auto;">
             <x-input-label for="file" :value="__('Profile Picture')" />
             <x-text-input id="profile_picture" name="profile_picture" type="file" class="mt-1 block w-full" :value="old('profile_picture', $user->profile_picture)" autofocus autocomplete="profile_picture" />
             <x-input-error class="mt-2" :messages="$errors->get('profile_picture')" />

@@ -13,22 +13,38 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Username</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Aksi</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($mahasiswa as $mhs)
+                    @foreach($users as $user)
                     <tr>
-                        <td>1</td>
-                        <td>username</td>
-                        <td>nama</td>
-                        <td>email</td>
+                        <td>{{ $user->username }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
                         <td>
-                            <a href="{{ route('delete', $mhs->id_mahasiswa) }}" class="btn btn-danger">Hapus</a>
+                            <a href="{{ route('profile.edit', $user) }}" class="btn btn-edit">Update</a>
+                        </td>
+                        <td>
+                            @if ($user->status == 'not banned')
+                                <form method="post" action="{{ route('user.banned', $user->id) }}" class="p-6">
+                                    @csrf
+                                    @method('patch')
+
+                                    <button class="btn btn-danger">Banned Account</button>
+                                </form>
+                            @else
+                                <form method="post" action="{{ route('user.unbanned', $user->id) }}" class="p-6">
+                                    @csrf
+                                    @method('patch')
+
+                                    <button class="btn btn-danger">Unbanned Account</button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

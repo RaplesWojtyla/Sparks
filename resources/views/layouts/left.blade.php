@@ -54,18 +54,24 @@
                 <span><i class="uil uil-palette"></i></span>
                 <h3>Theme</h3>
             </a>
-            <a class="menu-item" href="{{ route('profile.edit') }}">
+            <a class="menu-item" href="{{ route('profile.edit', Auth::user()) }}">
                 <span><i class="uil uil-setting"></i></span>
                 <h3>Setting</h3>
             </a>
-            <a class="menu-item" href="{{ route('profile.edit') }}">
+
+            @if (Auth::user()->role == 'admin')
+                
+            <a class="menu-item" href="{{ route('show.users') }}">
                 <span><i class="uil uil-user"></i></span>
                 <h3>User</h3>
             </a>
-            <a class="menu-item" href="{{ route('profile.edit') }}">
+
+            <a class="menu-item" href="{{-- route('profile.edit') --}}">
                 <span><i class="uil uil-exclamation-octagon"></i></span>
                 <h3>Report</h3>
             </a>
+            
+            @endif
             <a class="menu-item" href="{{ route('info') }}">
                 <span><i class="uil uil-info-circle"></i></span>
                 <h3>Info</h3>

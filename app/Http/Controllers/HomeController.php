@@ -18,16 +18,26 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user->status == 'banned') 
+        {
+            Auth::logout();
+            return abort(403, 'Your Account Has Been Banned.');
+        }
+
         $posts = Post::inRandomOrder()->get();
         $notifications = Notification::orderByDesc('id')->get();
         
         $idFollowers = Follows::where('id_following', $user->id)->pluck('id_follower');
         $idFollowings = Follows::where('id_follower', $user->id)->pluck('id_following');
-        $follbacks = User::whereIn('id', $idFollowers)->whereNotIn('id', $idFollowings)->get();
+        
+        $follbacks = User::whereIn('id', $idFollowers)
+                        ->whereNotIn('id', $idFollowings)
+                        ->inRandomOrder()->limit(4)->get();
+
         $suggestUsers = User::where('name', '!=', $user->name)
                             ->whereNotIn('id', $idFollowers)
                             ->whereNotIn('id', $idFollowings)
-                            ->get();
+                            ->inRandomOrder()->limit(4)->get();
 
         return view('dashboard', [
             'posts' => $posts,

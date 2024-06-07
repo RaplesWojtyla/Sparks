@@ -17,17 +17,17 @@ class SettingController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit(User $user): View
     {
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request, User $user): RedirectResponse
     {
         $request->user()->fill($request->validated());
 
@@ -42,7 +42,7 @@ class SettingController extends Controller
             Storage::copy('posts/tmp/' . $tmpFile->folder . '/' . $tmpFile->filename, 'user-profile-pictures/' . $tmpFile->folder . '/' . $tmpFile->filename);
             $path = 'storage/user-profile-pictures/' . $tmpFile->folder . '/' . $tmpFile->filename;
 
-            User::where('id', Auth::user()->id)->update([
+            User::where('id', $user->id)->update([
                 'username' => $request->username,
                 'name' => $request->name,
                 'email' => $request->email,
@@ -55,7 +55,7 @@ class SettingController extends Controller
         }
         else
         {
-            User::where('id', Auth::user()->id)->update([
+            User::where('id', $user->id)->update([
                 'username' => $request->username,
                 'name' => $request->name,
                 'email' => $request->email,
@@ -63,7 +63,29 @@ class SettingController extends Controller
             ]);
         }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit', $user)->with('status', 'profile-updated');
+    }
+
+    public function banned($idUser)
+    {
+        $user = User::findOrFail($idUser);
+        
+        $user->update([
+            'status' => 'banned',
+        ]);
+
+        return back();
+    }
+    
+    public function unbanned($idUser)
+    {
+        $user = User::findOrFail($idUser);
+
+        $user->update([
+            'status' => 'not banned',
+        ]);
+
+        return back();
     }
 
     /**
