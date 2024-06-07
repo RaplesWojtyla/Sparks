@@ -1,13 +1,9 @@
 <?php
-
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
     <!-- stylesheet -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-
 <body>
     <!----------------- MIDDLE -------------------->
     <div class="middle">
@@ -37,11 +32,8 @@ use Illuminate\Support\Facades\Auth;
                                     <h3>{{ $post->users->name }}</h3>
                                     <small>{{ Carbon::parse($post->created_at)->format('d-m-Y') }}</small>
                                 </a>
-                                {{-- DB::table('post')->select(DB::raw('TIMESTAMPDIFF(DAY, created_at, NOW()) as duration'))->first()->duration --}}
                             </div>
                         </div>
-
-
                     </div>
 
                     <div class="photo">
@@ -69,7 +61,7 @@ use Illuminate\Support\Facades\Auth;
                                 <i class="fa-regular fa-heart" style="display: {{ $displayRegularHeart }}"></i>
                                 <i class="fa-solid fa-heart" style="color: red; display: {{ $displaySolidHeart }}"></i>
                             </button>
-                            <span><i class="uil uil-comment-dots"></i></span>
+                            <span><i class="uil uil-comment-dots" onclick="showCommentModal({{ $post->id }})"></i></span>
                         </div>
                         <div class="bookmark">
                             <?php
@@ -96,8 +88,7 @@ use Illuminate\Support\Facades\Auth;
                     </div>
 
                     <div class="caption">
-                        <p><b>{{ $post->users->username }}</b> {{ $post->caption }}
-                        </p>
+                        <p><b>{{ $post->users->username }}</b> {{ $post->caption }}</p>
                     </div>
 
                     <div class="comments text-muted" onclick="showComments()" style="cursor: pointer;">
@@ -128,32 +119,34 @@ use Illuminate\Support\Facades\Auth;
                                     </p>
                                 </div>
                                 @if ($i == 3)
-                                @break
-                            @endif
-                            <?php $i++; ?>
-                        @endforeach
-                    @endif
-                </div>
+                                    @break
+                                @endif
+                                <?php $i++; ?>
+                            @endforeach
+                        @endif
+                    </div>
 
-                <!-- Input komentar -->
-                <div class="comment-input">
-                    <form id="commentForm" data-post-id="{{ $post->id }}"
-                        data-comment-id="comments-{{ $post->id }}"
-                        data-comments-count-id="comments-count-{{ $post->id }}">
-                        @csrf
-                        <div class="input-wrapper">
-                            <input type="text" id="commentText" name="comment" placeholder="Add a comment...">
-                            <button id="comments-button" type="submit">Send</button>
-                        </div>
-                    </form>
+                    <!-- Input komentar -->
+                    <div class="comment-input">
+                        <form id="commentForm" data-post-id="{{ $post->id }}"
+                            data-comment-id="comments-{{ $post->id }}"
+                            data-comments-count-id="comments-count-{{ $post->id }}">
+                            @csrf
+                            <div class="input-wrapper">
+                                <input type="text" id="commentText" name="comment" placeholder="Add a comment...">
+                                <button id="comments-button" type="submit">Send</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Include Modal Pop-up Komentar -->
+                    @include('components.comment-modal', ['post' => $post])
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
+        <!----------------- END OF FEEDS -------------------->
     </div>
-
-    <!----------------- END OF FEEDS -------------------->
-</div>
-<!----------------- END OF MIDDLE -------------------->
+    <!----------------- END OF MIDDLE -------------------->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -222,33 +215,79 @@ use Illuminate\Support\Facades\Auth;
 <!-- Send Comment Ajax -->
 <script>
     $(document).ready(function() {
-        $(document).on('submit', '#commentForm', function(e) {
-            e.preventDefault();
+    // Comment submission for main page
+    $(document).on('submit', '#commentForm', function(e) {
+        e.preventDefault();
 
-            const postId = $(this).data('post-id');
-            const commentsPostId = $(this).data('comment-id')
-            const commentsCounterId = $(this).data('comments-count-id');
+        const postId = $(this).data('post-id');
+        const commentsPostId = $(this).data('comment-id')
+        const commentsCounterId = $(this).data('comments-count-id');
 
-            $.ajax({
-                url: '/post/' + postId + '/comment',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#' + commentsPostId).prepend('<p><b>' + response.username + '</b> ' +
-                        response.comment + '</p>');
+        $.ajax({
+            url: '/post/' + postId + '/comment',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                $('#' + commentsPostId).prepend('<p><b>' + response.username + '</b> ' + response.comment + '</p>');
 
-                    if (response.commentsCount > 1)
-                        $('#' + commentsCounterId).text('View ' + response.commentsCount +
-                            ' comments');
-                    else $('#' + commentsCounterId).text('View ' + response.commentsCount +
-                        ' comment');
+                if (response.commentsCount > 1)
+                    $('#' + commentsCounterId).text('View ' + response.commentsCount + ' comments');
+                else
+                    $('#' + commentsCounterId).text('View ' + response.commentsCount + ' comment');
 
-                    $('input[name="comment"]').val('');
-                }
-            });
+                $('input[name="comment"]').val('');
+            }
         });
     });
+
+    // Comment submission for modal
+    $(document).on('submit', '.commentForm', function(e) {
+        e.preventDefault();
+
+        const postId = $(this).data('post-id');
+        const modalCommentListId = '#comments-list-' + postId;
+        const commentsCounterId = '#comments-count-' + postId;
+
+        $.ajax({
+            url: '/post/' + postId + '/comment',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                $(modalCommentListId).prepend(
+                    '<div class="comment">' +
+                    '<div class="comment-info">' +
+                    '<img src="' + response.profile_picture + '" alt="Profile Picture" class="profile-picture">' +
+                    '</div>' +
+                    '<div class="comment-content">' +
+                    '<p><b>' + response.username + '</b> ' + response.comment + '</p>' +
+                    '</div>' +
+                    '</div>'
+                );
+
+                if (response.commentsCount > 1)
+                    $(commentsCounterId).text('View ' + response.commentsCount + ' comments');
+                else
+                    $(commentsCounterId).text('View ' + response.commentsCount + ' comment');
+
+                $(this).find('input[name="comment"]').val('');
+            }.bind(this) // Ensure `this` refers to the form element
+        });
+    });
+});
 </script>
+
+ <!-- JavaScript for Modal Pop-up -->
+    <script>
+        function showCommentModal(postId) {
+            document.getElementById('commentModal-' + postId).style.display = 'block';
+        }
+
+        function closeCommentModal(postId) {
+            document.getElementById('commentModal-' + postId).style.display = 'none';
+        }
+</script>
+
+
 </body>
 
 </html>
