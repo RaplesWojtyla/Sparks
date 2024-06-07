@@ -29,11 +29,11 @@ class HomeController extends Controller
                             ->whereNotIn('id', $idFollowings)
                             ->get();
 
-        return view('dashboard', [
-            'posts' => $posts,
-            'suggestUsers' => $suggestUsers,
-            'notifications' => $notifications,
-            'follbacks' => $follbacks,
+        return view('admin', [
+            // 'posts' => $posts,
+            // 'suggestUsers' => $suggestUsers,
+            // 'notifications' => $notifications,
+            // 'follbacks' => $follbacks,
         ]);
     }
 }
