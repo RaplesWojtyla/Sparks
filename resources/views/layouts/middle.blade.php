@@ -255,46 +255,6 @@ use Illuminate\Support\Facades\Auth;
                 }
             });
         });
-
-        // // Comment submission for modal
-        // $(document).on('submit', '.commentForm', function(e) {
-        //     e.preventDefault();
-
-        //     const postId = $(this).data('post-id');
-        //     const modalCommentListId = '#comments-list-' + postId;
-        //     const commentsPostId = $(this).data('comment-id');
-        //     const commentsCounterId = '#comments-count-' + postId;
-
-        //     $.ajax({
-        //         url: '/post/' + postId + '/comment',
-        //         type: 'POST',
-        //         data: $(this).serialize(),
-        //         success: function(response) {
-        //             $(modalCommentListId).prepend(
-        //                 '<div class="comment">' +
-        //                     '<div class="comment-info">' +
-        //                         '<img src="' + response.profile_picture +
-        //                         '" alt="Profile Picture" class="profile-picture">' +
-        //                     '</div>' +
-        //                     '<div class="comment-content">' +
-        //                         '<p><b>' + response.username + '</b> ' + response.comment + '</p>' +
-        //                     '</div>' +
-        //                 '</div>'
-        //             );
-        //             $('#' + commentsPostId).prepend('<p><b>' + response.username + '</b> ' +
-        //                 response.comment + '</p>');
-
-        //             if (response.commentsCount > 1)
-        //                 $(commentsCounterId).text('View ' + response.commentsCount +
-        //                     ' comments');
-        //             else
-        //                 $(commentsCounterId).text('View ' + response.commentsCount +
-        //                     ' comment');
-
-        //             $(this).find('input[name="comment"]').val('');
-        //         }.bind(this) // Ensure `this` refers to the form element
-        //     });
-        // });
     });
 </script>
 
