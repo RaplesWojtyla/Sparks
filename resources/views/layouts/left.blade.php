@@ -58,6 +58,14 @@
                 <span><i class="uil uil-setting"></i></span>
                 <h3>Setting</h3>
             </a>
+            <a class="menu-item" href="{{ route('profile.edit') }}">
+                <span><i class="uil uil-user"></i></span>
+                <h3>User</h3>
+            </a>
+            <a class="menu-item" href="{{ route('profile.edit') }}">
+                <span><i class="uil uil-exclamation-octagon"></i></span>
+                <h3>Report</h3>
+            </a>
             <a class="menu-item" href="{{ route('info') }}">
                 <span><i class="uil uil-info-circle"></i></span>
                 <h3>Info</h3>
