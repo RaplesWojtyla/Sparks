@@ -60,30 +60,45 @@
                             <path d="M3 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
                         </svg>
                         <div class="dropdown-content">
-                            <a href="#" id="report-btn">Report</a>
+                            <a data-id-user="{{ $user->id }}" id="report-btn">Report</a>
                         </div>
                     </div>
                     </nav>
 
                     <div class="photos">
                         @foreach ($posts as $post)
-                        @if ($post->filePosts->first() != null)
-                        <img src="{{ asset($post->filePosts->first()->berkas) }}" alt="Photo postingan" />
-                        @endif
+                            @if ($post->filePosts->first() != null)
+                                <img src="{{ asset($post->filePosts->first()->berkas) }}" alt="Photo postingan" />
+                            @endif
                         @endforeach
                     </div>
                 </div>
             </div>
         </div>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            document.getElementById('report-btn').addEventListener('click', function() {
-                const reason = prompt("Why do you want to report this user?");
-                if (reason) {
-                    alert("You reported this user for: " + reason);
-                    // Here you can add your AJAX call to send the report to the server
-                }
-            });
+            $(document).ready(function() {
+                $(document).on('click', '#report-btn', function() {
+                    const idUser = $(this).data('id-user');
+                    const reason = prompt("Why do you want to report this user?");
+
+                    if (reason) {
+                        alert("You reported this user for: " + reason);
+
+                        $.ajax({
+                            url: '/report/' + idUser + '/user?report=' + reason,
+                            type: 'PATCH',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                alert(response.message)
+                            }
+                        })
+                    }
+                })
+            })
         </script>
     </body>
 

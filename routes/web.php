@@ -42,6 +42,8 @@ Route::get('/sparks', [
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/sparks/users', [UsersController::class, 'index'])->name('show.users');
     Route::get('/sparks/report/users', [UsersController::class, 'report'])->name('show.users.report');
+    Route::patch('/banned/{idUser}/user', [UsersController::class, 'banned'])->name('user.banned');
+    Route::patch('/unbanned/{idUser}/user', [UsersController::class, 'unbanned'])->name('user.unbanned');
 });
 
 // Upload File
@@ -75,8 +77,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/update/{user}/profile', [SettingController::class, 'edit'])->name('profile.edit');
     Route::patch('/update/{user}/profile', [SettingController::class, 'update'])->name('profile.update');
-    Route::patch('/banned/{idUser}/user', [SettingController::class, 'banned'])->name('user.banned');
-    Route::patch('/unbanned/{idUser}/user', [SettingController::class, 'unbanned'])->name('user.unbanned');
+    Route::patch('/report/{idUser}/user', [SettingController::class, 'report'])->name('user.report');
     Route::delete('/delete-account', [SettingController::class, 'destroy'])->name('profile.destroy');
 });
 

@@ -30,7 +30,7 @@
                         <td>{{ $report->userReported->report }}</td>
                         <td>{{ $report->user->username }}</td>
                         <td>
-                            @if ($user->status == 'not banned')
+                            @if ($report->userReported->status == 'not banned')
                                 <form method="post" action="{{ route('user.banned', $report->id_users_reported) }}" class="p-6">
                                     @csrf
                                     @method('patch')
