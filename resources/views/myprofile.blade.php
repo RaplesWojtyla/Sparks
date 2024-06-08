@@ -51,7 +51,7 @@ use Illuminate\Support\Facades\Auth;
                         <li><a href="?section=saved" id="savedLink">saved</a></li>
                     </ul>
 
-                    <form action="{{ route('profile.edit') }}" method="GET">
+                    <form action="{{ route('profile.edit', Auth::user()) }}" method="GET">
                         @csrf
                         <button>Edit Profile</button>
                     </form>
