@@ -66,7 +66,7 @@
                 <h3>User</h3>
             </a>
 
-            <a class="menu-item" href="{{-- route('profile.edit') --}}">
+            <a class="menu-item" href="{{ route('show.users.report') }}">
                 <span><i class="uil uil-exclamation-octagon"></i></span>
                 <h3>Report</h3>
             </a>

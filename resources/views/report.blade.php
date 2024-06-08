@@ -13,24 +13,38 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Username</th>
                         <th>Name</th>
+                        <th>Username</th>
                         <th>Email</th>
                         <th>Report</th>
+                        <th>Reporter</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($mahasiswa as $mhs)
+                    @foreach($reports as $report)
                     <tr>
-                        <td>1</td>
-                        <td>username</td>
-                        <td>nama</td>
-                        <td>email</td>
-                        <td>laporan</td>
+                        <td>{{ $report->userReported->name }}</td>
+                        <td>{{ $report->userReported->username }}</td>
+                        <td>{{ $report->userReported->email }}</td>
+                        <td>{{ $report->userReported->report }}</td>
+                        <td>{{ $report->user->username }}</td>
                         <td>
-                            <a href="{{ route('delete', $mhs->id_mahasiswa) }}" class="btn btn-danger">Hapus</a>
+                            @if ($user->status == 'not banned')
+                                <form method="post" action="{{ route('user.banned', $report->id_users_reported) }}" class="p-6">
+                                    @csrf
+                                    @method('patch')
+
+                                    <button class="btn btn-danger">Banned Account</button>
+                                </form>
+                            @else
+                                <form method="post" action="{{ route('user.unbanned', $report->id_users_reported) }}" class="p-6">
+                                    @csrf
+                                    @method('patch')
+
+                                    <button class="btn btn-danger">Unbanned Account</button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

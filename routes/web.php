@@ -11,7 +11,6 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +41,7 @@ Route::get('/sparks', [
 // Admin
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/sparks/users', [UsersController::class, 'index'])->name('show.users');
+    Route::get('/sparks/report/users', [UsersController::class, 'report'])->name('show.users.report');
 });
 
 // Upload File
