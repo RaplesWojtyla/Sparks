@@ -67,6 +67,9 @@ class SettingController extends Controller
         return Redirect::route('profile.edit', $user)->with('status', 'profile-updated');
     }
 
+    /**
+     * Report the user's account.
+     */
     public function report(Request $request, $idUser)
     {
         $reportMessage = $request->get('report');
