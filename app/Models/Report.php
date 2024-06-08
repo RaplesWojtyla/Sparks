@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class History extends Model
+class Report extends Model
 {
     use HasFactory;
 
@@ -15,9 +15,10 @@ class History extends Model
         'id_users',
         'id_post',
         'id_users_reported',
+        'report'
     ];
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class, 'id_users');
     }
@@ -26,10 +27,8 @@ class History extends Model
         return $this->belongsTo(Post::class, 'id_post');
     }
 
-    public function user2()
+    public function userReported()
     {
         return $this->belongsTo(User::class, 'id_users_reported');
     }
-
-    
 }
