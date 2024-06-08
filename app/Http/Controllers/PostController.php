@@ -41,7 +41,7 @@ class PostController extends Controller
             $tmpfile->delete();
         }
 
-        return redirect('/dashboard');
+        return back();
     }
 
     public function update(Request $request, $idPost)
