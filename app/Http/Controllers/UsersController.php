@@ -34,4 +34,26 @@ class UsersController extends Controller
         }
         else return abort(403, 'Unauthorized Action.');
     }
+
+    public function banned($idUser)
+    {
+        $user = User::findOrFail($idUser);
+        
+        $user->update([
+            'status' => 'banned',
+        ]);
+
+        return back();
+    }
+    
+    public function unbanned($idUser)
+    {
+        $user = User::findOrFail($idUser);
+
+        $user->update([
+            'status' => 'not banned',
+        ]);
+
+        return back();
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Report;
 use App\Models\TemporaryFile;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -66,26 +67,29 @@ class SettingController extends Controller
         return Redirect::route('profile.edit', $user)->with('status', 'profile-updated');
     }
 
-    public function banned($idUser)
+    public function report(Request $request, $idUser)
     {
-        $user = User::findOrFail($idUser);
+        $reportMessage = $request->get('report');
+
+        $reported = Report::where('id_users_reported', $idUser)
+                    ->where('id_users', Auth::user()->id)->first();
         
-        $user->update([
-            'status' => 'banned',
+        if ($reported) 
+        {
+            $reported->update([
+                'report' => $reportMessage,
+            ]);
+
+            return response()->json(['message' => 'Report berhasil diupdate']);
+        }
+
+        Report::create([
+            'id_users' => Auth::user()->id,
+            'id_users_reported' => $idUser,
+            'report' => $reportMessage,
         ]);
 
-        return back();
-    }
-    
-    public function unbanned($idUser)
-    {
-        $user = User::findOrFail($idUser);
-
-        $user->update([
-            'status' => 'not banned',
-        ]);
-
-        return back();
+        return response()->json(['message' => 'User berhasil dilaporkan.']);
     }
 
     /**
