@@ -39,7 +39,7 @@ Route::get('/sparks', [
 ])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Admin
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/sparks/users', [UsersController::class, 'index'])->name('show.users');
     Route::get('/sparks/report/users', [UsersController::class, 'report'])->name('show.users.report');
     Route::patch('/banned/{idUser}/user', [UsersController::class, 'banned'])->name('user.banned');

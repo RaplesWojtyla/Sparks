@@ -10,29 +10,21 @@ use Illuminate\Support\Facades\Auth;
 class UsersController extends Controller
 {
     public function index()
-    {
-        if (Auth::user()->role == 'admin')
-        {
-            $allUsers = User::where('role', '!=', 'admin')->get();
+    {  
+        $allUsers = User::where('role', '!=', 'admin')->get();
 
-            return view('user',  [
-                'users' => $allUsers,
-            ]);
-        }
-        else return abort(403, 'Unauthorized Action.');
+        return view('user',  [
+            'users' => $allUsers,
+        ]);
     }
 
     public function report()
     {
-        if (Auth::user()->role == 'admin')
-        {
-            $reportedUsers = Report::all();
+        $reportedUsers = Report::all();
 
-            return view('report', [
-                'reports' => $reportedUsers,
-            ]);
-        }
-        else return abort(403, 'Unauthorized Action.');
+        return view('report', [
+            'reports' => $reportedUsers,
+        ]);
     }
 
     public function banned($idUser)
